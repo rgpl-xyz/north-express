@@ -26,7 +26,7 @@ npx ng lint
 npx ng build                # dist/north-express/browser
 ```
 
-The e2e tests mock Digitraffic with the responses saved in `src/testing/`, so they never hit the real API.
+The e2e tests answer Digitraffic from a fake that serves the responses saved in `src/testing/`, so they never hit the real API. They run against `ng serve`. Set `E2E_BASE_URL` to test a running build instead, which is what CI does with the production build behind the nginx config in `deploy/nginx/`.
 
 ## Departures
 
@@ -42,7 +42,7 @@ Angular 22 (standalone components, signals, zoneless), Bootstrap 5.3 with the Bo
 
 ## Deploying
 
-Static build served by nginx on the rgpl VPS. CI runs the tests and the build on every push. Deploys are manual: [deploy/README.md](deploy/README.md).
+Static build served by nginx on the rgpl VPS. CI runs the unit tests, the build and the e2e tests against that build on every push. Deploys are manual: [deploy/README.md](deploy/README.md).
 
 ## License
 

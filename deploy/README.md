@@ -1,6 +1,6 @@
 # Deploying north-express.app.rgpl.xyz
 
-The site is the production build (`ng build`) served as static files by nginx on the rgpl VPS (`ssh rgpl`). CI only tests and builds; deploys are run by hand.
+The site is the production build (`ng build`) served as static files by nginx on the rgpl VPS (`ssh rgpl`). CI runs the tests and the build, then the e2e tests against the build under `nginx/north-express.conf`. Deploys are run by hand.
 
 | Path on the VPS                             | What it is                                                                                                                                                   |
 | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
