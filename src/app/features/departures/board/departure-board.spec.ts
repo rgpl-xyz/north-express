@@ -430,13 +430,11 @@ describe('DepartureBoard', () => {
       expect(board.state()).toEqual({ kind: 'idle' });
     });
 
-    it('uses the station code as its name if the code is not in the list', () => {
+    it('ignores a code that is not a known station', () => {
       board.selectStation('XYZ');
 
-      expect(board.state()).toMatchObject({
-        kind: 'loading',
-        station: { code: 'XYZ', name: 'XYZ' },
-      });
+      expect(source.departuresCalls).toEqual([]);
+      expect(board.state()).toEqual({ kind: 'idle' });
     });
   });
 

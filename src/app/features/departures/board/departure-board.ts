@@ -244,9 +244,19 @@ export class DepartureBoard {
     this.loadStations();
   }
 
-  /** Shows the departures of a station, or clears the board for null. */
+  /**
+   * Shows the departures of a station, or clears the board for null. A code that isn't
+   * a loaded station is ignored: the board has nothing to show for it.
+   */
   selectStation(code: string | null): void {
-    this.request(code === null ? null : this.findStation(code));
+    if (code === null) {
+      this.request(null);
+      return;
+    }
+    const station = this.findStation(code);
+    if (station) {
+      this.request(station);
+    }
   }
 
   /** Loads the chosen station again. Does nothing while idle. */
@@ -268,11 +278,9 @@ export class DepartureBoard {
     this.stationRequests.next();
   }
 
-  private findStation(code: string): Station {
+  private findStation(code: string): Station | undefined {
     const stations = this.stationsState();
-    const station =
-      stations.kind === 'loaded' ? stations.stations.find((s) => s.code === code) : undefined;
-    return station ?? { code, name: code };
+    return stations.kind === 'loaded' ? stations.stations.find((s) => s.code === code) : undefined;
   }
 
   private request(station: Station | null): void {
