@@ -1,0 +1,29 @@
+name: CI
+
+# Tests and builds every push. The app is served from the rgpl VPS (a *.app.rgpl.xyz
+# subdomain); deploys are manual: see deploy/README.md.
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - name: Test
+        run: npx ng test --watch=false
+
+      - name: Build
+        run: npx ng build

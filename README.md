@@ -39,3 +39,7 @@ Times are Finland time whatever the viewer's time zone.
 ## Stack
 
 Angular 22 (standalone components, signals, zoneless), Bootstrap 5.3 with the Bootswatch Lux theme, ag-grid Community. Nunito Sans is self-hosted, so the only outside requests go to rata.digitraffic.fi.
+
+## Deploying
+
+Static build served by nginx on the rgpl VPS. CI runs the tests and the build on every push. Deploys are manual: [deploy/README.md](deploy/README.md).
