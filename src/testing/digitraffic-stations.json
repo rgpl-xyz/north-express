@@ -1,0 +1,152 @@
+[
+  {
+    "countryCode": "FI",
+    "latitude": 64.537118,
+    "longitude": 25.006783,
+    "passengerTraffic": false,
+    "stationName": "Ahonpää",
+    "stationShortCode": "AHO",
+    "stationUICCode": 1343,
+    "type": "STATION"
+  },
+  {
+    "countryCode": "FI",
+    "latitude": 60.171356,
+    "longitude": 24.941444,
+    "passengerTraffic": true,
+    "stationName": "Helsinki asema",
+    "stationShortCode": "HKI",
+    "stationUICCode": 1,
+    "type": "STATION"
+  },
+  {
+    "countryCode": "FI",
+    "latitude": 60.21312,
+    "longitude": 24.928154,
+    "passengerTraffic": false,
+    "stationName": "Ilmala ratapiha",
+    "stationShortCode": "ILR",
+    "stationUICCode": 1030,
+    "type": "STATION"
+  },
+  {
+    "countryCode": "FI",
+    "latitude": 60.21948,
+    "longitude": 24.813541,
+    "passengerTraffic": true,
+    "stationName": "Leppävaara",
+    "stationShortCode": "LPV",
+    "stationUICCode": 68,
+    "type": "STATION"
+  },
+  {
+    "countryCode": "FI",
+    "latitude": 61.481059,
+    "longitude": 23.49917,
+    "passengerTraffic": true,
+    "stationName": "Nokia",
+    "stationShortCode": "NOA",
+    "stationUICCode": 181,
+    "type": "STATION"
+  },
+  {
+    "countryCode": "FI",
+    "latitude": 65.012409,
+    "longitude": 25.486121,
+    "passengerTraffic": true,
+    "stationName": "Oulu asema",
+    "stationShortCode": "OL",
+    "stationUICCode": 370,
+    "type": "STATION"
+  },
+  {
+    "countryCode": "FI",
+    "latitude": 60.198689,
+    "longitude": 24.933521,
+    "passengerTraffic": true,
+    "stationName": "Pasila asema",
+    "stationShortCode": "PSL",
+    "stationUICCode": 10,
+    "type": "STATION"
+  },
+  {
+    "countryCode": "RU",
+    "latitude": 59.957131,
+    "longitude": 30.356308,
+    "passengerTraffic": true,
+    "stationName": "Pietari_(Finljandski)",
+    "stationShortCode": "PTR",
+    "stationUICCode": 3820,
+    "type": "STATION"
+  },
+  {
+    "countryCode": "FI",
+    "latitude": 61.477212,
+    "longitude": 21.786607,
+    "passengerTraffic": true,
+    "stationName": "Pori",
+    "stationShortCode": "PRI",
+    "stationUICCode": 220,
+    "type": "STATION"
+  },
+  {
+    "countryCode": "FI",
+    "latitude": 61.498236,
+    "longitude": 23.773454,
+    "passengerTraffic": true,
+    "stationName": "Tampere asema",
+    "stationShortCode": "TPE",
+    "stationUICCode": 160,
+    "type": "STATION"
+  },
+  {
+    "countryCode": "FI",
+    "latitude": 61.480331,
+    "longitude": 23.773542,
+    "passengerTraffic": false,
+    "stationName": "Tampere Viinikka",
+    "stationShortCode": "VKA",
+    "stationUICCode": 1274,
+    "type": "STATION"
+  },
+  {
+    "countryCode": "FI",
+    "latitude": 61.170611,
+    "longitude": 23.860905,
+    "passengerTraffic": true,
+    "stationName": "Toijala",
+    "stationShortCode": "TL",
+    "stationUICCode": 150,
+    "type": "STATION"
+  },
+  {
+    "countryCode": "FI",
+    "latitude": 60.456488,
+    "longitude": 22.260867,
+    "passengerTraffic": true,
+    "stationName": "Turku asema",
+    "stationShortCode": "TKU",
+    "stationUICCode": 130,
+    "type": "STATION"
+  },
+  {
+    "countryCode": "FI",
+    "latitude": 63.097786,
+    "longitude": 21.621824,
+    "passengerTraffic": true,
+    "stationName": "Vaasa",
+    "stationShortCode": "VS",
+    "stationUICCode": 288,
+    "type": "STATION"
+  },
+  {
+    "countryCode": "FI",
+    "latitude": 62.553265,
+    "longitude": 24.064036,
+    "passengerTraffic": true,
+    "stationName": "Ähtäri",
+    "stationShortCode": "ÄHT",
+    "stationUICCode": 265,
+    "type": "STATION"
+  }
+]

@@ -1,0 +1,8 @@
+/dist
+/coverage
+/.angular
+/e2e/test-results
+/e2e/playwright-report
+package-lock.json
+# Captured Digitraffic responses: keep them as recorded.
+/src/testing/*.json

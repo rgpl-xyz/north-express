@@ -1,0 +1,31 @@
+<div class="container py-4">
+  <div class="row g-4">
+    <div class="col-12 col-lg-6">
+      <section id="card-welcome" class="card border-primary h-100" aria-labelledby="welcome-title">
+        <div class="card-header">{{ appName }}</div>
+        <div class="card-body">
+          <h1 id="welcome-title" class="card-title h4">Welcome, traveller</h1>
+          <p class="card-text">
+            To get started, choose a mode of transport in the <strong>Departures</strong> menu, or
+            go straight to the live departures from Finnish railway stations.
+          </p>
+          <a class="btn btn-primary" routerLink="/departures/trains">See train departures</a>
+        </div>
+      </section>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <section id="card-help" class="card border-primary h-100" aria-labelledby="help-title">
+        <div class="card-header">{{ appName }}</div>
+        <div class="card-body">
+          <h2 id="help-title" class="card-title h4">Questions or bugs?</h2>
+          <p class="card-text">
+            Open an issue on <a [href]="repositoryUrl">GitHub</a> or email
+            <a [href]="'mailto:' + contactEmail">{{ contactEmail }}</a
+            >.
+          </p>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

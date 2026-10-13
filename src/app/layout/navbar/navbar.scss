@@ -1,0 +1,14 @@
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+}
+
+// Buttons don't inherit text styles (Bootstrap's reboot even sets text-transform: none),
+// so without this the Departures toggle misses Lux's uppercase, spaced nav-link look.
+.nav-link.dropdown-toggle {
+  text-transform: inherit;
+  letter-spacing: inherit;
+  font-weight: inherit;
+}

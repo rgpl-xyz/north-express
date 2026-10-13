@@ -1,0 +1,48 @@
+<div class="container py-4">
+  <h1 class="h3">Train departures</h1>
+  <p class="text-body-secondary">
+    The next departures from Finnish railway stations, live from Fintraffic's open data.
+  </p>
+
+  @if (stationsFailed()) {
+    <div class="alert alert-warning d-flex flex-wrap align-items-center gap-3">
+      <span>The station list couldn't be loaded from Digitraffic.</span>
+      <button type="button" class="btn btn-sm btn-primary" (click)="loadStations()">
+        Try again
+      </button>
+    </div>
+  }
+
+  <div class="row g-3 align-items-end">
+    <div class="col-12 col-md-6 col-lg-4">
+      <app-station-picker
+        [stations]="stations()"
+        [loading]="stationsLoading()"
+        [selected]="selectedCode()"
+        (selectedChange)="selectStation($event)"
+      />
+    </div>
+    <div class="col-12 col-md-auto">
+      <button
+        type="button"
+        class="btn btn-primary"
+        [disabled]="!selectedCode() || departuresLoading()"
+        (click)="refresh()"
+      >
+        Refresh
+      </button>
+    </div>
+  </div>
+
+  <p class="small text-body-secondary mt-3 mb-2">
+    Times are Finland local time.
+    @if (lastUpdatedText()) {
+      <span>Last updated {{ lastUpdatedText() }}.</span>
+    }
+  </p>
+
+  <!-- Always rendered so screen readers hear every change; hidden when the grid says it already. -->
+  <p role="status" [class.visually-hidden]="!status().visible">{{ status().text }}</p>
+
+  <app-departure-grid [rows]="departures()" [loading]="departuresLoading()" />
+</div>

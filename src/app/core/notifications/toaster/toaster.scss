@@ -1,0 +1,18 @@
+// Above the sticky navbar (Bootstrap's toast z-index is below fixed elements).
+.toast-container {
+  z-index: 1090;
+}
+
+@each $kind, $color in (success: success, info: info, warning: warning, error: danger) {
+  .toast-#{$kind} {
+    background-color: rgba(var(--bs-#{$color}-rgb), 0.12);
+
+    .toast-header {
+      color: var(--bs-#{$color}-text-emphasis);
+    }
+  }
+}
+
+.toast-body {
+  white-space: pre-line;
+}

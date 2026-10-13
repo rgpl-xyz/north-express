@@ -1,0 +1,9 @@
+<label class="form-label" for="station-select">Station</label>
+<select id="station-select" class="form-select" [disabled]="disabled()" (change)="onChange($event)">
+  <option value="" [selected]="!selected()">{{ placeholder() }}</option>
+  @for (station of stations(); track station.code) {
+    <option [value]="station.code" [selected]="station.code === selected()">
+      {{ station.name }}
+    </option>
+  }
+</select>

@@ -1,0 +1,69 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Main">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/" (click)="closeMenus()">{{ appName }}</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      aria-controls="main-navigation"
+      aria-label="Toggle navigation"
+      [attr.aria-expanded]="menuOpen()"
+      (click)="toggleMenu()"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="main-navigation" [class.show]="menuOpen()">
+      <ul class="navbar-nav me-auto">
+        @for (link of links; track link.name) {
+          @if (link.links?.length) {
+            <li class="nav-item dropdown" routerLinkActive #section="routerLinkActive">
+              <button
+                type="button"
+                class="nav-link dropdown-toggle"
+                [id]="toggleId(link)"
+                [class.active]="section.isActive"
+                [class.show]="openDropdown() === link.name"
+                [attr.aria-expanded]="openDropdown() === link.name"
+                [attr.aria-controls]="menuId(link)"
+                (click)="toggleDropdown(link)"
+              >
+                {{ link.name }}
+              </button>
+              <!-- data-bs-popper="static" gets Bootstrap's position-below styles without Popper. -->
+              <ul
+                class="dropdown-menu"
+                data-bs-popper="static"
+                [id]="menuId(link)"
+                [class.show]="openDropdown() === link.name"
+              >
+                @for (child of link.links ?? []; track child.name) {
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      [routerLink]="child.routerLink"
+                      routerLinkActive="active"
+                      ariaCurrentWhenActive="page"
+                      (click)="closeMenus()"
+                      >{{ child.name }}</a
+                    >
+                  </li>
+                }
+              </ul>
+            </li>
+          } @else {
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                [routerLink]="link.routerLink"
+                routerLinkActive="active"
+                ariaCurrentWhenActive="page"
+                (click)="closeMenus()"
+                >{{ link.name }}</a
+              >
+            </li>
+          }
+        }
+      </ul>
+    </div>
+  </div>
+</nav>

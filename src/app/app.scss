@@ -1,0 +1,10 @@
+// Sticky footer: the main area takes whatever height the navbar and footer leave.
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-main {
+  flex: 1 0 auto;
+}
