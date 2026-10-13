@@ -1,9 +1,4 @@
-import { expect, test } from '@playwright/test';
-import { mockDigitraffic } from './digitraffic-mocks';
-
-test.beforeEach(async ({ page }) => {
-  await mockDigitraffic(page);
-});
+import { expect, test } from './fixtures';
 
 test('the home page renders the welcome and help cards', async ({ page }) => {
   await page.goto('/');

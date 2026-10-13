@@ -1,9 +1,4 @@
-import { expect, test } from '@playwright/test';
-import { mockDigitraffic } from './digitraffic-mocks';
-
-test.beforeEach(async ({ page }) => {
-  await mockDigitraffic(page);
-});
+import { expect, test } from './fixtures';
 
 test('choosing a station shows its departures', async ({ page }) => {
   await page.goto('/departures/trains');
@@ -31,4 +26,12 @@ test('choosing a station shows its departures', async ({ page }) => {
   await expect(page.getByRole('row').filter({ hasText: 'Commuter M' })).toContainText('Nokia');
   await expect(page.getByText('T 3816')).toHaveCount(0);
   await expect(page.getByText(/Last updated \d{2}:\d{2}:\d{2}/)).toBeVisible();
+});
+
+test('a station with no trains says so', async ({ page }) => {
+  await page.goto('/departures/trains');
+  await page.getByLabel('Station', { exact: true }).selectOption({ label: 'Ähtäri' });
+
+  await expect(page.getByText('No departures from Ähtäri in the coming hours.')).toBeVisible();
+  await expect(page.getByRole('gridcell')).toHaveCount(0);
 });
