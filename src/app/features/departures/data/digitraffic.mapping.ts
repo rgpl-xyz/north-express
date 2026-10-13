@@ -46,12 +46,10 @@ export function departureStatus(
   row: Pick<DigitrafficTimeTableRow, 'cancelled' | 'differenceInMinutes'>,
 ): DepartureStatus {
   if (train.cancelled || row.cancelled) {
-    return { label: 'Cancelled', kind: 'cancelled' };
+    return { kind: 'cancelled' };
   }
-  const delay = row.differenceInMinutes ?? 0;
-  return delay > 0
-    ? { label: `${delay} min late`, kind: 'late' }
-    : { label: 'On time', kind: 'on-time' };
+  const minutes = row.differenceInMinutes ?? 0;
+  return minutes > 0 ? { kind: 'late', minutes } : { kind: 'on-time' };
 }
 
 /** A departure passengers can board: a commercial stop, not a technical one. */
@@ -101,24 +99,21 @@ function toDepartureRow(
   stationNames: ReadonlyMap<string, string>,
 ): DepartureRow {
   const departure = train.timeTableRows[index];
-  const status = departureStatus(train, departure);
   return {
     id: `${train.departureDate}-${train.trainNumber}`,
     scheduled: departure.scheduledTime,
     expected: departure.actualTime ?? departure.liveEstimateTime ?? null,
-    delayMinutes: departure.differenceInMinutes ?? null,
     destination: destinationOf(train, index, stationNames),
     track: departure.commercialTrack ?? '',
     train: trainLabel(train),
-    status: status.label,
-    statusKind: status.kind,
+    status: departureStatus(train, departure),
   };
 }
 
 /**
  * One row per passenger train that passengers can board at the station, sorted by
- * scheduled departure. `stationNames` maps station codes to display names for the
- * destination column.
+ * scheduled departure: the order the departure board shows them in. `stationNames`
+ * maps station codes to display names for the destination column.
  */
 export function toDepartureRows(
   trains: readonly DigitrafficTrain[],

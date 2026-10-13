@@ -132,30 +132,26 @@ describe('trainLabel', () => {
 
 describe('departureStatus', () => {
   it('reports a cancelled train', () => {
-    expect(departureStatus(train({ cancelled: true }), row())).toEqual({
-      label: 'Cancelled',
-      kind: 'cancelled',
-    });
+    expect(departureStatus(train({ cancelled: true }), row())).toEqual({ kind: 'cancelled' });
   });
 
   it('reports a cancelled stop on a running train', () => {
     expect(departureStatus(train(), row({ cancelled: true, differenceInMinutes: 5 }))).toEqual({
-      label: 'Cancelled',
       kind: 'cancelled',
     });
   });
 
-  it('reports a delay in minutes', () => {
+  it('reports how many minutes late', () => {
     expect(departureStatus(train(), row({ differenceInMinutes: 2 }))).toEqual({
-      label: '2 min late',
       kind: 'late',
+      minutes: 2,
     });
   });
 
   it('reports on time when the train is not late', () => {
-    expect(departureStatus(train(), row({ differenceInMinutes: 0 })).label).toBe('On time');
-    expect(departureStatus(train(), row({ differenceInMinutes: -1 })).label).toBe('On time');
-    expect(departureStatus(train(), row()).label).toBe('On time');
+    expect(departureStatus(train(), row({ differenceInMinutes: 0 }))).toEqual({ kind: 'on-time' });
+    expect(departureStatus(train(), row({ differenceInMinutes: -1 }))).toEqual({ kind: 'on-time' });
+    expect(departureStatus(train(), row())).toEqual({ kind: 'on-time' });
   });
 });
 
@@ -166,45 +162,37 @@ describe('toDepartureRows', () => {
         id: '2026-10-13-1735',
         scheduled: '2026-10-13T09:40:00.000Z',
         expected: '2026-10-13T09:40:00.000Z',
-        delayMinutes: 0,
         destination: 'Nokia',
         track: '2',
         train: 'Commuter M',
-        status: 'On time',
-        statusKind: 'on-time',
+        status: { kind: 'on-time' },
       },
       {
         id: '2026-10-13-38',
         scheduled: '2026-10-13T11:00:00.000Z',
         expected: '2026-10-13T11:00:00.000Z',
-        delayMinutes: 0,
         destination: 'Helsinki',
         track: '1',
         train: 'IC 38',
-        status: 'On time',
-        statusKind: 'on-time',
+        status: { kind: 'on-time' },
       },
       {
         id: '2026-10-13-25',
         scheduled: '2026-10-13T11:02:00.000Z',
         expected: '2026-10-13T11:03:48.000Z',
-        delayMinutes: 2,
         destination: 'Oulu',
         track: '2',
         train: 'IC 25',
-        status: '2 min late',
-        statusKind: 'late',
+        status: { kind: 'late', minutes: 2 },
       },
       {
         id: '2026-10-13-467',
         scheduled: '2026-10-13T11:11:00.000Z',
         expected: null,
-        delayMinutes: null,
         destination: 'Pori',
         track: '3',
         train: 'IC 467',
-        status: 'On time',
-        statusKind: 'on-time',
+        status: { kind: 'on-time' },
       },
     ]);
   });
@@ -273,7 +261,7 @@ describe('toDepartureRows', () => {
     const [departure] = toDepartureRows([departed], 'TPE', STATION_NAMES);
 
     expect(departure.expected).toBe('2026-10-13T10:01:10.000Z');
-    expect(departure.status).toBe('1 min late');
+    expect(departure.status).toEqual({ kind: 'late', minutes: 1 });
   });
 
   it('prefers the actual time over the live estimate', () => {
@@ -329,8 +317,7 @@ describe('toDepartureRows', () => {
       (candidate) => candidate.train === 'IC 25',
     );
 
-    expect(departure?.status).toBe('Cancelled');
-    expect(departure?.statusKind).toBe('cancelled');
+    expect(departure?.status).toEqual({ kind: 'cancelled' });
   });
 
   it('returns an empty list when nothing departs', () => {
@@ -358,12 +345,10 @@ describe('toDepartureRows for ring-line trains (P and I)', () => {
         id: '2026-10-13-8665',
         scheduled: '2026-10-13T10:16:30.000Z',
         expected: '2026-10-13T10:16:30.000Z',
-        delayMinutes: 0,
         destination: 'Helsinki',
         track: '1',
         train: 'Commuter P',
-        status: 'On time',
-        statusKind: 'on-time',
+        status: { kind: 'on-time' },
       },
     ]);
   });

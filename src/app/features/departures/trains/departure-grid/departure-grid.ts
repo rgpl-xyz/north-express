@@ -30,7 +30,6 @@ const GRID_THEME = themeQuartz.withParams({
   imports: [AgGridAngular],
   template: `
     <ag-grid-angular
-      class="departure-grid"
       domLayout="autoHeight"
       [theme]="theme"
       [modules]="modules"

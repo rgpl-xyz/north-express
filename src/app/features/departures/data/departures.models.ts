@@ -8,12 +8,11 @@ export interface Station {
   readonly name: string;
 }
 
-export type DepartureStatusKind = 'on-time' | 'late' | 'cancelled';
-
-export interface DepartureStatus {
-  readonly label: string;
-  readonly kind: DepartureStatusKind;
-}
+/** What a departure's status means. The departure grid decides how it reads and looks. */
+export type DepartureStatus =
+  | { readonly kind: 'on-time' }
+  | { readonly kind: 'late'; readonly minutes: number }
+  | { readonly kind: 'cancelled' };
 
 export interface DepartureRow {
   readonly id: string;
@@ -21,10 +20,8 @@ export interface DepartureRow {
   readonly scheduled: string;
   /** ISO timestamp (UTC) of the actual time or live estimate, if Digitraffic has one. */
   readonly expected: string | null;
-  readonly delayMinutes: number | null;
   readonly destination: string;
   readonly track: string;
   readonly train: string;
-  readonly status: string;
-  readonly statusKind: DepartureStatusKind;
+  readonly status: DepartureStatus;
 }

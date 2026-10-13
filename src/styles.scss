@@ -36,17 +36,3 @@ $web-font-path: false;
 @import 'bootstrap/scss/utilities/api';
 
 @import 'bootswatch/dist/lux/bootswatch';
-
-// Status colours in the departures grid. ag-grid renders cells outside Angular's
-// view encapsulation, so these live here rather than in the component.
-.departure-grid {
-  .departure-late {
-    color: var(--bs-warning-text-emphasis);
-    font-weight: $font-weight-bold;
-  }
-
-  .departure-cancelled {
-    color: var(--bs-danger-text-emphasis);
-    font-weight: $font-weight-bold;
-  }
-}
