@@ -18,7 +18,7 @@ const STATION_SUFFIX = / asema$/;
 const finnishOrder = new Intl.Collator('fi');
 
 /** "Helsinki asema" becomes "Helsinki"; "Pietari_(Finljandski)" becomes "Pietari (Finljandski)". */
-export function stationDisplayName(stationName: string): string {
+function stationDisplayName(stationName: string): string {
   return stationName.replace(STATION_SUFFIX, '').replaceAll('_', ' ');
 }
 
@@ -33,7 +33,7 @@ export function toStations(stations: readonly DigitrafficStation[]): Station[] {
     .sort((a, b) => finnishOrder.compare(a.name, b.name));
 }
 
-export function trainLabel(
+function trainLabel(
   train: Pick<DigitrafficTrain, 'commuterLineID' | 'trainType' | 'trainNumber'>,
 ): string {
   return train.commuterLineID
@@ -41,7 +41,7 @@ export function trainLabel(
     : `${train.trainType} ${train.trainNumber}`;
 }
 
-export function departureStatus(
+function departureStatus(
   train: Pick<DigitrafficTrain, 'cancelled'>,
   row: Pick<DigitrafficTimeTableRow, 'cancelled' | 'differenceInMinutes'>,
 ): DepartureStatus {

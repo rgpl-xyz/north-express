@@ -7,7 +7,7 @@ import type {
 } from 'ag-grid-community';
 import { describe, expect, it } from 'vitest';
 import type { DepartureRow, DepartureStatus } from '../../data/departures.models';
-import { DEFAULT_COLUMN, DEPARTURE_COLUMNS, compareTracks } from './departure-columns';
+import { DEFAULT_COLUMN, DEPARTURE_COLUMNS } from './departure-columns';
 
 function column(field: keyof DepartureRow): ColDef<DepartureRow> {
   const found = DEPARTURE_COLUMNS.find((candidate) => candidate.field === field);
@@ -96,8 +96,10 @@ describe('the Status column', () => {
   });
 });
 
-describe('compareTracks', () => {
+describe('the Track column', () => {
   it('sorts track numbers numerically', () => {
-    expect(['10', '2', '1', '3b'].sort(compareTracks)).toEqual(['1', '2', '3b', '10']);
+    const compare = column('track').comparator as (a: string, b: string) => number;
+
+    expect(['10', '2', '1', '3b'].sort(compare)).toEqual(['1', '2', '3b', '10']);
   });
 });

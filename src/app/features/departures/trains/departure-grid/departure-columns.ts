@@ -9,7 +9,7 @@ function formatTime(params: ValueFormatterParams<DepartureRow, string | null>): 
 const trackOrder = new Intl.Collator('en', { numeric: true });
 
 /** Track "2" before "10"; tracks are strings because some have letters. */
-export function compareTracks(a: string | null | undefined, b: string | null | undefined): number {
+function compareTracks(a: string | null | undefined, b: string | null | undefined): number {
   return trackOrder.compare(a ?? '', b ?? '');
 }
 
@@ -75,7 +75,7 @@ export const DEPARTURE_COLUMNS: ColDef<DepartureRow>[] = [
   {
     headerName: 'Track',
     field: 'track',
-    comparator: (a: string | null, b: string | null) => compareTracks(a, b),
+    comparator: compareTracks,
     minWidth: 90,
   },
   { headerName: 'Train', field: 'train', minWidth: 130 },

@@ -5,14 +5,12 @@ import {
   TAMPERE_DEPARTURES_FIXTURE,
 } from '../../../../testing/digitraffic-fixtures';
 import type { DepartureRow } from './departures.models';
-import type { DigitrafficTimeTableRow, DigitrafficTrain } from './digitraffic-wire';
-import {
-  departureStatus,
-  stationDisplayName,
-  toDepartureRows,
-  toStations,
-  trainLabel,
-} from './digitraffic.mapping';
+import type {
+  DigitrafficStation,
+  DigitrafficTimeTableRow,
+  DigitrafficTrain,
+} from './digitraffic-wire';
+import { toDepartureRows, toStations } from './digitraffic.mapping';
 
 const STATION_NAMES: ReadonlyMap<string, string> = new Map(
   toStations(STATIONS_FIXTURE).map((station) => [station.code, station.name]),
@@ -53,26 +51,51 @@ function rowFor(trainNumber: number): DepartureRow | undefined {
   );
 }
 
-describe('stationDisplayName', () => {
-  it('strips a trailing " asema"', () => {
-    expect(stationDisplayName('Helsinki asema')).toBe('Helsinki');
+/** The name toStations gives a passenger station called `stationName` by Digitraffic. */
+function displayNameOf(stationName: string): string {
+  const station: DigitrafficStation = {
+    stationName,
+    stationShortCode: 'X',
+    passengerTraffic: true,
+    countryCode: 'FI',
+    type: 'STATION',
+  };
+  return toStations([station])[0].name;
+}
+
+/** The departure toDepartureRows makes from one train leaving Tampere. */
+function departureOf(
+  trainOverrides: Partial<DigitrafficTrain> = {},
+  departureOverrides: Partial<DigitrafficTimeTableRow> = {},
+): DepartureRow {
+  const departing = train({
+    ...trainOverrides,
+    timeTableRows: [
+      row(departureOverrides),
+      row({ stationShortCode: 'HKI', type: 'ARRIVAL', scheduledTime: '2026-10-13T11:40:00.000Z' }),
+    ],
+  });
+  return toDepartureRows([departing], 'TPE', STATION_NAMES)[0];
+}
+
+describe('toStations', () => {
+  it('drops a trailing " asema" from station names', () => {
+    expect(displayNameOf('Helsinki asema')).toBe('Helsinki');
   });
 
   it('leaves names without the suffix alone', () => {
-    expect(stationDisplayName('Leppävaara')).toBe('Leppävaara');
-    expect(stationDisplayName('Asemakylä')).toBe('Asemakylä');
+    expect(displayNameOf('Leppävaara')).toBe('Leppävaara');
+    expect(displayNameOf('Asemakylä')).toBe('Asemakylä');
   });
 
-  it('only strips the suffix at the end of the name', () => {
-    expect(stationDisplayName('Pasila asema autojuna')).toBe('Pasila asema autojuna');
+  it('only drops the suffix at the end of the name', () => {
+    expect(displayNameOf('Pasila asema autojuna')).toBe('Pasila asema autojuna');
   });
 
   it('replaces underscores with spaces', () => {
-    expect(stationDisplayName('Pietari_(Finljandski)')).toBe('Pietari (Finljandski)');
+    expect(displayNameOf('Pietari_(Finljandski)')).toBe('Pietari (Finljandski)');
   });
-});
 
-describe('toStations', () => {
   it('keeps only stations with passenger traffic', () => {
     const codes = toStations(STATIONS_FIXTURE).map((station) => station.code);
 
@@ -113,45 +136,45 @@ describe('toStations', () => {
   });
 });
 
-describe('trainLabel', () => {
+describe('toDepartureRows train labels', () => {
   it('labels commuter trains by their line letter', () => {
-    expect(trainLabel(train({ trainType: 'HL', trainNumber: 1735, commuterLineID: 'M' }))).toBe(
+    expect(departureOf({ trainType: 'HL', trainNumber: 1735, commuterLineID: 'M' }).train).toBe(
       'Commuter M',
     );
   });
 
   it('labels other trains by type and number', () => {
-    expect(trainLabel(train({ trainType: 'IC', trainNumber: 25, commuterLineID: '' }))).toBe(
+    expect(departureOf({ trainType: 'IC', trainNumber: 25, commuterLineID: '' }).train).toBe(
       'IC 25',
     );
-    expect(trainLabel(train({ trainType: 'S', trainNumber: 45, commuterLineID: undefined }))).toBe(
+    expect(departureOf({ trainType: 'S', trainNumber: 45, commuterLineID: undefined }).train).toBe(
       'S 45',
     );
   });
 });
 
-describe('departureStatus', () => {
+describe('toDepartureRows statuses', () => {
   it('reports a cancelled train', () => {
-    expect(departureStatus(train({ cancelled: true }), row())).toEqual({ kind: 'cancelled' });
+    expect(departureOf({ cancelled: true }).status).toEqual({ kind: 'cancelled' });
   });
 
   it('reports a cancelled stop on a running train', () => {
-    expect(departureStatus(train(), row({ cancelled: true, differenceInMinutes: 5 }))).toEqual({
+    expect(departureOf({}, { cancelled: true, differenceInMinutes: 5 }).status).toEqual({
       kind: 'cancelled',
     });
   });
 
   it('reports how many minutes late', () => {
-    expect(departureStatus(train(), row({ differenceInMinutes: 2 }))).toEqual({
+    expect(departureOf({}, { differenceInMinutes: 2 }).status).toEqual({
       kind: 'late',
       minutes: 2,
     });
   });
 
   it('reports on time when the train is not late', () => {
-    expect(departureStatus(train(), row({ differenceInMinutes: 0 }))).toEqual({ kind: 'on-time' });
-    expect(departureStatus(train(), row({ differenceInMinutes: -1 }))).toEqual({ kind: 'on-time' });
-    expect(departureStatus(train(), row())).toEqual({ kind: 'on-time' });
+    expect(departureOf({}, { differenceInMinutes: 0 }).status).toEqual({ kind: 'on-time' });
+    expect(departureOf({}, { differenceInMinutes: -1 }).status).toEqual({ kind: 'on-time' });
+    expect(departureOf().status).toEqual({ kind: 'on-time' });
   });
 });
 
