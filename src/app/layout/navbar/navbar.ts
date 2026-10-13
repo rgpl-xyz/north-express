@@ -3,7 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { filter } from 'rxjs';
 import { APP_NAME } from '../../core/app-info';
-import { NAVIGATION, type NavigationLink, visibleLinks } from '../../core/navigation/navigation';
+import { NAVIGATION, type NavigationLink } from '../../core/navigation/navigation';
 
 /**
  * Bootstrap navbar driven by signals instead of Bootstrap's JavaScript: the toggler
@@ -25,7 +25,7 @@ export class Navbar {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
 
   protected readonly appName = APP_NAME;
-  protected readonly links = visibleLinks(NAVIGATION);
+  protected readonly links = NAVIGATION;
   protected readonly menuOpen = signal(false);
   protected readonly openDropdown = signal<string | null>(null);
 

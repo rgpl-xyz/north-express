@@ -1,52 +1,32 @@
+import { TestBed } from '@angular/core/testing';
+import { Router, provideRouter } from '@angular/router';
 import { describe, expect, it } from 'vitest';
-import { NAVIGATION, type NavigationLink, visibleLinks } from './navigation';
+import { routes } from '../../app.routes';
+import { NAVIGATION, type NavigationLink } from './navigation';
 
-describe('visibleLinks', () => {
-  it('hides links marked show: false, including nested ones', () => {
-    const links: readonly NavigationLink[] = [
-      { routerLink: '/a', name: 'A', show: true },
-      { routerLink: '/b', name: 'B', show: false },
-      {
-        routerLink: '#',
-        name: 'Group',
-        show: true,
-        links: [
-          { routerLink: '/c', name: 'C', show: true },
-          { routerLink: '/d', name: 'D', show: false },
-        ],
-      },
-    ];
+/** The links a user can follow: dropdown toggles only open their links. */
+function destinations(links: readonly NavigationLink[]): NavigationLink[] {
+  return links.flatMap((link) => (link.links ? destinations(link.links) : [link]));
+}
 
-    expect(visibleLinks(links)).toEqual([
-      { routerLink: '/a', name: 'A', show: true },
-      {
-        routerLink: '#',
-        name: 'Group',
-        show: true,
-        links: [{ routerLink: '/c', name: 'C', show: true }],
-      },
-    ]);
+describe('NAVIGATION', () => {
+  it('has Home and a Departures dropdown with Trains', () => {
+    expect(NAVIGATION.map((link) => link.name)).toEqual(['Home', 'Departures']);
+    expect(NAVIGATION[1].links?.map((link) => link.name)).toEqual(['Trains']);
   });
 
-  it('treats links without a show flag as hidden, like the old config', () => {
-    expect(visibleLinks([{ routerLink: '/a', name: 'A' }])).toEqual([]);
-  });
+  it('only links to pages the app has', async () => {
+    TestBed.configureTestingModule({ providers: [provideRouter(routes)] });
+    const router = TestBed.inject(Router);
 
-  it('shows Home and Departures > Trains from the app navigation', () => {
-    const visible = visibleLinks(NAVIGATION);
+    for (const link of destinations(NAVIGATION)) {
+      await router.navigateByUrl(link.routerLink);
 
-    expect(visible.map((link) => link.name)).toEqual(['Home', 'Departures']);
-    expect(visible[1].links?.map((link) => link.name)).toEqual(['Trains']);
-  });
-
-  it('keeps the hidden Buses, Flights and About entries in the config', () => {
-    const departures = NAVIGATION.find((link) => link.name === 'Departures');
-
-    expect(departures?.links?.map((link) => [link.name, link.show])).toEqual([
-      ['Trains', true],
-      ['Buses', false],
-      ['Flights', false],
-    ]);
-    expect(NAVIGATION.find((link) => link.name === 'About')?.show).toBe(false);
+      let page = router.routerState.snapshot.root;
+      while (page.firstChild) {
+        page = page.firstChild;
+      }
+      expect(page.routeConfig?.path, link.routerLink).not.toBe('**');
+    }
   });
 });

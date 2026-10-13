@@ -53,7 +53,7 @@ describe('Navbar', () => {
     expect(brand.getAttribute('href')).toBe('/');
   });
 
-  it('renders only links with show: true', () => {
+  it('renders Home and the Departures dropdown with Trains', () => {
     const text = element.textContent ?? '';
     const hrefs = Array.from(element.querySelectorAll('a')).map((link) =>
       link.getAttribute('href'),
@@ -62,9 +62,6 @@ describe('Navbar', () => {
     expect(text).toContain('Home');
     expect(text).toContain('Departures');
     expect(text).toContain('Trains');
-    expect(text).not.toContain('Buses');
-    expect(text).not.toContain('Flights');
-    expect(text).not.toContain('About');
     expect(hrefs).toEqual(['/', '/home', '/departures/trains']);
   });
 
