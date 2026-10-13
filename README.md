@@ -1,10 +1,10 @@
 # The North Express
 
-Live train departures for Finnish railway stations. Pick a station, get the next trains with their destination, track and delay.
+Live train departures for Finnish railway stations. Pick a station, get the next trains with their destination, track and status.
 
 https://north-express.app.rgpl.xyz
 
-![Departures from Helsinki](docs/departures.png)
+![Departures from Jokela](docs/departures.png)
 
 Train data is from [Digitraffic](https://www.digitraffic.fi/en/) by Fintraffic, licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). It needs no API key.
 

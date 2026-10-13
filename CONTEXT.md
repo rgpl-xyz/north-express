@@ -12,6 +12,10 @@ _Avoid_: stop, asema, location
 One train leaving one station: its scheduled and expected time, destination, track, train (IC 25, Commuter M) and status (On time, 2 min late, Cancelled). Cargo trains and shunting moves never make departures.
 _Avoid_: train (one train makes many departures), trip, service
 
+**Status**:
+Whether a departure is on time, late by whole minutes, or cancelled. A train running early counts as on time. A departure is cancelled when the whole train is, or only its stop at this station.
+_Avoid_: delay (an on-time departure has a status too), state
+
 **Boardable stop**:
 A stop in a train's timetable where passengers can get on: the train stops there and it is a commercial stop. Technical stops and stations the train runs through are not boardable, so they never become departures.
 _Avoid_: stop on its own, halt, call
