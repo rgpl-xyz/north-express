@@ -2,13 +2,13 @@
 
 The site is the production build (`ng build`) served as static files by nginx on the rgpl VPS (`ssh rgpl`). CI only tests and builds; deploys are run by hand.
 
-| Path on the VPS | What it is |
-|---|---|
-| `/etc/nginx/sites-available/north-express` | copy of `deploy/nginx/north-express.conf`, plus the TLS lines certbot adds |
-| `/var/www/north-express/releases/<commit>/` | one build per deployed commit (newest three kept) |
-| `/var/www/north-express/current` | symlink to the live release; nginx's `root` |
-| `/var/www/north-express/previous` | symlink to the release before it; nginx serves files missing from `current` from here, so tabs opened before a deploy can still load their lazy route chunks |
-| `/var/www/north-express/deploy-history` | one line per deploy: UTC time and commit |
+| Path on the VPS                             | What it is                                                                                                                                                   |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `/etc/nginx/sites-available/north-express`  | copy of `deploy/nginx/north-express.conf`, plus the TLS lines certbot adds                                                                                   |
+| `/var/www/north-express/releases/<commit>/` | one build per deployed commit (newest three kept)                                                                                                            |
+| `/var/www/north-express/current`            | symlink to the live release; nginx's `root`                                                                                                                  |
+| `/var/www/north-express/previous`           | symlink to the release before it; nginx serves files missing from `current` from here, so tabs opened before a deploy can still load their lazy route chunks |
+| `/var/www/north-express/deploy-history`     | one line per deploy: UTC time and commit                                                                                                                     |
 
 ## One-time setup
 
