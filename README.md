@@ -34,6 +34,12 @@ Digitraffic returns whole trains with their full timetables. For the chosen stat
 
 Ring trains on their way to the airport show "Lentoasema (Airport)" rather than Helsinki, where they end.
 
+Only stations with passenger traffic are listed, without the "asema" that Digitraffic puts at the end of many names.
+
+A train running early counts as on time, and delays are the whole minutes Digitraffic reports. A departure is cancelled when the whole train is, or just its stop at that station.
+
+If Digitraffic can't be reached, the page says so and offers Try again. When only a refresh fails, the departures already shown stay up with the time they are from.
+
 Times are Finland time whatever the viewer's time zone.
 
 ## Stack
