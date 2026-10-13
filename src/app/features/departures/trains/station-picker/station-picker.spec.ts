@@ -18,11 +18,11 @@ describe('StationPicker', () => {
 
   async function render(inputs: {
     stations?: readonly Station[];
-    loading?: boolean;
+    placeholder?: string;
     selected?: string | null;
   }): Promise<void> {
     fixture.componentRef.setInput('stations', inputs.stations ?? STATIONS);
-    fixture.componentRef.setInput('loading', inputs.loading ?? false);
+    fixture.componentRef.setInput('placeholder', inputs.placeholder ?? 'Choose a station');
     fixture.componentRef.setInput('selected', inputs.selected ?? null);
     await fixture.whenStable();
   }
@@ -41,7 +41,7 @@ describe('StationPicker', () => {
     expect(label.getAttribute('for')).toBe(select().id);
   });
 
-  it('lists the stations after a placeholder', async () => {
+  it('lists the stations after the placeholder it is given', async () => {
     await render({});
 
     expect(optionTexts()).toEqual(['Choose a station', 'Helsinki', 'Tampere', 'Ähtäri']);
@@ -75,17 +75,18 @@ describe('StationPicker', () => {
     expect(select().value).toBe('HKI');
   });
 
-  it('is disabled while the stations load', async () => {
-    await render({ stations: [], loading: true });
+  it('can be focused by its parent', async () => {
+    await render({});
+
+    fixture.componentInstance.focus();
+
+    expect(document.activeElement).toBe(select());
+  });
+
+  it('is disabled with only its placeholder when there are no stations to choose from', async () => {
+    await render({ stations: [], placeholder: 'Loading stations…' });
 
     expect(select().disabled).toBe(true);
     expect(optionTexts()).toEqual(['Loading stations…']);
-  });
-
-  it('is disabled when no stations could be loaded', async () => {
-    await render({ stations: [], loading: false });
-
-    expect(select().disabled).toBe(true);
-    expect(optionTexts()).toEqual(['No stations available']);
   });
 });

@@ -1,11 +1,9 @@
+import type { DepartureRow, DepartureStatus, Station } from './departures.models';
 import type {
-  DepartureRow,
-  DepartureStatus,
   DigitrafficStation,
   DigitrafficTimeTableRow,
   DigitrafficTrain,
-  Station,
-} from './departures.models';
+} from './digitraffic-wire';
 
 /** Digitraffic train categories that carry passengers; cargo and shunting moves are left out. */
 const PASSENGER_CATEGORIES: ReadonlySet<string> = new Set(['Long-distance', 'Commuter']);

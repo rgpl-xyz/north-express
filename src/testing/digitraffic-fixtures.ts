@@ -1,7 +1,7 @@
 import type {
   DigitrafficStation,
   DigitrafficTrain,
-} from '../app/features/departures/data/departures.models';
+} from '../app/features/departures/data/digitraffic-wire';
 import stations from './digitraffic-stations.json';
 import pasilaRingTrain from './digitraffic-departures-psl-ring.json';
 import tampereDepartures from './digitraffic-departures-tpe.json';

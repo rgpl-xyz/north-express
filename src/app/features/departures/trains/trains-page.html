@@ -4,45 +4,55 @@
     The next departures from Finnish railway stations, live from Fintraffic's open data.
   </p>
 
-  @if (stationsFailed()) {
-    <div class="alert alert-warning d-flex flex-wrap align-items-center gap-3">
-      <span>The station list couldn't be loaded from Digitraffic.</span>
-      <button type="button" class="btn btn-sm btn-primary" (click)="loadStations()">
-        Try again
-      </button>
-    </div>
-  }
-
   <div class="row g-3 align-items-end">
     <div class="col-12 col-md-6 col-lg-4">
       <app-station-picker
+        #picker
         [stations]="stations()"
-        [loading]="stationsLoading()"
+        [placeholder]="board.stationPrompt()"
         [selected]="selectedCode()"
-        (selectedChange)="selectStation($event)"
+        (selectedChange)="board.selectStation($event)"
       />
     </div>
     <div class="col-12 col-md-auto">
       <button
+        #refreshButton
         type="button"
         class="btn btn-primary"
-        [disabled]="!selectedCode() || departuresLoading()"
-        (click)="refresh()"
+        [disabled]="!canRefresh()"
+        (click)="board.refresh()"
       >
         Refresh
       </button>
     </div>
   </div>
 
+  <!-- The live region below announces the same text, so this box has no role of its own. -->
+  @if (board.alert(); as alert) {
+    <div class="alert alert-warning d-flex flex-wrap align-items-center gap-3 mt-3 mb-0">
+      <span>{{ alert.text }}</span>
+      <!-- aria-disabled, not disabled: a disabled button would lose keyboard focus. -->
+      <button
+        type="button"
+        class="btn btn-sm btn-primary"
+        [class.disabled]="alert.busy"
+        [attr.aria-disabled]="alert.busy ? 'true' : null"
+        (click)="tryAgain(alert, picker, refreshButton)"
+      >
+        {{ alert.busy ? 'Trying again…' : 'Try again' }}
+      </button>
+    </div>
+  }
+
   <p class="small text-body-secondary mt-3 mb-2">
     Times are Finland local time.
-    @if (lastUpdatedText()) {
-      <span>Last updated {{ lastUpdatedText() }}.</span>
+    @if (board.lastUpdated(); as lastUpdated) {
+      <span>{{ lastUpdated }}</span>
     }
   </p>
 
-  <!-- Always rendered so screen readers hear every change; hidden when the grid says it already. -->
-  <p role="status" [class.visually-hidden]="!status().visible">{{ status().text }}</p>
+  <!-- Always rendered so screen readers hear every change; hidden when the grid or alert says it. -->
+  <p role="status" [class.visually-hidden]="!board.status().visible">{{ board.status().text }}</p>
 
-  <app-departure-grid [rows]="departures()" [loading]="departuresLoading()" />
+  <app-departure-grid [rows]="rows()" [loading]="loading()" />
 </div>

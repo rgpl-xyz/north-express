@@ -4,7 +4,8 @@ import {
   STATIONS_FIXTURE,
   TAMPERE_DEPARTURES_FIXTURE,
 } from '../../../../testing/digitraffic-fixtures';
-import type { DepartureRow, DigitrafficTimeTableRow, DigitrafficTrain } from './departures.models';
+import type { DepartureRow } from './departures.models';
+import type { DigitrafficTimeTableRow, DigitrafficTrain } from './digitraffic-wire';
 import {
   departureStatus,
   stationDisplayName,

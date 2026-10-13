@@ -37,6 +37,26 @@ module.exports = defineConfig([
     },
   },
   {
+    // Digitraffic's wire shapes stay behind the departure source. UI code uses the view
+    // types in departures.models.ts instead.
+    files: ['**/*.ts'],
+    ignores: ['src/app/features/departures/data/**', 'src/testing/**'],
+    rules: {
+      '@typescript-eslint/no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              regex: '(^|/)digitraffic-wire$',
+              message:
+                'Digitraffic wire types are private to features/departures/data. Use the view types in departures.models.ts.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
     files: ['**/*.html'],
     extends: [angular.configs.templateRecommended, angular.configs.templateAccessibility],
     rules: {},
