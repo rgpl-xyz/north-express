@@ -7,7 +7,8 @@ import {
   TAMPERE_DEPARTURES_FIXTURE,
 } from '../../../../testing/digitraffic-fixtures';
 import { DepartureSource } from './departure-source';
-import { DigitrafficSource, STATIONS_URL, departuresUrl } from './digitraffic-source';
+import { DigitrafficSource } from './digitraffic-source';
+import { STATIONS_URL, departuresUrl } from './digitraffic-wire';
 import { toDepartureRows, toStations } from './digitraffic.mapping';
 
 const STATION_NAMES: ReadonlyMap<string, string> = new Map(

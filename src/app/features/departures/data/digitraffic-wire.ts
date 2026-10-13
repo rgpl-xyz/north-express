@@ -1,8 +1,20 @@
 /*
- * Shapes returned by the Digitraffic rail API (https://rata.digitraffic.fi/api/v1),
- * limited to the fields this app reads. Private to the data folder: only the
- * Digitraffic adapter and its mapping use them.
+ * The Digitraffic rail API: the addresses this app calls and the shapes they return,
+ * limited to the fields it reads. Private to the data folder and the test fakes (lint
+ * enforces it); UI code uses the view types in departures.models.ts.
  */
+
+export const API_URL = 'https://rata.digitraffic.fi/api/v1';
+
+export const STATIONS_URL = `${API_URL}/metadata/stations`;
+
+const NEXT_DEPARTURES_QUERY =
+  'arrived_trains=0&arriving_trains=0&departed_trains=0&departing_trains=20&include_nonstopping=false';
+
+/** Live trains for a station, limited to the next 20 departures. */
+export function departuresUrl(stationCode: string): string {
+  return `${API_URL}/live-trains/station/${encodeURIComponent(stationCode)}?${NEXT_DEPARTURES_QUERY}`;
+}
 
 export interface DigitrafficStation {
   readonly stationName: string;
