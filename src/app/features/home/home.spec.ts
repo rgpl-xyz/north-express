@@ -16,11 +16,13 @@ describe('Home', () => {
   const hrefs = () =>
     Array.from(element.querySelectorAll('a')).map((link) => link.getAttribute('href') ?? '');
 
-  it('welcomes the traveller and points to the train departures', () => {
+  it('welcomes the traveller and points to the train and bus departures', () => {
     const welcome = element.querySelector('#welcome');
 
     expect(welcome?.textContent).toContain('Welcome, traveller');
+    expect(welcome?.textContent).toContain('Live train and bus departures in Finland.');
     expect(hrefs()).toContain('/departures/trains');
+    expect(hrefs()).toContain('/departures/buses');
   });
 
   it('points questions and bugs to GitHub and the contact address', () => {

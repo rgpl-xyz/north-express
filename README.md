@@ -10,7 +10,7 @@ Train data is from [Digitraffic](https://www.digitraffic.fi/en/) by Fintraffic, 
 
 Bus data is from [Digitransit](https://digitransit.fi/en/), also CC BY 4.0. Its API needs a key, which stays on the server: the app asks its own `/api/buses`, and nginx adds the key and sends a fixed query (see [deploy/README.md](deploy/README.md)).
 
-This started as an Angular 14 app on the Dutch NS API, which needs a subscription key. It has since been rebuilt on Angular 22 against Digitraffic so it runs on its own.
+This started as an Angular 14 app on the Dutch NS API, which needs a subscription key. It has since been rebuilt on Angular 22 against Finnish open data.
 
 ## Running it
 
@@ -34,19 +34,21 @@ The e2e tests answer Digitraffic and `/api/buses` from fakes that serve the resp
 
 ## Departures
 
+Trains and buses each have a board under Departures. To find a station, type part of its name (Ähtäri can be typed as "ahtari") or a train station's code, such as TPE, and pick it from the list. The station picked goes into the address, as in `/departures/trains?station=TPE`, so a board can be bookmarked or shared.
+
+If the data can't be loaded, the page says so and offers Try again. When only a refresh fails, the departures already shown stay up with the time they are from.
+
+Times are Finland time whatever the viewer's time zone.
+
+## Trains
+
 Digitraffic returns whole trains with their full timetables. For the chosen station the app uses the first stop where passengers can board and the train hasn't left yet. The P and I ring trains call at Pasila twice, so taking the first stop would show a departure that already happened. Cargo trains and shunting moves are left out.
 
-Ring trains on their way to the airport show "Lentoasema (Airport)" rather than Helsinki, where they end.
-
-To find a station, type part of its name (Ähtäri can be typed as "ahtari") or its code, such as TPE, and pick it from the list. "Airport" finds Lentoasema. The station picked goes into the address, as in `/departures/trains?station=TPE`, so a board can be bookmarked or shared.
+Ring trains on their way to the airport show "Lentoasema (Airport)" rather than Helsinki, where they end. In the search, "Airport" finds Lentoasema.
 
 Only stations with passenger traffic are listed, without the "asema" that Digitraffic puts at the end of many names.
 
 A train running early counts as on time, and delays are the whole minutes Digitraffic reports. A departure is cancelled when the whole train is, or just its stop at that station.
-
-If Digitraffic can't be reached, the page says so and offers Try again. When only a refresh fails, the departures already shown stay up with the time they are from.
-
-Times are Finland time whatever the viewer's time zone.
 
 ## Buses
 

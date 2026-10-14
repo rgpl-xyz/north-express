@@ -4,10 +4,15 @@
       <div class="col-12 col-lg-6">
         <h1 id="welcome-title" class="sign-title">Welcome, traveller</h1>
         <p class="lead my-4">
-          Live train departures for Finnish railway stations. Pick a station to see the next trains,
-          their track and whether they are on time.
+          Live train and bus departures in Finland. Pick a station to see what leaves next, where to
+          board and whether it is on time.
         </p>
-        <a class="btn btn-primary btn-lg" routerLink="/departures/trains">See train departures</a>
+        <div class="d-grid d-sm-flex gap-3">
+          <a class="btn btn-primary btn-lg" routerLink="/departures/trains">See train departures</a>
+          <a class="btn btn-outline-light btn-lg" routerLink="/departures/buses"
+            >See bus departures</a
+          >
+        </div>
       </div>
       <div class="col-12 col-lg-6">
         <app-track-line />

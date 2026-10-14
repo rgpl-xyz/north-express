@@ -97,6 +97,19 @@ $btn-transition: none;
     --bs-btn-disabled-opacity: 1;
     --bs-btn-focus-box-shadow: var(--ne-on-blue-focus);
   }
+
+  // A second choice next to it: white outline and lettering, filled white on hover.
+  .btn-outline-light {
+    --bs-btn-color: #fff;
+    --bs-btn-border-color: #fff;
+    --bs-btn-hover-color: var(--bs-primary);
+    --bs-btn-hover-bg: #fff;
+    --bs-btn-hover-border-color: #fff;
+    --bs-btn-active-color: var(--bs-primary);
+    --bs-btn-active-bg: #{$paper};
+    --bs-btn-active-border-color: #{$paper};
+    --bs-btn-focus-box-shadow: var(--ne-on-blue-focus);
+  }
 }
 
 // The line drawing on a band, at the right of its content and reaching into the band's
