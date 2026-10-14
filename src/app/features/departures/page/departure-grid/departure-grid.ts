@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import {
   CellStyleModule,
@@ -9,7 +9,8 @@ import {
   themeQuartz,
 } from 'ag-grid-community';
 import type { DepartureRow } from '../../data/departures.models';
-import { COMPACT_COLUMNS, DEFAULT_COLUMN, DEPARTURE_COLUMNS } from './departure-columns';
+import { BOARD_KIND } from '../board-kind';
+import { DEFAULT_COLUMN, compactColumns, departureColumns } from './departure-columns';
 
 /**
  * Only what this grid uses: client-side rows, plus CellStyleModule for the column classes.
@@ -17,7 +18,7 @@ import { COMPACT_COLUMNS, DEFAULT_COLUMN, DEPARTURE_COLUMNS } from './departure-
  */
 const GRID_MODULES: Module[] = [ClientSideRowModelModule, CellStyleModule];
 
-/** Below this width the board drops its secondary columns (see COMPACT_COLUMNS). */
+/** Below this width the board drops its secondary columns (see compactColumns). */
 const COMPACT_BELOW_PX = 560;
 
 const INK = '#15171a';
@@ -80,8 +81,11 @@ export class DepartureGrid {
   protected readonly modules = GRID_MODULES;
   protected readonly defaultColumn = DEFAULT_COLUMN;
   protected readonly compact = signal(false);
+  private readonly kind = inject(BOARD_KIND);
+  private readonly wideColumns = departureColumns(this.kind);
+  private readonly narrowColumns = compactColumns(this.kind);
   protected readonly columns = computed(() =>
-    this.compact() ? COMPACT_COLUMNS : DEPARTURE_COLUMNS,
+    this.compact() ? this.narrowColumns : this.wideColumns,
   );
   /** ag-grid wants a mutable array; give it a copy rather than the shared input. */
   protected readonly rowData = computed(() => [...this.rows()]);

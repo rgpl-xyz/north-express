@@ -12,7 +12,7 @@ import { DepartureSource } from '../data/departure-source';
 import type { DepartureRow } from '../data/departures.models';
 import { DepartureGrid } from './departure-grid/departure-grid';
 import { StationPicker } from './station-picker/station-picker';
-import { TrainsPage } from './trains-page';
+import { DeparturesPage } from './departures-page';
 
 /** Stands in for the ag-grid wrapper so these tests stay about what the page renders. */
 @Component({
@@ -27,8 +27,8 @@ class DepartureGridStub {
 
 const ROWS = [departureRow({ id: 'a' }), departureRow({ id: 'b', train: 'IC 38' })];
 
-describe('TrainsPage', () => {
-  let fixture: ComponentFixture<TrainsPage>;
+describe('DeparturesPage', () => {
+  let fixture: ComponentFixture<DeparturesPage>;
   let element: HTMLElement;
   let source: InMemoryDepartureSource;
   const errorHandler = { handleError: vi.fn() };
@@ -73,23 +73,27 @@ describe('TrainsPage', () => {
     errorHandler.handleError.mockReset();
     source = new InMemoryDepartureSource();
     TestBed.configureTestingModule({
-      imports: [TrainsPage],
+      imports: [DeparturesPage],
       providers: [
         provideRouter([]),
         { provide: DepartureSource, useValue: source },
         { provide: ErrorHandler, useValue: errorHandler },
       ],
-    }).overrideComponent(TrainsPage, {
+    }).overrideComponent(DeparturesPage, {
       remove: { imports: [DepartureGrid] },
       add: { imports: [DepartureGridStub] },
     });
-    fixture = TestBed.createComponent(TrainsPage);
+    fixture = TestBed.createComponent(DeparturesPage);
     element = fixture.nativeElement as HTMLElement;
     await settle();
   });
 
   afterEach(() => {
     expect(errorHandler.handleError).not.toHaveBeenCalled();
+  });
+
+  it('names the board in its heading, trains unless the route says otherwise', () => {
+    expect(element.querySelector('h1')?.textContent?.trim()).toBe('Train departures');
   });
 
   it('fills the picker from the stations state', async () => {

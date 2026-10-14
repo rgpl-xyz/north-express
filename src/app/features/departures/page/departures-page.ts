@@ -11,6 +11,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
 import { type BoardAlert, DepartureBoard } from '../board/departure-board';
+import { BOARD_KIND } from './board-kind';
 import type { DepartureRow, Station } from '../data/departures.models';
 import { TrackLine } from '../../../layout/track-line/track-line';
 import { DepartureGrid } from './departure-grid/departure-grid';
@@ -20,14 +21,15 @@ const NONE: readonly never[] = [];
 
 /** Renders the departure board; all loading logic and wording live in DepartureBoard. */
 @Component({
-  selector: 'app-trains-page',
+  selector: 'app-departures-page',
   imports: [StationPicker, DepartureGrid, TrackLine],
   providers: [DepartureBoard],
-  templateUrl: './trains-page.html',
+  templateUrl: './departures-page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrainsPage {
+export class DeparturesPage {
   protected readonly board = inject(DepartureBoard);
+  protected readonly kind = inject(BOARD_KIND);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 

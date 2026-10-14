@@ -1,7 +1,7 @@
 <div class="sign-band">
   <div class="container">
     <app-track-line class="sign-band-art d-none d-xl-block" [named]="false" ends="stations" />
-    <h1 class="visually-hidden">Train departures</h1>
+    <h1 class="visually-hidden">{{ kind.heading }}</h1>
     <div class="row g-3 align-items-center">
       <div class="col-12 col-md-8 col-lg-6">
         <app-station-picker

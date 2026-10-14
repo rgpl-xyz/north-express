@@ -190,11 +190,11 @@ function afterFailure(loading: LoadingBoard): SettledBoard {
 }
 
 /**
- * The trains page's departure board: which stations can be chosen, what the board
+ * A departures page's board: which stations can be chosen, what the board
  * shows for the chosen one, and every user-facing message about loading and load
  * failures. Load failures are board states shown inline, never toasts.
  *
- * One per page (provided in TrainsPage). A newer selectStation or refresh cancels
+ * One per page (provided in DeparturesPage). A newer selectStation or refresh cancels
  * the request before it. A failed refresh keeps the rows already shown, marked stale.
  */
 @Injectable()

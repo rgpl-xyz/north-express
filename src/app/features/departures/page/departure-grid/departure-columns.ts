@@ -1,6 +1,7 @@
 import type { ColDef, ICellRendererParams, ValueFormatterParams } from 'ag-grid-community';
 import { formatFinlandTime } from '../../../../shared/finland-time';
 import type { DepartureRow, DepartureStatus } from '../../data/departures.models';
+import type { BoardKind } from '../board-kind';
 
 function formatTime(params: ValueFormatterParams<DepartureRow, string | null>): string {
   return formatFinlandTime(params.value);
@@ -102,46 +103,51 @@ function statusMarker(
   return params.value ? marker(`status status-${params.value.kind}`, statusText(params.value)) : '';
 }
 
-/** No column sorts by default: rows arrive in the departure board's scheduled order. */
-export const DEPARTURE_COLUMNS: ColDef<DepartureRow>[] = [
-  {
-    headerName: 'Departs',
-    field: 'scheduled',
-    valueFormatter: formatTime,
-    cellRenderer: departureTime,
-    cellClass: 'board-time',
-    minWidth: 150,
-  },
-  {
-    headerName: 'Destination',
-    field: 'destination',
-    cellClass: 'board-destination',
-    flex: 1.5,
-    minWidth: 120,
-  },
-  {
-    headerName: 'Track',
-    field: 'track',
-    comparator: compareTracks,
-    cellRenderer: trackMarker,
-    cellClass: 'board-center',
-    headerClass: 'board-center',
-    minWidth: 84,
-  },
-  { headerName: 'Train', field: 'train', cellClass: 'board-train', minWidth: 120 },
-  {
-    headerName: 'Status',
-    field: 'status',
-    valueFormatter: formatStatus,
-    comparator: compareStatuses,
-    cellRenderer: statusMarker,
-    minWidth: 130,
-  },
-];
+/**
+ * The board's columns, the place and service ones named for the kind of board. No column
+ * sorts by default: rows arrive in the departure board's scheduled order.
+ */
+export function departureColumns(kind: BoardKind): ColDef<DepartureRow>[] {
+  return [
+    {
+      headerName: 'Departs',
+      field: 'scheduled',
+      valueFormatter: formatTime,
+      cellRenderer: departureTime,
+      cellClass: 'board-time',
+      minWidth: 150,
+    },
+    {
+      headerName: 'Destination',
+      field: 'destination',
+      cellClass: 'board-destination',
+      flex: 1.5,
+      minWidth: 120,
+    },
+    {
+      headerName: kind.place,
+      field: 'track',
+      comparator: compareTracks,
+      cellRenderer: trackMarker,
+      cellClass: 'board-center',
+      headerClass: 'board-center',
+      minWidth: 84,
+    },
+    { headerName: kind.service, field: 'train', cellClass: 'board-train', minWidth: 120 },
+    {
+      headerName: 'Status',
+      field: 'status',
+      valueFormatter: formatStatus,
+      comparator: compareStatuses,
+      cellRenderer: statusMarker,
+      minWidth: 130,
+    },
+  ];
+}
 
 /**
- * A narrow board: the train gives way so the status stays on screen, and the other
- * columns take less room.
+ * A narrow board: the service column gives way so the status stays on screen, and the
+ * other columns take less room.
  */
 const COMPACT_CHANGES: Readonly<Record<string, Partial<ColDef<DepartureRow>>>> = {
   scheduled: { minWidth: 84 },
@@ -151,11 +157,13 @@ const COMPACT_CHANGES: Readonly<Record<string, Partial<ColDef<DepartureRow>>>> =
   status: { minWidth: 104 },
 };
 
-/** The board's columns for a phone-width grid: departs, destination, track and status. */
-export const COMPACT_COLUMNS: ColDef<DepartureRow>[] = DEPARTURE_COLUMNS.map((column) => ({
-  ...column,
-  ...COMPACT_CHANGES[column.field ?? ''],
-}));
+/** The board's columns for a phone-width grid: departs, destination, place and status. */
+export function compactColumns(kind: BoardKind): ColDef<DepartureRow>[] {
+  return departureColumns(kind).map((column) => ({
+    ...column,
+    ...COMPACT_CHANGES[column.field ?? ''],
+  }));
+}
 
 export const DEFAULT_COLUMN: ColDef<DepartureRow> = {
   flex: 1,

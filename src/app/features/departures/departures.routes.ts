@@ -5,6 +5,6 @@ export const DEPARTURES_ROUTES: Routes = [
   {
     path: 'trains',
     title: 'Trains',
-    loadComponent: () => import('./trains/trains-page').then((m) => m.TrainsPage),
+    loadComponent: () => import('./page/departures-page').then((m) => m.DeparturesPage),
   },
 ];

@@ -6,7 +6,10 @@ import type {
 } from 'ag-grid-community';
 import { describe, expect, it } from 'vitest';
 import type { DepartureRow, DepartureStatus } from '../../data/departures.models';
-import { COMPACT_COLUMNS, DEFAULT_COLUMN, DEPARTURE_COLUMNS } from './departure-columns';
+import { TRAIN_BOARD } from '../board-kind';
+import { DEFAULT_COLUMN, compactColumns, departureColumns } from './departure-columns';
+
+const DEPARTURE_COLUMNS = departureColumns(TRAIN_BOARD);
 
 function column(field: keyof DepartureRow): ColDef<DepartureRow> {
   const found = DEPARTURE_COLUMNS.find((candidate) => candidate.field === field);
@@ -36,7 +39,19 @@ const ON_TIME: DepartureStatus = { kind: 'on-time' };
 const CANCELLED: DepartureStatus = { kind: 'cancelled' };
 const late = (minutes: number): DepartureStatus => ({ kind: 'late', minutes });
 
-describe('DEPARTURE_COLUMNS', () => {
+describe('departureColumns', () => {
+  it('names the place and service columns for the kind of board', () => {
+    const bus = { heading: 'Bus departures', place: 'Platform', service: 'Route' };
+
+    expect(departureColumns(bus).map((candidate) => candidate.headerName)).toEqual([
+      'Departs',
+      'Destination',
+      'Platform',
+      'Route',
+      'Status',
+    ]);
+  });
+
   it('has the departure board columns in order', () => {
     expect(DEPARTURE_COLUMNS.map((candidate) => candidate.headerName)).toEqual([
       'Departs',
@@ -159,9 +174,9 @@ describe('the Track column', () => {
   });
 });
 
-describe('COMPACT_COLUMNS', () => {
+describe('compactColumns', () => {
   it('keeps departs, destination, track and status on a narrow board', () => {
-    const shown = COMPACT_COLUMNS.filter((candidate) => !candidate.hide);
+    const shown = compactColumns(TRAIN_BOARD).filter((candidate) => !candidate.hide);
 
     expect(shown.map((candidate) => candidate.headerName)).toEqual([
       'Departs',
