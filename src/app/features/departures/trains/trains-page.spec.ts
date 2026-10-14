@@ -38,6 +38,7 @@ describe('TrainsPage', () => {
   const grid = () =>
     fixture.debugElement.query(By.directive(DepartureGridStub))
       .componentInstance as DepartureGridStub;
+  const boardShown = () => fixture.debugElement.query(By.directive(DepartureGridStub)) !== null;
   const button = (name: string) =>
     Array.from(element.querySelectorAll('button')).find(
       (candidate) => candidate.textContent?.trim() === name,
@@ -94,7 +95,11 @@ describe('TrainsPage', () => {
     expect(select().disabled).toBe(false);
   });
 
-  it('says that times are in Finland local time', () => {
+  it('says that times are in Finland local time, once there is a board', async () => {
+    expect(element.textContent).not.toContain('Times are Finland local time');
+
+    await showTampere();
+
     expect(element.textContent).toContain('Times are Finland local time');
   });
 
@@ -188,7 +193,7 @@ describe('TrainsPage', () => {
       await settle();
 
       expect(alertBox()?.textContent).toContain("Couldn't load stations.");
-      expect(optionTexts()).toEqual(["Couldn't load stations."]);
+      expect(optionTexts()).toEqual(['No stations']);
 
       await pressTryAgain();
 
@@ -273,11 +278,11 @@ describe('TrainsPage', () => {
       expect(document.activeElement).toBe(button('Refresh'));
     });
 
-    it('shows a failed first load inline with an empty grid', async () => {
+    it('shows a failed first load inline, with no board', async () => {
       await failedTampere();
 
       expect(alertBox()?.textContent).toContain("Couldn't load departures from Tampere.");
-      expect(grid().rows()).toEqual([]);
+      expect(boardShown()).toBe(false);
       expect(button('Try again')).toBeDefined();
     });
 
@@ -297,7 +302,7 @@ describe('TrainsPage', () => {
       await settle();
 
       expect(alertBox()?.textContent).toContain('No stations available.');
-      expect(optionTexts()).toEqual(['No stations available.']);
+      expect(optionTexts()).toEqual(['No stations']);
 
       await pressTryAgain();
 
@@ -310,7 +315,7 @@ describe('TrainsPage', () => {
 
     await chooseStation('');
 
-    expect(grid().rows()).toEqual([]);
+    expect(boardShown()).toBe(false);
     expect(liveRegion().textContent?.trim()).toBe('Choose a station to see its next departures.');
   });
 });

@@ -5,7 +5,6 @@ test('choosing a station shows its departures', async ({ page }) => {
 
   await expect(page).toHaveTitle('Trains | The North Express');
   await expect(page.getByText('Choose a station to see its next departures.')).toBeVisible();
-  await expect(page.getByText('Times are Finland local time')).toBeVisible();
 
   const picker = page.getByLabel('Station', { exact: true });
   await expect(picker).toBeEnabled();
@@ -25,6 +24,7 @@ test('choosing a station shows its departures', async ({ page }) => {
 
   await expect(page.getByRole('row').filter({ hasText: 'Commuter M' })).toContainText('Nokia');
   await expect(page.getByText('T 3816')).toHaveCount(0);
+  await expect(page.getByText('Times are Finland local time')).toBeVisible();
   await expect(page.getByText(/Last updated \d{2}:\d{2}:\d{2}/)).toBeVisible();
 });
 

@@ -1,0 +1,39 @@
+// The picker is the band's sign: the chosen station's name in large white lettering
+// over a white rule, with a white chevron.
+.form-select {
+  --bs-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='square' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+
+  padding: 0 2.5rem 0.25rem 0;
+  font-family: var(--ne-condensed);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #fff;
+  background-color: transparent;
+  background-position: right 0.25rem center;
+  background-size: 1.5rem;
+  border: 0;
+  border-bottom: 3px solid #fff;
+  cursor: pointer;
+
+  &:focus {
+    border-color: #fff;
+    box-shadow: var(--ne-on-blue-focus);
+  }
+
+  &:disabled {
+    color: rgba(255, 255, 255, 0.75);
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.5);
+    cursor: default;
+  }
+}
+
+// The open list is drawn by the browser on white, so its options go back to ink.
+option {
+  font-family: var(--bs-body-font-family);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--bs-body-color);
+  background-color: #fff;
+}

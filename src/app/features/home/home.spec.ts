@@ -17,14 +17,14 @@ describe('Home', () => {
     Array.from(element.querySelectorAll('a')).map((link) => link.getAttribute('href') ?? '');
 
   it('welcomes the traveller and points to the train departures', () => {
-    const welcome = element.querySelector('#card-welcome');
+    const welcome = element.querySelector('#welcome');
 
     expect(welcome?.textContent).toContain('Welcome, traveller');
     expect(hrefs()).toContain('/departures/trains');
   });
 
   it('points questions and bugs to GitHub and the contact address', () => {
-    const help = element.querySelector('#card-help');
+    const help = element.querySelector('#help');
 
     expect(help?.textContent).toContain('Questions or bugs?');
     expect(hrefs()).toContain('https://github.com/rgpl-xyz/north-express');

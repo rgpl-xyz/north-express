@@ -17,12 +17,14 @@ const DISRUPTED_TAMPERE: readonly DigitrafficTrain[] = TAMPERE_DEPARTURES_FIXTUR
   return train;
 });
 
-/** Lux's warning and danger emphasis colours. */
-const AMBER = 'rgb(96, 69, 31)';
-const RED = 'rgb(87, 33, 32)';
+/** Signal yellow and red, the marks for late and cancelled departures. */
+const YELLOW = 'rgb(255, 199, 44)';
+const RED = 'rgb(200, 16, 46)';
+const NONE = 'rgba(0, 0, 0, 0)';
 
 const statusOf = (page: Page, train: string) =>
   page.getByRole('row').filter({ hasText: train }).locator('[col-id="status"]');
+const markOf = (page: Page, train: string) => statusOf(page, train).locator('.status');
 
 test.beforeEach(async ({ page, digitraffic }) => {
   digitraffic.setDepartures('TPE', DISRUPTED_TAMPERE);
@@ -30,16 +32,17 @@ test.beforeEach(async ({ page, digitraffic }) => {
   await page.getByLabel('Station', { exact: true }).selectOption({ label: 'Tampere' });
 });
 
-test('late departures show in bold amber and cancelled ones in bold red', async ({ page }) => {
+test('late departures are marked in bold on yellow and cancelled ones on red', async ({ page }) => {
   await expect(statusOf(page, 'IC 25')).toHaveText('2 min late');
-  await expect(statusOf(page, 'IC 25')).toHaveCSS('color', AMBER);
-  await expect(statusOf(page, 'IC 25')).toHaveCSS('font-weight', '600');
+  await expect(markOf(page, 'IC 25')).toHaveCSS('background-color', YELLOW);
+  await expect(markOf(page, 'IC 25')).toHaveCSS('font-weight', '700');
   await expect(statusOf(page, 'IC 467')).toHaveText('12 min late');
   await expect(statusOf(page, 'IC 38')).toHaveText('Cancelled');
-  await expect(statusOf(page, 'IC 38')).toHaveCSS('color', RED);
-  await expect(statusOf(page, 'IC 38')).toHaveCSS('font-weight', '600');
+  await expect(markOf(page, 'IC 38')).toHaveCSS('background-color', RED);
+  await expect(markOf(page, 'IC 38')).toHaveCSS('font-weight', '700');
   await expect(statusOf(page, 'Commuter M')).toHaveText('On time');
-  await expect(statusOf(page, 'Commuter M')).toHaveCSS('font-weight', '400');
+  await expect(markOf(page, 'Commuter M')).toHaveCSS('background-color', NONE);
+  await expect(markOf(page, 'Commuter M')).toHaveCSS('font-weight', '500');
 });
 
 test('the Status column sorts on time first, then by minutes late, then cancelled', async ({

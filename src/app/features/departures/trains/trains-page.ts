@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { type BoardAlert, DepartureBoard } from '../board/departure-board';
 import type { DepartureRow, Station } from '../data/departures.models';
+import { TrackLine } from '../../../layout/track-line/track-line';
 import { DepartureGrid } from './departure-grid/departure-grid';
 import { StationPicker } from './station-picker/station-picker';
 
@@ -15,7 +16,7 @@ const NONE: readonly never[] = [];
 /** Renders the departure board; all loading logic and wording live in DepartureBoard. */
 @Component({
   selector: 'app-trains-page',
-  imports: [StationPicker, DepartureGrid],
+  imports: [StationPicker, DepartureGrid, TrackLine],
   providers: [DepartureBoard],
   templateUrl: './trains-page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -42,6 +43,9 @@ export class TrainsPage {
   });
 
   protected readonly loading = computed(() => this.board.state().kind === 'loading');
+
+  /** Departures to show, or some on the way; otherwise the status line says why there are none. */
+  protected readonly showBoard = computed(() => this.rows().length > 0 || this.loading());
 
   protected readonly canRefresh = computed(() => {
     const { kind } = this.board.state();

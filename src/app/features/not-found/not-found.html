@@ -1,9 +1,8 @@
-<div class="container py-5 not-found">
-  <h1 class="fw-bold">Page not found</h1>
-  <h2 class="h4 mt-4">Uh oh. We can't find the page you're looking for.</h2>
-  <p class="mt-3 mb-4">
-    Everything is working as usual, but the page you were trying to reach might have been moved or
-    renamed.
-  </p>
-  <a class="btn btn-primary" routerLink="/">Take me home</a>
-</div>
+<section class="sign-band not-found-band" aria-labelledby="not-found-title">
+  <div class="container">
+    <app-track-line class="sign-band-art d-none d-xl-block" [named]="false" ends="buffer" />
+    <h1 id="not-found-title" class="sign-title">Page not found</h1>
+    <p class="lead my-4">The page you were looking for may have moved or been renamed.</p>
+    <a class="btn btn-primary" routerLink="/">Take me home</a>
+  </div>
+</section>

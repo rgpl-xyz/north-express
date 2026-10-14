@@ -33,12 +33,11 @@
               }
             ],
             "styles": [
-              "@fontsource/nunito-sans/latin-200.css",
-              "@fontsource/nunito-sans/latin-300.css",
-              "@fontsource/nunito-sans/latin-400.css",
-              "@fontsource/nunito-sans/latin-500.css",
-              "@fontsource/nunito-sans/latin-600.css",
-              "@fontsource/nunito-sans/latin-700.css",
+              "@fontsource/barlow/latin-400.css",
+              "@fontsource/barlow/latin-600.css",
+              "@fontsource/barlow-condensed/latin-500.css",
+              "@fontsource/barlow-condensed/latin-600.css",
+              "@fontsource/barlow-condensed/latin-700.css",
               "src/styles.scss"
             ],
             "stylePreprocessorOptions": {

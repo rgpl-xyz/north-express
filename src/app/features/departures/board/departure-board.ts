@@ -102,7 +102,7 @@ function stationPrompt(stations: StationsState): string {
   if (stations.kind === 'loading') {
     return LOADING_STATIONS;
   }
-  return stationsProblem(stations) ?? 'Choose a station';
+  return stationsProblem(stations) ? 'No stations' : 'Choose a station';
 }
 
 function departuresFailed(station: Station): string {

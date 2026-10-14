@@ -1,4 +1,4 @@
-import type { CellClassParams, ColDef, ValueFormatterParams } from 'ag-grid-community';
+import type { ColDef, ICellRendererParams, ValueFormatterParams } from 'ag-grid-community';
 import { formatFinlandTime } from '../../../../shared/finland-time';
 import type { DepartureRow, DepartureStatus } from '../../data/departures.models';
 
@@ -51,15 +51,55 @@ function compareStatuses(
   return statusRank(a) - statusRank(b) || minutesLate(a) - minutesLate(b);
 }
 
-/** Bootstrap utility classes, because ag-grid draws its cells outside Angular's style scoping. */
-const STATUS_CLASSES: Record<DepartureStatus['kind'], string[]> = {
-  'on-time': [],
-  late: ['fw-bold', 'text-warning-emphasis'],
-  cancelled: ['fw-bold', 'text-danger-emphasis'],
-};
+/** A span with the given text and classes; textContent, so the text is never read as HTML. */
+function marker(className: string, text: string): HTMLElement {
+  const element = document.createElement('span');
+  element.className = className;
+  element.textContent = text;
+  return element;
+}
 
-function statusClasses(params: CellClassParams<DepartureRow, DepartureStatus>): string[] {
-  return params.value ? STATUS_CLASSES[params.value.kind] : [];
+/**
+ * The departure time. Where Digitraffic expects the train at another minute, the
+ * timetabled time is struck through and the expected one follows it at full size:
+ * that is the time to be on the platform. Screen readers hear "14:02, expected 14:03".
+ */
+function departureTime(
+  params: ICellRendererParams<DepartureRow, string | null>,
+): HTMLElement | string {
+  const scheduled = formatFinlandTime(params.value);
+  const expected = formatFinlandTime(params.data?.expected ?? null);
+  if (!scheduled) {
+    return '';
+  }
+  const cell = marker('departs', '');
+  if (expected && expected !== scheduled) {
+    cell.append(
+      marker('departs-superseded', scheduled),
+      marker('visually-hidden', ', expected '),
+      marker('departs-expected', expected),
+    );
+  } else {
+    cell.textContent = scheduled;
+  }
+  return cell;
+}
+
+/** The track number in a ring, like a platform marker. The ring is styled in styles.scss. */
+function trackMarker(
+  params: ICellRendererParams<DepartureRow, string | null>,
+): HTMLElement | string {
+  return params.value ? marker('track-marker', params.value) : '';
+}
+
+/**
+ * The status in words, marked by kind: late in yellow, cancelled in red (styles.scss,
+ * because ag-grid draws its cells outside Angular's style scoping).
+ */
+function statusMarker(
+  params: ICellRendererParams<DepartureRow, DepartureStatus | null>,
+): HTMLElement | string {
+  return params.value ? marker(`status status-${params.value.kind}`, statusText(params.value)) : '';
 }
 
 /** No column sorts by default: rows arrive in the departure board's scheduled order. */
@@ -68,26 +108,54 @@ export const DEPARTURE_COLUMNS: ColDef<DepartureRow>[] = [
     headerName: 'Departs',
     field: 'scheduled',
     valueFormatter: formatTime,
-    minWidth: 100,
+    cellRenderer: departureTime,
+    cellClass: 'board-time',
+    minWidth: 150,
   },
-  { headerName: 'Expected', field: 'expected', valueFormatter: formatTime, minWidth: 110 },
-  { headerName: 'Destination', field: 'destination', flex: 2, minWidth: 160 },
+  {
+    headerName: 'Destination',
+    field: 'destination',
+    cellClass: 'board-destination',
+    flex: 1.5,
+    minWidth: 120,
+  },
   {
     headerName: 'Track',
     field: 'track',
     comparator: compareTracks,
-    minWidth: 90,
+    cellRenderer: trackMarker,
+    cellClass: 'board-center',
+    headerClass: 'board-center',
+    minWidth: 84,
   },
-  { headerName: 'Train', field: 'train', minWidth: 130 },
+  { headerName: 'Train', field: 'train', cellClass: 'board-train', minWidth: 120 },
   {
     headerName: 'Status',
     field: 'status',
     valueFormatter: formatStatus,
     comparator: compareStatuses,
-    cellClass: statusClasses,
+    cellRenderer: statusMarker,
     minWidth: 130,
   },
 ];
+
+/**
+ * A narrow board: the train gives way so the status stays on screen, and the other
+ * columns take less room.
+ */
+const COMPACT_CHANGES: Readonly<Record<string, Partial<ColDef<DepartureRow>>>> = {
+  scheduled: { minWidth: 84 },
+  destination: { minWidth: 96 },
+  track: { minWidth: 56 },
+  train: { hide: true },
+  status: { minWidth: 104 },
+};
+
+/** The board's columns for a phone-width grid: departs, destination, track and status. */
+export const COMPACT_COLUMNS: ColDef<DepartureRow>[] = DEPARTURE_COLUMNS.map((column) => ({
+  ...column,
+  ...COMPACT_CHANGES[column.field ?? ''],
+}));
 
 export const DEFAULT_COLUMN: ColDef<DepartureRow> = {
   flex: 1,

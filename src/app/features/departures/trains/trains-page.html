@@ -1,35 +1,36 @@
-<div class="container py-4">
-  <h1 class="h3">Train departures</h1>
-  <p class="text-body-secondary">
-    The next departures from Finnish railway stations, live from Fintraffic's open data.
-  </p>
-
-  <div class="row g-3 align-items-end">
-    <div class="col-12 col-md-6 col-lg-4">
-      <app-station-picker
-        #picker
-        [stations]="stations()"
-        [placeholder]="board.stationPrompt()"
-        [selected]="selectedCode()"
-        (selectedChange)="board.selectStation($event)"
-      />
-    </div>
-    <div class="col-12 col-md-auto">
-      <button
-        #refreshButton
-        type="button"
-        class="btn btn-primary"
-        [disabled]="!canRefresh()"
-        (click)="board.refresh()"
-      >
-        Refresh
-      </button>
+<div class="sign-band">
+  <div class="container">
+    <app-track-line class="sign-band-art d-none d-xl-block" [named]="false" ends="stations" />
+    <h1 class="visually-hidden">Train departures</h1>
+    <div class="row g-3 align-items-center">
+      <div class="col-12 col-md-8 col-lg-6">
+        <app-station-picker
+          #picker
+          [stations]="stations()"
+          [placeholder]="board.stationPrompt()"
+          [selected]="selectedCode()"
+          (selectedChange)="board.selectStation($event)"
+        />
+      </div>
+      <div class="col-12 col-md-auto">
+        <button
+          #refreshButton
+          type="button"
+          class="btn btn-primary"
+          [disabled]="!canRefresh()"
+          (click)="board.refresh()"
+        >
+          Refresh
+        </button>
+      </div>
     </div>
   </div>
+</div>
 
+<div class="container py-4">
   <!-- The live region below announces the same text, so this box has no role of its own. -->
   @if (board.alert(); as alert) {
-    <div class="alert alert-warning d-flex flex-wrap align-items-center gap-3 mt-3 mb-0">
+    <div class="alert alert-notice d-flex flex-wrap align-items-center gap-3 mb-3">
       <span>{{ alert.text }}</span>
       <!-- aria-disabled, not disabled: a disabled button would lose keyboard focus. -->
       <button
@@ -44,15 +45,17 @@
     </div>
   }
 
-  <p class="small text-body-secondary mt-3 mb-2">
-    Times are Finland local time.
-    @if (board.lastUpdated(); as lastUpdated) {
-      <span>{{ lastUpdated }}</span>
-    }
-  </p>
-
   <!-- Always rendered so screen readers hear every change; hidden when the grid or alert says it. -->
   <p role="status" [class.visually-hidden]="!board.status().visible">{{ board.status().text }}</p>
 
-  <app-departure-grid [rows]="rows()" [loading]="loading()" />
+  <!-- No empty board: until there are departures (or some are loading), the message above says why. -->
+  @if (showBoard()) {
+    <p class="small text-body-secondary mb-2">
+      Times are Finland local time.
+      @if (board.lastUpdated(); as lastUpdated) {
+        <span>{{ lastUpdated }}</span>
+      }
+    </p>
+    <app-departure-grid [rows]="rows()" [loading]="loading()" />
+  }
 </div>

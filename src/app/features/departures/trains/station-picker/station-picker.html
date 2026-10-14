@@ -1,4 +1,5 @@
-<label class="form-label" for="station-select">Station</label>
+<!-- The page's heading names the board, and the select's own text is the sign, so the label is for screen readers. -->
+<label class="visually-hidden" for="station-select">Station</label>
 <select id="station-select" class="form-select" [disabled]="disabled()" (change)="onChange($event)">
   <option value="" [selected]="!selected()">{{ placeholder() }}</option>
   @for (station of stations(); track station.code) {

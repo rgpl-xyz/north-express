@@ -76,7 +76,7 @@ describe('DepartureBoard', () => {
         busy: false,
       });
       expect(board.status()).toEqual({ text: "Couldn't load stations.", visible: false });
-      expect(board.stationPrompt()).toBe("Couldn't load stations.");
+      expect(board.stationPrompt()).toBe('No stations');
     });
 
     it('keeps the alert, marked busy, while the stations load again', () => {
@@ -122,7 +122,7 @@ describe('DepartureBoard', () => {
       source.latestStations().resolve([]);
 
       expect(board.stations()).toEqual({ kind: 'loaded', stations: [] });
-      expect(board.stationPrompt()).toBe('No stations available.');
+      expect(board.stationPrompt()).toBe('No stations');
       expect(board.alert()).toEqual({
         text: 'No stations available.',
         action: 'retry-stations',

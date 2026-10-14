@@ -16,6 +16,7 @@ import type { Station } from '../../data/departures.models';
 @Component({
   selector: 'app-station-picker',
   templateUrl: './station-picker.html',
+  styleUrl: './station-picker.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StationPicker {

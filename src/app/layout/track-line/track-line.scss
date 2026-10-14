@@ -1,0 +1,54 @@
+:host {
+  display: block;
+}
+
+svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+// Strokes keep their width in pixels however far the drawing is scaled, so every
+// copy of the line has the same weight.
+.rail,
+.buffer,
+.stop {
+  vector-effect: non-scaling-stroke;
+}
+
+.rail,
+.buffer {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 5;
+  stroke-linejoin: round;
+}
+
+.buffer {
+  stroke-width: 8;
+}
+
+.stop {
+  fill: var(--bs-primary);
+  stroke: currentColor;
+  stroke-width: 2.5;
+}
+
+.terminus {
+  stroke-width: 4;
+}
+
+.name {
+  fill: currentColor;
+  font-family: var(--ne-condensed);
+  font-size: 17px;
+  font-weight: 600;
+}
+
+// Too small to read once the drawing shrinks to a phone's width.
+@media (max-width: 575.98px) {
+  .name {
+    display: none;
+  }
+}
