@@ -189,9 +189,13 @@ $enable-rounded: false;
   text-decoration: line-through;
 }
 
+// A long name ("Lentoasema (Airport)") wraps onto a second line rather than being cut
+// off: the cell is a flex box, so ag-grid's ellipsis can't show.
 .board-destination {
   font-size: 1.375rem;
   font-weight: 600;
+  line-height: 1.1;
+  white-space: normal;
 }
 
 .board-train {
