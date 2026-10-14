@@ -1,12 +1,12 @@
 import type { Page } from '@playwright/test';
 import { PASILA_RING_TRAIN_FIXTURE } from '../src/testing/digitraffic-fixtures';
-import { expect, test } from './fixtures';
+import { chooseStation, expect, test } from './fixtures';
 
 const ringTrain = (page: Page) => page.getByRole('row').filter({ hasText: 'Commuter P' });
 
 async function choosePasila(page: Page): Promise<void> {
   await page.goto('/departures/trains');
-  await page.getByLabel('Station', { exact: true }).selectOption({ label: 'Pasila' });
+  await chooseStation(page, 'Pasila');
 }
 
 // Fixture times are UTC; Finland is UTC+3 on 13 October 2026.

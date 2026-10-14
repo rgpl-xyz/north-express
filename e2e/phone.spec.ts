@@ -1,5 +1,5 @@
 import { PASILA_RING_TRAIN_FIXTURE } from '../src/testing/digitraffic-fixtures';
-import { expect, test } from './fixtures';
+import { chooseStation, expect, test } from './fixtures';
 
 test.use({ viewport: { width: 390, height: 844 } });
 
@@ -7,7 +7,7 @@ test('on a phone the board keeps the time, destination, track and status on scre
   page,
 }) => {
   await page.goto('/departures/trains');
-  await page.getByLabel('Station', { exact: true }).selectOption({ label: 'Tampere' });
+  await chooseStation(page, 'Tampere');
 
   const late = page.getByRole('row').filter({ hasText: 'Oulu' });
   await expect(late).toContainText('2 min late');
@@ -35,7 +35,7 @@ test('on a phone a long destination wraps rather than being cut off', async ({
     })),
   );
   await page.goto('/departures/trains');
-  await page.getByLabel('Station', { exact: true }).selectOption({ label: 'Pasila' });
+  await chooseStation(page, 'Pasila');
 
   const destination = page.getByRole('gridcell', { name: 'Lentoasema (Airport)' });
   await expect(destination).toBeVisible();

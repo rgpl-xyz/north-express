@@ -1,10 +1,67 @@
-<!-- The page's heading names the board, and the select's own text is the sign, so the label is for screen readers. -->
-<label class="visually-hidden" for="station-select">Station</label>
-<select id="station-select" class="form-select" [disabled]="disabled()" (change)="onChange($event)">
-  <option value="" [selected]="!selected()">{{ placeholder() }}</option>
-  @for (station of stations(); track station.code) {
-    <option [value]="station.code" [selected]="station.code === selected()">
-      {{ station.name }}
-    </option>
-  }
-</select>
+<!-- The page's heading names the board, and the field's own text is the sign, so the label is for screen readers. -->
+<label class="visually-hidden" for="station-search">Station</label>
+<div class="search">
+  <input
+    #combobox="ngCombobox"
+    id="station-search"
+    type="text"
+    ngCombobox
+    (expandedChange)="closed($event)"
+    [disabled]="disabled()"
+    [softDisabled]="false"
+    [placeholder]="placeholder()"
+    autocomplete="off"
+    autocapitalize="off"
+    autocorrect="off"
+    spellcheck="false"
+    (focus)="$any($event.target).select()"
+    (keydown.enter)="enter()"
+  />
+  <!-- For pointers only: from the keyboard, the down arrow opens the list. -->
+  <button
+    type="button"
+    class="show-all"
+    tabindex="-1"
+    aria-label="Show all stations"
+    [disabled]="disabled()"
+    (click)="toggleAll()"
+  >
+    <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+      <path d="m2 5 6 6 6-6" />
+    </svg>
+  </button>
+
+  <ng-template ngComboboxPopup [combobox]="combobox">
+    <!-- Pressing the list doesn't take focus from the field; see pick() for touch. -->
+    <div
+      class="popup"
+      (mousedown)="$event.preventDefault()"
+      (pointerdown)="pickedByTouch = $event.pointerType === 'touch'"
+    >
+      <ul
+        ngComboboxWidget
+        ngListbox
+        #listbox="ngListbox"
+        aria-label="Stations"
+        focusMode="activedescendant"
+        selectionMode="explicit"
+        [value]="chosen()"
+        (valueChange)="pick($event)"
+        [activeDescendant]="listbox.activeDescendant()"
+      >
+        @for (station of matches(); track station.code) {
+          <li ngOption [value]="station.code" [label]="station.name">
+            {{ station.name }}
+            @for (alias of aliasesOf(station); track alias) {
+              <span class="alias">{{ alias }}</span>
+            }
+          </li>
+        }
+      </ul>
+      @if (noMatch()) {
+        <p class="no-match">{{ noMatch() }}</p>
+      }
+    </div>
+  </ng-template>
+</div>
+<p class="visually-hidden" aria-live="polite">{{ announcement() }}</p>

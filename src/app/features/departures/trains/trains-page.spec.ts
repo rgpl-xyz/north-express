@@ -10,6 +10,7 @@ import {
 import { DepartureSource } from '../data/departure-source';
 import type { DepartureRow } from '../data/departures.models';
 import { DepartureGrid } from './departure-grid/departure-grid';
+import { StationPicker } from './station-picker/station-picker';
 import { TrainsPage } from './trains-page';
 
 /** Stands in for the ag-grid wrapper so these tests stay about what the page renders. */
@@ -31,8 +32,13 @@ describe('TrainsPage', () => {
   let source: InMemoryDepartureSource;
   const errorHandler = { handleError: vi.fn() };
 
-  const select = () => element.querySelector<HTMLSelectElement>('select')!;
-  const optionTexts = () => Array.from(select().options).map((option) => option.text.trim());
+  const field = () => element.querySelector<HTMLInputElement>('#station-search')!;
+  const picker = () =>
+    fixture.debugElement.query(By.directive(StationPicker)).componentInstance as StationPicker;
+  const stationNames = () =>
+    picker()
+      .stations()
+      .map((station) => station.name);
   const liveRegion = () => element.querySelector<HTMLElement>('[role="status"]')!;
   const alertBox = () => element.querySelector<HTMLElement>('.alert');
   const grid = () =>
@@ -48,9 +54,9 @@ describe('TrainsPage', () => {
     await fixture.whenStable();
   }
 
+  /** Picks a station as the picker does when one is chosen from its list; '' for none. */
   async function chooseStation(code: string): Promise<void> {
-    select().value = code;
-    select().dispatchEvent(new Event('change'));
+    picker().selected.set(code || null);
     await settle();
   }
 
@@ -85,14 +91,15 @@ describe('TrainsPage', () => {
   });
 
   it('fills the picker from the stations state', async () => {
-    expect(optionTexts()).toEqual(['Loading stations…']);
-    expect(select().disabled).toBe(true);
+    expect(field().placeholder).toBe('Loading stations…');
+    expect(field().disabled).toBe(true);
 
     source.latestStations().resolve(TEST_STATIONS);
     await settle();
 
-    expect(optionTexts()).toEqual(['Choose a station', 'Helsinki', 'Pasila', 'Tampere']);
-    expect(select().disabled).toBe(false);
+    expect(field().placeholder).toBe('Choose a station');
+    expect(stationNames()).toEqual(['Helsinki', 'Pasila', 'Tampere']);
+    expect(field().disabled).toBe(false);
   });
 
   it('says that times are in Finland local time, once there is a board', async () => {
@@ -134,7 +141,7 @@ describe('TrainsPage', () => {
 
     expect(grid().loading()).toBe(false);
     expect(grid().rows()).toEqual(ROWS);
-    expect(select().value).toBe('TPE');
+    expect(field().value).toBe('Tampere');
     expect(element.textContent).toMatch(/Last updated \d{2}:\d{2}:\d{2}\./);
   });
 
@@ -193,7 +200,7 @@ describe('TrainsPage', () => {
       await settle();
 
       expect(alertBox()?.textContent).toContain("Couldn't load stations.");
-      expect(optionTexts()).toEqual(['No stations']);
+      expect(field().placeholder).toBe('No stations');
 
       await pressTryAgain();
 
@@ -234,7 +241,7 @@ describe('TrainsPage', () => {
       await settle();
 
       expect(alertBox()).toBeNull();
-      expect(document.activeElement).toBe(select());
+      expect(document.activeElement).toBe(field());
     });
 
     it('keeps focus on Try again when the retry fails too', async () => {
@@ -302,7 +309,7 @@ describe('TrainsPage', () => {
       await settle();
 
       expect(alertBox()?.textContent).toContain('No stations available.');
-      expect(optionTexts()).toEqual(['No stations']);
+      expect(field().placeholder).toBe('No stations');
 
       await pressTryAgain();
 

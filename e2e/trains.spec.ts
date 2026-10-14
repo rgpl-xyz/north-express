@@ -1,4 +1,4 @@
-import { expect, test } from './fixtures';
+import { chooseStation, expect, test } from './fixtures';
 
 test('choosing a station shows its departures', async ({ page }) => {
   await page.goto('/departures/trains');
@@ -12,7 +12,7 @@ test('choosing a station shows its departures', async ({ page }) => {
   const departuresRequest = page.waitForRequest(
     (request) => request.method() === 'GET' && request.url().includes('/live-trains/station/TPE'),
   );
-  await picker.selectOption({ label: 'Tampere' });
+  await chooseStation(page, 'Tampere');
   expect((await departuresRequest).headers()['digitraffic-user']).toBe('rgpl-xyz/north-express');
 
   // Fixture times are UTC; Tampere is UTC+3 on 13 October 2026.
@@ -30,7 +30,7 @@ test('choosing a station shows its departures', async ({ page }) => {
 
 test('a station with no trains says so', async ({ page }) => {
   await page.goto('/departures/trains');
-  await page.getByLabel('Station', { exact: true }).selectOption({ label: 'Ähtäri' });
+  await chooseStation(page, 'Ähtäri');
 
   await expect(page.getByText('No departures from Ähtäri in the coming hours.')).toBeVisible();
   await expect(page.getByRole('gridcell')).toHaveCount(0);

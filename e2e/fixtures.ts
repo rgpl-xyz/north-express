@@ -1,4 +1,4 @@
-import { test as base, expect } from '@playwright/test';
+import { type Page, test as base, expect } from '@playwright/test';
 import { FakeDigitraffic } from './fake-digitraffic';
 
 export { expect };
@@ -22,3 +22,9 @@ export const test = base.extend<{ digitraffic: FakeDigitraffic }>({
     { auto: true },
   ],
 });
+
+/** Picks a station the way a person does: types its name, then clicks it in the list. */
+export async function chooseStation(page: Page, name: string): Promise<void> {
+  await page.getByLabel('Station', { exact: true }).fill(name);
+  await page.getByRole('option', { name, exact: true }).click();
+}

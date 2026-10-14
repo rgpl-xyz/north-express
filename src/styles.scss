@@ -24,6 +24,9 @@ $headings-font-weight: 700;
 $btn-font-family: $condensed;
 $btn-font-weight: 600;
 $enable-rounded: false;
+// Buttons change state at once: only the board's rows move, and a fade between
+// disabled and enabled shows half-contrast lettering for a moment.
+$btn-transition: none;
 
 // Bootstrap's import stack from bootstrap/scss/bootstrap.scss, minus the components
 // this app doesn't use. To use another one (badge, modal, ...), add its partial back

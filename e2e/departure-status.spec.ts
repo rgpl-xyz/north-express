@@ -1,7 +1,7 @@
 import type { Page } from '@playwright/test';
 import type { DigitrafficTrain } from '../src/app/features/departures/data/digitraffic-wire';
 import { TAMPERE_DEPARTURES_FIXTURE } from '../src/testing/digitraffic-fixtures';
-import { expect, test } from './fixtures';
+import { chooseStation, expect, test } from './fixtures';
 
 /** Tampere as captured, where IC 25 is 2 min late, with IC 38 cancelled and IC 467 12 min late. */
 const DISRUPTED_TAMPERE: readonly DigitrafficTrain[] = TAMPERE_DEPARTURES_FIXTURE.map((train) => {
@@ -29,7 +29,7 @@ const markOf = (page: Page, train: string) => statusOf(page, train).locator('.st
 test.beforeEach(async ({ page, digitraffic }) => {
   digitraffic.setDepartures('TPE', DISRUPTED_TAMPERE);
   await page.goto('/departures/trains');
-  await page.getByLabel('Station', { exact: true }).selectOption({ label: 'Tampere' });
+  await chooseStation(page, 'Tampere');
 });
 
 test('late departures are marked in bold on yellow and cancelled ones on red', async ({ page }) => {

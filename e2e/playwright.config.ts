@@ -22,7 +22,11 @@ export default defineConfig({
     baseURL: BASE_URL ?? `http://localhost:${PORT}`,
     trace: 'on-first-retry',
   },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
+  projects: [
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+    // The station search on an iPhone: Safari's engine, a touch screen and a phone's width.
+    { name: 'iphone', use: { ...devices['iPhone 13'] }, testMatch: 'station-search.spec.ts' },
+  ],
   webServer: BASE_URL
     ? undefined
     : {

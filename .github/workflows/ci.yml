@@ -37,8 +37,10 @@ jobs:
             docker.io/library/nginx:1.28-alpine
 
       # nginx starts while this runs. Headless runs only need the headless shell.
-      - name: Install Chromium for Playwright
-        run: npx playwright install --with-deps --only-shell chromium
+      - name: Install Chromium and WebKit for Playwright
+        run: |
+          npx playwright install --with-deps --only-shell chromium
+          npx playwright install --with-deps webkit
 
       - name: e2e
         run: |
