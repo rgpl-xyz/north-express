@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, type Type } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router, provideRouter } from '@angular/router';
+import { NavigationStart, Router, provideRouter } from '@angular/router';
+import { filter, firstValueFrom } from 'rxjs';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { Navbar } from './navbar';
 
@@ -10,6 +11,8 @@ class BlankPage {}
 describe('Navbar', () => {
   let fixture: ComponentFixture<Navbar>;
   let element: HTMLElement;
+  /** Delivers the page of the slow route, which loads only when this is called. */
+  let pageArrives: (page: Type<unknown>) => void;
 
   const menuToggle = () => element.querySelector<HTMLButtonElement>('button.navbar-toggler')!;
   const collapse = () => element.querySelector<HTMLElement>('#main-navigation')!;
@@ -32,12 +35,17 @@ describe('Navbar', () => {
   }
 
   beforeEach(async () => {
+    const slowPage = new Promise<Type<unknown>>((arrive) => (pageArrives = arrive));
     TestBed.configureTestingModule({
       imports: [Navbar],
       providers: [
         provideRouter([
           { path: 'home', component: BlankPage },
           { path: 'departures/trains', component: BlankPage },
+          {
+            path: 'slow',
+            loadComponent: () => slowPage,
+          },
         ]),
       ],
     });
@@ -138,12 +146,41 @@ describe('Navbar', () => {
     await fixture.whenStable();
     await openMenuAndDropdown();
 
-    // Same URL: the router skips the navigation, so no NavigationEnd closes anything.
+    // Same URL: the router skips the navigation, so no navigation closes anything.
     trainsLink().click();
     await fixture.whenStable();
 
     expect(collapse().classList).not.toContain('show');
     expect(departuresMenu().classList).not.toContain('show');
     expect(menuToggle().getAttribute('aria-expanded')).toBe('false');
+  });
+
+  it('closes the menus when another navigation starts, such as Back', async () => {
+    await openMenuAndDropdown();
+
+    await TestBed.inject(Router).navigateByUrl('/home');
+    await fixture.whenStable();
+
+    expect(collapse().classList).not.toContain('show');
+    expect(departuresMenu().classList).not.toContain('show');
+  });
+
+  it('keeps a dropdown opened while a page loads open when the page arrives', async () => {
+    const router = TestBed.inject(Router);
+    const started = firstValueFrom(
+      router.events.pipe(filter((event) => event instanceof NavigationStart)),
+    );
+    const navigation = router.navigateByUrl('/slow');
+    await started;
+    // whenStable would wait for the navigation, which waits for the page.
+    departuresToggle().click();
+    fixture.detectChanges();
+    expect(departuresMenu().classList).toContain('show');
+
+    pageArrives(BlankPage);
+    await navigation;
+    await fixture.whenStable();
+
+    expect(departuresMenu().classList).toContain('show');
   });
 });

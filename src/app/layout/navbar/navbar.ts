@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { NavigationStart, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { filter } from 'rxjs';
 import { APP_NAME } from '../../core/app-info';
 import { NAVIGATION, type NavigationLink } from '../../core/navigation/navigation';
@@ -30,16 +30,17 @@ export class Navbar {
   protected readonly openDropdown = signal<string | null>(null);
 
   constructor() {
-    // Covers navigation from outside the navbar (back button, links on the page).
+    // Covers navigation from outside the navbar (back button, links on the page). On its
+    // start, not its end: a page that loads slowly would shut a menu opened meanwhile.
     inject(Router)
       .events.pipe(
-        filter((event) => event instanceof NavigationEnd),
+        filter((event) => event instanceof NavigationStart),
         takeUntilDestroyed(),
       )
       .subscribe(() => this.closeMenus());
   }
 
-  /** Also bound to every navbar link: a link to the current page fires no NavigationEnd. */
+  /** Also bound to every navbar link: a link to the current page starts no navigation. */
   protected closeMenus(): void {
     this.menuOpen.set(false);
     this.openDropdown.set(null);
