@@ -34,7 +34,7 @@ Digitraffic returns whole trains with their full timetables. For the chosen stat
 
 Ring trains on their way to the airport show "Lentoasema (Airport)" rather than Helsinki, where they end.
 
-To find a station, type part of its name (Ähtäri can be typed as "ahtari") or its code, such as TPE, and pick it from the list. "Airport" finds Lentoasema.
+To find a station, type part of its name (Ähtäri can be typed as "ahtari") or its code, such as TPE, and pick it from the list. "Airport" finds Lentoasema. The station picked goes into the address, as in `/departures/trains?station=TPE`, so a board can be bookmarked or shared.
 
 Only stations with passenger traffic are listed, without the "asema" that Digitraffic puts at the end of many names.
 

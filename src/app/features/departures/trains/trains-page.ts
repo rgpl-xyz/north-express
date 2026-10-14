@@ -3,8 +3,13 @@ import {
   Component,
   afterRenderEffect,
   computed,
+  effect,
   inject,
+  untracked,
 } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map } from 'rxjs';
 import { type BoardAlert, DepartureBoard } from '../board/departure-board';
 import type { DepartureRow, Station } from '../data/departures.models';
 import { TrackLine } from '../../../layout/track-line/track-line';
@@ -23,6 +28,16 @@ const NONE: readonly never[] = [];
 })
 export class TrainsPage {
   protected readonly board = inject(DepartureBoard);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+
+  /** The station in the address (?station=TPE), so a reload or a bookmark shows the same board. */
+  private readonly stationInUrl = toSignal(
+    this.route.queryParamMap.pipe(
+      map((params) => params.get('station')?.toLocaleUpperCase('fi') ?? null),
+    ),
+    { initialValue: null },
+  );
 
   /** Set while a Try again runs: where focus goes if it succeeds and its button goes away. */
   private focusAfterRetry: (() => void) | null = null;
@@ -53,6 +68,23 @@ export class TrainsPage {
   });
 
   constructor() {
+    // The address leads: once the stations are in, the board shows the one it names.
+    effect(() => {
+      const code = this.stationInUrl();
+      const stations = this.stations();
+      if (stations.length === 0) {
+        return;
+      }
+      untracked(() => {
+        if (code !== null && !stations.some((station) => station.code === code)) {
+          // Not a station, as in an old or mistyped link: take it out of the address.
+          void this.showStation(null, true);
+        } else if (code !== this.selectedCode()) {
+          this.board.selectStation(code);
+        }
+      });
+    });
+
     // When a retry succeeds its alert, and the focused Try again button, are removed.
     // Move focus to the control the user needs next instead of letting it drop to <body>.
     // If the retry fails, the same button stays and keeps focus.
@@ -66,6 +98,16 @@ export class TrainsPage {
       if (!alert) {
         focusNext();
       }
+    });
+  }
+
+  /** A station picked here goes into the address, and the board follows the address. */
+  protected showStation(code: string | null, replaceUrl = false): Promise<boolean> {
+    return this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { station: code },
+      queryParamsHandling: 'merge',
+      replaceUrl,
     });
   }
 

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, ErrorHandler, input } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Router, provideRouter } from '@angular/router';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   InMemoryDepartureSource,
@@ -74,6 +75,7 @@ describe('TrainsPage', () => {
     TestBed.configureTestingModule({
       imports: [TrainsPage],
       providers: [
+        provideRouter([]),
         { provide: DepartureSource, useValue: source },
         { provide: ErrorHandler, useValue: errorHandler },
       ],
@@ -324,5 +326,33 @@ describe('TrainsPage', () => {
 
     expect(boardShown()).toBe(false);
     expect(liveRegion().textContent?.trim()).toBe('Choose a station to see its next departures.');
+  });
+
+  describe('the station in the address', () => {
+    const router = () => TestBed.inject(Router);
+
+    it('gets the station picked', async () => {
+      await showTampere();
+
+      expect(router().url).toBe('/?station=TPE');
+    });
+
+    it('shows the station it names once the stations are in, whatever its case', async () => {
+      await router().navigateByUrl('/?station=tpe');
+      source.latestStations().resolve(TEST_STATIONS);
+      await settle();
+
+      expect(field().value).toBe('Tampere');
+      expect(source.latestDepartures('TPE')).toBeDefined();
+    });
+
+    it('loses a code that is not a station, without a new history entry', async () => {
+      await router().navigateByUrl('/?station=XYZ');
+      source.latestStations().resolve(TEST_STATIONS);
+      await settle();
+
+      expect(router().url).toBe('/');
+      expect(field().value).toBe('');
+    });
   });
 });

@@ -9,7 +9,7 @@
           [stations]="stations()"
           [placeholder]="board.stationPrompt()"
           [selected]="selectedCode()"
-          (selectedChange)="board.selectStation($event)"
+          (selectedChange)="showStation($event)"
         />
       </div>
       <div class="col-12 col-md-auto">
