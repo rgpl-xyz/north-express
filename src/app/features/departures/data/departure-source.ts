@@ -11,16 +11,15 @@ import { DigitrafficSource } from './digitraffic-source';
  *   Finnish alphabetical order, then completes. The list is fetched once and cached
  *   after the first success. A failure is not cached, so a later call tries again.
  * - `departures(code)` emits the next departures from that station, one row per
- *   train passengers can board, sorted by scheduled time, then completes. It names
- *   destinations itself from the same station list, loading the list if needed; if
- *   the list can't be loaded, destinations fall back to station codes instead of
- *   failing.
- * - Both error (an Observable error, nothing emitted) when Digitraffic can't be
- *   reached. There are no partial results.
+ *   departure passengers can board, sorted by scheduled time, then completes. It may
+ *   load the station list itself, if it needs it.
+ * - Both error (an Observable error, nothing emitted) when the data can't be
+ *   loaded. There are no partial results.
  * - Unsubscribing from `departures(code)` cancels its request. The station list keeps
  *   loading, because other callers share it.
  *
- * Digitraffic is the production adapter; tests use InMemoryDepartureSource.
+ * Trains come from DigitrafficSource, the default. The buses route provides
+ * DigitransitBusSource instead. Tests use InMemoryDepartureSource.
  */
 @Injectable({ providedIn: 'root', useClass: DigitrafficSource })
 export abstract class DepartureSource {

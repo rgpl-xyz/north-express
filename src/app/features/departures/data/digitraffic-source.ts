@@ -14,7 +14,9 @@ import {
 import { toDepartureRows, toStations } from './digitraffic.mapping';
 
 /**
- * DepartureSource over Fintraffic's open rail data (CC BY 4.0, no API key).
+ * DepartureSource over Fintraffic's open rail data (CC BY 4.0, no API key). It names
+ * destinations from its station list; if the list can't be loaded, destinations fall
+ * back to station codes instead of failing.
  * Not provided on its own: inject DepartureSource, whose `useClass` creates the one
  * instance, so the app has a single station cache.
  */

@@ -30,4 +30,12 @@ describe('Footer', () => {
       'https://creativecommons.org/licenses/by/4.0/',
     );
   });
+
+  it('credits Digitransit with the year, as its terms ask, and the licence', () => {
+    const text = element.textContent?.replace(/\s+/g, ' ');
+    const credit = `© Digitransit ${new Date().getFullYear()}`;
+
+    expect(text).toContain(`Bus data: ${credit}, CC BY 4.0`);
+    expect(linkNamed(credit)?.getAttribute('href')).toBe('https://digitransit.fi/en/');
+  });
 });

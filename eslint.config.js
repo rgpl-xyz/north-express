@@ -37,8 +37,8 @@ module.exports = defineConfig([
     },
   },
   {
-    // Digitraffic's wire shapes stay behind the departure source. UI code uses the view
-    // types in departures.models.ts instead.
+    // Digitraffic's and Digitransit's wire shapes stay behind the departure sources. UI
+    // code uses the view types in departures.models.ts instead.
     files: ['**/*.ts'],
     ignores: ['src/app/features/departures/data/**', 'src/testing/**', 'e2e/**'],
     rules: {
@@ -47,9 +47,9 @@ module.exports = defineConfig([
         {
           patterns: [
             {
-              regex: '(^|/)digitraffic-wire$',
+              regex: '(^|/)digit(raffic|ransit)-wire$',
               message:
-                'The Digitraffic wire types and URLs are private to features/departures/data and the test fakes. Use the view types in departures.models.ts.',
+                'The Digitraffic and Digitransit wire types and URLs are private to features/departures/data and the test fakes. Use the view types in departures.models.ts.',
             },
           ],
         },

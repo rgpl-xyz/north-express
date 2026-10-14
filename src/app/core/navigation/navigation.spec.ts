@@ -10,9 +10,9 @@ function destinations(links: readonly NavigationLink[]): NavigationLink[] {
 }
 
 describe('NAVIGATION', () => {
-  it('has Home and a Departures dropdown with Trains', () => {
+  it('has Home and a Departures dropdown with Trains and Buses', () => {
     expect(NAVIGATION.map((link) => link.name)).toEqual(['Home', 'Departures']);
-    expect(NAVIGATION[1].links?.map((link) => link.name)).toEqual(['Trains']);
+    expect(NAVIGATION[1].links?.map((link) => link.name)).toEqual(['Trains', 'Buses']);
   });
 
   it('only links to pages the app has', async () => {

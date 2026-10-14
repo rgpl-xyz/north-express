@@ -1,0 +1,7 @@
+{
+  "/api/buses": {
+    "target": "https://north-express.app.rgpl.xyz",
+    "secure": true,
+    "changeOrigin": true
+  }
+}

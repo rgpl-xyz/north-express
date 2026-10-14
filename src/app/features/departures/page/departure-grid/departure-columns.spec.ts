@@ -6,7 +6,7 @@ import type {
 } from 'ag-grid-community';
 import { describe, expect, it } from 'vitest';
 import type { DepartureRow, DepartureStatus } from '../../data/departures.models';
-import { TRAIN_BOARD } from '../board-kind';
+import { BUS_BOARD, TRAIN_BOARD } from '../board-kind';
 import { DEFAULT_COLUMN, compactColumns, departureColumns } from './departure-columns';
 
 const DEPARTURE_COLUMNS = departureColumns(TRAIN_BOARD);
@@ -36,18 +36,24 @@ function format(field: keyof DepartureRow, value: string | DepartureStatus | nul
 }
 
 const ON_TIME: DepartureStatus = { kind: 'on-time' };
+const SCHEDULED: DepartureStatus = { kind: 'scheduled' };
 const CANCELLED: DepartureStatus = { kind: 'cancelled' };
 const late = (minutes: number): DepartureStatus => ({ kind: 'late', minutes });
 
 describe('departureColumns', () => {
   it('names the place and service columns for the kind of board', () => {
-    const bus = { heading: 'Bus departures', place: 'Platform', service: 'Route' };
+    const bus = {
+      heading: 'Bus departures',
+      place: 'Platform',
+      placeShort: 'Plat',
+      service: 'Bus',
+    };
 
     expect(departureColumns(bus).map((candidate) => candidate.headerName)).toEqual([
       'Departs',
       'Destination',
       'Platform',
-      'Route',
+      'Bus',
       'Status',
     ]);
   });
@@ -115,14 +121,15 @@ describe('the Status column', () => {
 
   it('says whether a departure is on time, how late it is, or that it is cancelled', () => {
     expect(format('status', ON_TIME)).toBe('On time');
+    expect(format('status', SCHEDULED)).toBe('Scheduled');
     expect(format('status', late(2))).toBe('2 min late');
     expect(format('status', CANCELLED)).toBe('Cancelled');
   });
 
-  it('sorts on time first, then by minutes late, then cancelled', () => {
-    const sorted = [CANCELLED, late(10), ON_TIME, late(2)].sort(compare);
+  it('sorts on time first, then scheduled, then by minutes late, then cancelled', () => {
+    const sorted = [CANCELLED, late(10), SCHEDULED, ON_TIME, late(2)].sort(compare);
 
-    expect(sorted).toEqual([ON_TIME, late(2), late(10), CANCELLED]);
+    expect(sorted).toEqual([ON_TIME, SCHEDULED, late(2), late(10), CANCELLED]);
   });
 
   it('keeps departures with the same status in scheduled order', () => {
@@ -132,13 +139,19 @@ describe('the Status column', () => {
   });
 
   it('marks each status in words, with late and cancelled ones picked out', () => {
-    const marks = [ON_TIME, late(2), CANCELLED].map(
+    const marks = [ON_TIME, SCHEDULED, late(2), CANCELLED].map(
       (status) => render('status', status) as HTMLElement,
     );
 
-    expect(marks.map((mark) => mark.textContent)).toEqual(['On time', '2 min late', 'Cancelled']);
+    expect(marks.map((mark) => mark.textContent)).toEqual([
+      'On time',
+      'Scheduled',
+      '2 min late',
+      'Cancelled',
+    ]);
     expect(marks.map((mark) => mark.className)).toEqual([
       'status status-on-time',
+      'status status-scheduled',
       'status status-late',
       'status status-cancelled',
     ]);
@@ -182,6 +195,17 @@ describe('compactColumns', () => {
       'Departs',
       'Destination',
       'Track',
+      'Status',
+    ]);
+  });
+
+  it('uses the short name of the place column, which fits a phone', () => {
+    const shown = compactColumns(BUS_BOARD).filter((candidate) => !candidate.hide);
+
+    expect(shown.map((candidate) => candidate.headerName)).toEqual([
+      'Departs',
+      'Destination',
+      'Plat',
       'Status',
     ]);
   });

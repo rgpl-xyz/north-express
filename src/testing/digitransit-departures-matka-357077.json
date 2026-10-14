@@ -1,0 +1,372 @@
+{
+  "data": {
+    "station": {
+      "stoptimesWithoutPatterns": [
+        {
+          "stop": {
+            "gtfsId": "MATKA:357085",
+            "platformCode": "Tulo"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 63900,
+          "realtimeDeparture": 63900,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Kuopio",
+          "trip": {
+            "gtfsId": "MATKA:10064_247097.4061",
+            "arrivalStoptime": {
+              "scheduledArrival": 63900,
+              "stop": {
+                "gtfsId": "MATKA:357085",
+                "name": "Tulo"
+              }
+            },
+            "route": {
+              "shortName": "50",
+              "agency": {
+                "name": "Mika K. Niskanen Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:357085",
+            "platformCode": "Tulo"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 24000,
+          "realtimeDeparture": 24000,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Kuopio",
+          "trip": {
+            "gtfsId": "MATKA:10180_236998.6062",
+            "arrivalStoptime": {
+              "scheduledArrival": 24000,
+              "stop": {
+                "gtfsId": "MATKA:357085",
+                "name": "Tulo"
+              }
+            },
+            "route": {
+              "shortName": null,
+              "agency": {
+                "name": "Soisalon liikenne Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:357085",
+            "platformCode": "Tulo"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 27000,
+          "realtimeDeparture": 27000,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Kuopio",
+          "trip": {
+            "gtfsId": "MATKA:10064_247063.4061",
+            "arrivalStoptime": {
+              "scheduledArrival": 27000,
+              "stop": {
+                "gtfsId": "MATKA:357085",
+                "name": "Tulo"
+              }
+            },
+            "route": {
+              "shortName": "50",
+              "agency": {
+                "name": "Mika K. Niskanen Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:355090",
+            "platformCode": "5"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 27300,
+          "realtimeDeparture": 27300,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Helsinki",
+          "trip": {
+            "gtfsId": "MATKA:12575_247733.4832",
+            "arrivalStoptime": {
+              "scheduledArrival": 47100,
+              "stop": {
+                "gtfsId": "MATKA:357373",
+                "name": "30-35"
+              }
+            },
+            "route": {
+              "shortName": "OB5",
+              "agency": {
+                "name": "OnniBus"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:357085",
+            "platformCode": "Tulo"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 27900,
+          "realtimeDeparture": 27900,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Kuopio",
+          "trip": {
+            "gtfsId": "MATKA:10180_236999.6062",
+            "arrivalStoptime": {
+              "scheduledArrival": 27900,
+              "stop": {
+                "gtfsId": "MATKA:357085",
+                "name": "Tulo"
+              }
+            },
+            "route": {
+              "shortName": null,
+              "agency": {
+                "name": "Soisalon liikenne Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:355090",
+            "platformCode": "5"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 34200,
+          "realtimeDeparture": 34200,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Helsinki",
+          "trip": {
+            "gtfsId": "MATKA:12575_247743.4832",
+            "arrivalStoptime": {
+              "scheduledArrival": 54000,
+              "stop": {
+                "gtfsId": "MATKA:357373",
+                "name": "30-35"
+              }
+            },
+            "route": {
+              "shortName": "OB5",
+              "agency": {
+                "name": "OnniBus"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:357085",
+            "platformCode": "Tulo"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 34500,
+          "realtimeDeparture": 34500,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Kuopio",
+          "trip": {
+            "gtfsId": "MATKA:10180_237002.8062",
+            "arrivalStoptime": {
+              "scheduledArrival": 34500,
+              "stop": {
+                "gtfsId": "MATKA:357085",
+                "name": "Tulo"
+              }
+            },
+            "route": {
+              "shortName": null,
+              "agency": {
+                "name": "Soisalon liikenne Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:355090",
+            "platformCode": "5"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 45300,
+          "realtimeDeparture": 45300,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Helsinki",
+          "trip": {
+            "gtfsId": "MATKA:12575_247744.4832",
+            "arrivalStoptime": {
+              "scheduledArrival": 65100,
+              "stop": {
+                "gtfsId": "MATKA:357373",
+                "name": "30-35"
+              }
+            },
+            "route": {
+              "shortName": "OB5",
+              "agency": {
+                "name": "OnniBus"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:357085",
+            "platformCode": "Tulo"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 48300,
+          "realtimeDeparture": 48300,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Kuopio",
+          "trip": {
+            "gtfsId": "MATKA:10064_247098.4061",
+            "arrivalStoptime": {
+              "scheduledArrival": 48300,
+              "stop": {
+                "gtfsId": "MATKA:357085",
+                "name": "Tulo"
+              }
+            },
+            "route": {
+              "shortName": "50",
+              "agency": {
+                "name": "Mika K. Niskanen Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:357085",
+            "platformCode": "Tulo"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 54300,
+          "realtimeDeparture": 54300,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Kuopio",
+          "trip": {
+            "gtfsId": "MATKA:10180_246696.8062",
+            "arrivalStoptime": {
+              "scheduledArrival": 54300,
+              "stop": {
+                "gtfsId": "MATKA:357085",
+                "name": "Tulo"
+              }
+            },
+            "route": {
+              "shortName": null,
+              "agency": {
+                "name": "Soisalon liikenne Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:355090",
+            "platformCode": "5"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 54900,
+          "realtimeDeparture": 54900,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Helsinki",
+          "trip": {
+            "gtfsId": "MATKA:12575_247742.4832",
+            "arrivalStoptime": {
+              "scheduledArrival": 74400,
+              "stop": {
+                "gtfsId": "MATKA:357373",
+                "name": "30-35"
+              }
+            },
+            "route": {
+              "shortName": "OB5",
+              "agency": {
+                "name": "OnniBus"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:357085",
+            "platformCode": "Tulo"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 58200,
+          "realtimeDeparture": 58200,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Kuopio",
+          "trip": {
+            "gtfsId": "MATKA:10180_237008.8062",
+            "arrivalStoptime": {
+              "scheduledArrival": 58200,
+              "stop": {
+                "gtfsId": "MATKA:357085",
+                "name": "Tulo"
+              }
+            },
+            "route": {
+              "shortName": null,
+              "agency": {
+                "name": "Soisalon liikenne Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:357085",
+            "platformCode": "Tulo"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 63300,
+          "realtimeDeparture": 63300,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Kuopio",
+          "trip": {
+            "gtfsId": "MATKA:10180_237011.6062",
+            "arrivalStoptime": {
+              "scheduledArrival": 63300,
+              "stop": {
+                "gtfsId": "MATKA:357085",
+                "name": "Tulo"
+              }
+            },
+            "route": {
+              "shortName": null,
+              "agency": {
+                "name": "Soisalon liikenne Oy"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

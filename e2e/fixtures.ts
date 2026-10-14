@@ -1,14 +1,15 @@
 import { type Page, test as base, expect } from '@playwright/test';
 import { FakeDigitraffic } from './fake-digitraffic';
+import { FakeDigitransit } from './fake-digitransit';
 
 export { expect };
 
 /**
- * Playwright's test with Digitraffic faked. The fake starts in every test, even ones
- * that never use it, so no test can reach the real API, and a test fails if the app
- * made a request the fake has no answer for.
+ * Playwright's test with Digitraffic and the bus proxy faked. The fakes start in every
+ * test, even ones that never use them, so no test can reach the real APIs, and a test
+ * fails if the app made a request a fake has no answer for.
  */
-export const test = base.extend<{ digitraffic: FakeDigitraffic }>({
+export const test = base.extend<{ digitraffic: FakeDigitraffic; digitransit: FakeDigitransit }>({
   digitraffic: [
     async ({ page }, use) => {
       const digitraffic = new FakeDigitraffic();
@@ -17,6 +18,18 @@ export const test = base.extend<{ digitraffic: FakeDigitraffic }>({
       expect(
         digitraffic.unexpectedRequests(),
         'Digitraffic requests the fake has no answer for',
+      ).toEqual([]);
+    },
+    { auto: true },
+  ],
+  digitransit: [
+    async ({ page }, use) => {
+      const digitransit = new FakeDigitransit();
+      await digitransit.serve(page);
+      await use(digitransit);
+      expect(
+        digitransit.unexpectedRequests(),
+        'Bus proxy requests the fake has no answer for',
       ).toEqual([]);
     },
     { auto: true },

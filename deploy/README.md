@@ -1,6 +1,6 @@
 # Deploying north-express.app.rgpl.xyz
 
-The site is the production build (`ng build`) served as static files by nginx on the rgpl VPS (`ssh rgpl`). CI runs the tests and the build, then the e2e tests against the build under `nginx/north-express.conf`. Deploys are run by hand.
+The site is the production build (`ng build`) served as static files by nginx on the rgpl VPS (`ssh rgpl`). nginx also answers `/api/buses`, passing bus requests on to Digitransit with the API key. CI runs the tests and the build, then the e2e tests against the build under `nginx/north-express.conf`. Deploys are run by hand.
 
 | Path on the VPS                             | What it is                                                                                                                                                   |
 | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -9,6 +9,9 @@ The site is the production build (`ng build`) served as static files by nginx on
 | `/var/www/north-express/current`            | symlink to the live release; nginx's `root`                                                                                                                  |
 | `/var/www/north-express/previous`           | symlink to the release before it; nginx serves files missing from `current` from here, so tabs opened before a deploy can still load their lazy route chunks |
 | `/var/www/north-express/deploy-history`     | one line per deploy: UTC time and commit                                                                                                                     |
+| `/etc/nginx/secrets/digitransit-key.conf`   | the Digitransit API key, as a `proxy_set_header` line nginx includes; root-only and never in the repo                                                        |
+| `/usr/local/sbin/set-digitransit-key`       | copy of `deploy/set-digitransit-key`, which writes the key file                                                                                              |
+| `/var/cache/north-express-buses`            | nginx's cache of Digitransit answers                                                                                                                         |
 
 ## One-time setup
 
@@ -26,6 +29,28 @@ The site is the production build (`ng build`) served as static files by nginx on
    ```bash
    ssh rgpl 'certbot --nginx -d north-express.app.rgpl.xyz --non-interactive --agree-tos --redirect'
    ```
+
+5. The Digitransit key, for buses. Register at the Digitransit API portal (portal-api.digitransit.fi) and subscribe to the routing API. Then install the script and run it from your own terminal, so the key goes into a hidden prompt and not into a command or this repo:
+
+   ```bash
+   scp deploy/set-digitransit-key rgpl:/usr/local/sbin/set-digitransit-key
+   ssh rgpl 'chmod 700 /usr/local/sbin/set-digitransit-key'
+   ssh -t rgpl set-digitransit-key
+   ```
+
+   The script checks the key against the API before saving it, then reloads nginx. Run it again to change the key.
+
+## Changing the nginx config
+
+`deploy.sh` publishes the build only. After a change to `nginx/north-express.conf`, copy it over, which drops the TLS lines certbot added, and have certbot add them back with the existing certificate. certbot tests the config and reloads nginx:
+
+```bash
+ssh rgpl 'cp /etc/nginx/sites-available/north-express /root/north-express.conf.bak'
+scp deploy/nginx/north-express.conf rgpl:/etc/nginx/sites-available/north-express
+ssh rgpl 'certbot install --nginx --cert-name north-express.app.rgpl.xyz --redirect -n'
+```
+
+If that fails, copy the backup back. nginx keeps the old config until a reload.
 
 ## Deploy
 
@@ -54,4 +79,6 @@ curl -sI https://north-express.app.rgpl.xyz/ | grep -iE '^(HTTP|content-security
 curl -so /dev/null -w '%{http_code}\n' https://north-express.app.rgpl.xyz/departures/trains   # 200: a route the app knows
 curl -so /dev/null -w '%{http_code}\n' https://north-express.app.rgpl.xyz/missing             # 404, still the app's not-found page
 curl -so /dev/null -w '%{http_code} %{redirect_url}\n' http://north-express.app.rgpl.xyz/   # 301 to https
+curl -so /dev/null -w '%{http_code}\n' https://north-express.app.rgpl.xyz/api/buses/stations   # 200: the key works
+E2E_BASE_URL=https://north-express.app.rgpl.xyz npm run e2e                                    # the e2e tests, against the live site
 ```

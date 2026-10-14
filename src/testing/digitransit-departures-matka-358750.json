@@ -1,0 +1,568 @@
+{
+  "data": {
+    "station": {
+      "stoptimesWithoutPatterns": [
+        {
+          "stop": {
+            "gtfsId": "MATKA:358759",
+            "platformCode": "2"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 64800,
+          "realtimeDeparture": 64800,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Helsinki",
+          "trip": {
+            "gtfsId": "MATKA:12575_248436.4832",
+            "arrivalStoptime": {
+              "scheduledArrival": 72900,
+              "stop": {
+                "gtfsId": "MATKA:357373",
+                "name": "30-35"
+              }
+            },
+            "route": {
+              "shortName": "OB3",
+              "agency": {
+                "name": "OnniBus"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:358759",
+            "platformCode": "2"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 67500,
+          "realtimeDeparture": 67500,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Tampere",
+          "trip": {
+            "gtfsId": "MATKA:12575_248833.4832",
+            "arrivalStoptime": {
+              "scheduledArrival": 67500,
+              "stop": {
+                "gtfsId": "MATKA:358759",
+                "name": "2"
+              }
+            },
+            "route": {
+              "shortName": "OB37",
+              "agency": {
+                "name": "OnniBus"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:358759",
+            "platformCode": "2"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 68100,
+          "realtimeDeparture": 68100,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Lahti",
+          "trip": {
+            "gtfsId": "MATKA:12575_245088.4832",
+            "arrivalStoptime": {
+              "scheduledArrival": 75300,
+              "stop": {
+                "gtfsId": "MATKA:371992",
+                "name": "T"
+              }
+            },
+            "route": {
+              "shortName": "OB37",
+              "agency": {
+                "name": "OnniBus"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:358759",
+            "platformCode": "2"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 69600,
+          "realtimeDeparture": 69600,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Turku",
+          "trip": {
+            "gtfsId": "MATKA:12575_248348.4832",
+            "arrivalStoptime": {
+              "scheduledArrival": 76740,
+              "stop": {
+                "gtfsId": "MATKA:312806",
+                "name": "Linja-autoasema, tulolaituri"
+              }
+            },
+            "route": {
+              "shortName": "OB9",
+              "agency": {
+                "name": "OnniBus"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:358759",
+            "platformCode": "2"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 69600,
+          "realtimeDeparture": 69600,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Jyväskylä",
+          "trip": {
+            "gtfsId": "MATKA:12575_248382.4832",
+            "arrivalStoptime": {
+              "scheduledArrival": 77400,
+              "stop": {
+                "gtfsId": "MATKA:459143",
+                "name": "Tulo"
+              }
+            },
+            "route": {
+              "shortName": "OB91",
+              "agency": {
+                "name": "OnniBus"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:358759",
+            "platformCode": "2"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 8100,
+          "realtimeDeparture": 8100,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Helsinki-Vantaa",
+          "trip": {
+            "gtfsId": "MATKA:10033_245503.368",
+            "arrivalStoptime": {
+              "scheduledArrival": 16800,
+              "stop": {
+                "gtfsId": "MATKA:358761",
+                "name": "14"
+              }
+            },
+            "route": {
+              "shortName": "V130",
+              "agency": {
+                "name": "Valkeakosken Liikenne Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:358759",
+            "platformCode": "2"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 17100,
+          "realtimeDeparture": 17100,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Helsinki-Vantaa",
+          "trip": {
+            "gtfsId": "MATKA:10033_245506.f1.368",
+            "arrivalStoptime": {
+              "scheduledArrival": 26100,
+              "stop": {
+                "gtfsId": "MATKA:358306",
+                "name": "12"
+              }
+            },
+            "route": {
+              "shortName": null,
+              "agency": {
+                "name": "Valkeakosken Liikenne Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:358759",
+            "platformCode": "2"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 17100,
+          "realtimeDeparture": 17100,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Helsinki",
+          "trip": {
+            "gtfsId": "MATKA:10033_245506.368",
+            "arrivalStoptime": {
+              "scheduledArrival": 26700,
+              "stop": {
+                "gtfsId": "MATKA:357373",
+                "name": "30-35"
+              }
+            },
+            "route": {
+              "shortName": "V130",
+              "agency": {
+                "name": "Valkeakosken Liikenne Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:358759",
+            "platformCode": "2"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 20400,
+          "realtimeDeparture": 20400,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Mänttä",
+          "trip": {
+            "gtfsId": "MATKA:10033_233401.368",
+            "arrivalStoptime": {
+              "scheduledArrival": 27600,
+              "stop": {
+                "gtfsId": "MATKA:387593",
+                "name": "Mänttä Ratakatu"
+              }
+            },
+            "route": {
+              "shortName": "95/97C",
+              "agency": {
+                "name": "Valkeakosken Liikenne Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:358759",
+            "platformCode": "2"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 23400,
+          "realtimeDeparture": 23400,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Helsinki",
+          "trip": {
+            "gtfsId": "MATKA:12575_248435.4832",
+            "arrivalStoptime": {
+              "scheduledArrival": 31500,
+              "stop": {
+                "gtfsId": "MATKA:357373",
+                "name": "30-35"
+              }
+            },
+            "route": {
+              "shortName": "OB3",
+              "agency": {
+                "name": "OnniBus"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:358759",
+            "platformCode": "2"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 24300,
+          "realtimeDeparture": 24300,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Mänttä",
+          "trip": {
+            "gtfsId": "MATKA:10033_233402.368",
+            "arrivalStoptime": {
+              "scheduledArrival": 31200,
+              "stop": {
+                "gtfsId": "MATKA:387593",
+                "name": "Mänttä Ratakatu"
+              }
+            },
+            "route": {
+              "shortName": "95/97D",
+              "agency": {
+                "name": "Valkeakosken Liikenne Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:358759",
+            "platformCode": "2"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 28080,
+          "realtimeDeparture": 28080,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Tampere",
+          "trip": {
+            "gtfsId": "MATKA:10053_240207.309",
+            "arrivalStoptime": {
+              "scheduledArrival": 28080,
+              "stop": {
+                "gtfsId": "MATKA:358759",
+                "name": "2"
+              }
+            },
+            "route": {
+              "shortName": "97A/95",
+              "agency": {
+                "name": "Bussi-Manninen"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:358759",
+            "platformCode": "2"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 28800,
+          "realtimeDeparture": 28800,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Orivesi",
+          "trip": {
+            "gtfsId": "MATKA:10053_238080.309",
+            "arrivalStoptime": {
+              "scheduledArrival": 31920,
+              "stop": {
+                "gtfsId": "MATKA:358755",
+                "name": "6"
+              }
+            },
+            "route": {
+              "shortName": "95",
+              "agency": {
+                "name": "Bussi-Manninen"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:358759",
+            "platformCode": "2"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 28800,
+          "realtimeDeparture": 28800,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Helsinki-Vantaa",
+          "trip": {
+            "gtfsId": "MATKA:10033_249780.f1.368",
+            "arrivalStoptime": {
+              "scheduledArrival": 37800,
+              "stop": {
+                "gtfsId": "MATKA:358306",
+                "name": "12"
+              }
+            },
+            "route": {
+              "shortName": null,
+              "agency": {
+                "name": "Valkeakosken Liikenne Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:358759",
+            "platformCode": "2"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 28800,
+          "realtimeDeparture": 28800,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Helsinki",
+          "trip": {
+            "gtfsId": "MATKA:10033_249780.368",
+            "arrivalStoptime": {
+              "scheduledArrival": 38700,
+              "stop": {
+                "gtfsId": "MATKA:357373",
+                "name": "30-35"
+              }
+            },
+            "route": {
+              "shortName": "V130",
+              "agency": {
+                "name": "Valkeakosken Liikenne Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:358759",
+            "platformCode": "2"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 29400,
+          "realtimeDeparture": 29400,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Tampere",
+          "trip": {
+            "gtfsId": "MATKA:10045_236671.295",
+            "arrivalStoptime": {
+              "scheduledArrival": 29400,
+              "stop": {
+                "gtfsId": "MATKA:358759",
+                "name": "2"
+              }
+            },
+            "route": {
+              "shortName": "43",
+              "agency": {
+                "name": "Luopioisten Linja Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:358759",
+            "platformCode": "2"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 31680,
+          "realtimeDeparture": 31680,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Tampere",
+          "trip": {
+            "gtfsId": "MATKA:10053_240208.309",
+            "arrivalStoptime": {
+              "scheduledArrival": 31680,
+              "stop": {
+                "gtfsId": "MATKA:358759",
+                "name": "2"
+              }
+            },
+            "route": {
+              "shortName": "97A/95",
+              "agency": {
+                "name": "Bussi-Manninen"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:358759",
+            "platformCode": "2"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 32100,
+          "realtimeDeparture": 32100,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Kyynärö",
+          "trip": {
+            "gtfsId": "MATKA:10045_248467.295",
+            "arrivalStoptime": {
+              "scheduledArrival": 38400,
+              "stop": {
+                "gtfsId": "MATKA:360336",
+                "name": "Kyynärö I"
+              }
+            },
+            "route": {
+              "shortName": "43",
+              "agency": {
+                "name": "Luopioisten Linja Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:358759",
+            "platformCode": "2"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 34200,
+          "realtimeDeparture": 34200,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Helsinki",
+          "trip": {
+            "gtfsId": "MATKA:12575_248434.4832",
+            "arrivalStoptime": {
+              "scheduledArrival": 42300,
+              "stop": {
+                "gtfsId": "MATKA:357373",
+                "name": "30-35"
+              }
+            },
+            "route": {
+              "shortName": "OB3",
+              "agency": {
+                "name": "OnniBus"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:358759",
+            "platformCode": "2"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 35700,
+          "realtimeDeparture": 35700,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Kuopio",
+          "trip": {
+            "gtfsId": "MATKA:12575_248368.4832",
+            "arrivalStoptime": {
+              "scheduledArrival": 50700,
+              "stop": {
+                "gtfsId": "MATKA:459142",
+                "name": "Tulo"
+              }
+            },
+            "route": {
+              "shortName": "OB9",
+              "agency": {
+                "name": "OnniBus"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

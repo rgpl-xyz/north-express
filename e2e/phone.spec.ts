@@ -44,3 +44,15 @@ test('on a phone a long destination wraps rather than being cut off', async ({
   );
   expect(cutOff, 'the destination is cut off').toBe(false);
 });
+
+test('on a phone the bus board shows its column names in full', async ({ page }) => {
+  await page.goto('/departures/buses');
+  await chooseStation(page, 'Tampere, linja-autoasema');
+
+  const headers = page.getByRole('columnheader');
+  await expect(headers).toHaveText(['Departs', 'Destination', 'Plat', 'Status']);
+  for (const name of await headers.locator('.ag-header-cell-text').all()) {
+    const cutOff = await name.evaluate((text) => text.scrollWidth > text.clientWidth);
+    expect(cutOff, `${await name.textContent()} is cut off`).toBe(false);
+  }
+});

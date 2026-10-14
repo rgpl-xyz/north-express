@@ -232,6 +232,11 @@ $btn-transition: none;
   color: var(--bs-secondary-color);
 }
 
+// Only the timetable is known, so it reads quieter than On time.
+.status-scheduled {
+  color: var(--bs-secondary-color);
+}
+
 .status-late,
 .status-cancelled {
   padding: 0.125rem 0.5rem;

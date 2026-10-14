@@ -1,0 +1,288 @@
+{
+  "data": {
+    "station": {
+      "stoptimesWithoutPatterns": [
+        {
+          "stop": {
+            "gtfsId": "MATKA:461598",
+            "platformCode": null
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 67500,
+          "realtimeDeparture": 67500,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": null,
+          "trip": {
+            "gtfsId": "MATKA:24886_1_5652390",
+            "arrivalStoptime": {
+              "scheduledArrival": 72000,
+              "stop": {
+                "gtfsId": "MATKA:345789",
+                "name": "Varkaus Matkakeskus"
+              }
+            },
+            "route": {
+              "shortName": "Kuo-VarkB",
+              "agency": {
+                "name": "Soisalon liikenne Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:461598",
+            "platformCode": null
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 67500,
+          "realtimeDeparture": 67500,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": null,
+          "trip": {
+            "gtfsId": "MATKA:24886_1_5649076",
+            "arrivalStoptime": {
+              "scheduledArrival": 72000,
+              "stop": {
+                "gtfsId": "MATKA:345789",
+                "name": "Varkaus Matkakeskus"
+              }
+            },
+            "route": {
+              "shortName": "Kuo-VarkB",
+              "agency": {
+                "name": "Soisalon liikenne Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:461598",
+            "platformCode": null
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 22800,
+          "realtimeDeparture": 22800,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": null,
+          "trip": {
+            "gtfsId": "MATKA:24886_1_5652392",
+            "arrivalStoptime": {
+              "scheduledArrival": 28500,
+              "stop": {
+                "gtfsId": "MATKA:345783",
+                "name": "Savontie 8"
+              }
+            },
+            "route": {
+              "shortName": "Kuo-VarkB",
+              "agency": {
+                "name": "Soisalon liikenne Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:461598",
+            "platformCode": null
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 22800,
+          "realtimeDeparture": 22800,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": null,
+          "trip": {
+            "gtfsId": "MATKA:24886_1_5649078",
+            "arrivalStoptime": {
+              "scheduledArrival": 28500,
+              "stop": {
+                "gtfsId": "MATKA:345783",
+                "name": "Savontie 8"
+              }
+            },
+            "route": {
+              "shortName": "Kuo-VarkB",
+              "agency": {
+                "name": "Soisalon liikenne Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:461598",
+            "platformCode": null
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 47700,
+          "realtimeDeparture": 47700,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": null,
+          "trip": {
+            "gtfsId": "MATKA:24886_1_5649072",
+            "arrivalStoptime": {
+              "scheduledArrival": 52500,
+              "stop": {
+                "gtfsId": "MATKA:345789",
+                "name": "Varkaus Matkakeskus"
+              }
+            },
+            "route": {
+              "shortName": "Kuo-VarkB",
+              "agency": {
+                "name": "Soisalon liikenne Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:461598",
+            "platformCode": null
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 47700,
+          "realtimeDeparture": 47700,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": null,
+          "trip": {
+            "gtfsId": "MATKA:24886_1_5652386",
+            "arrivalStoptime": {
+              "scheduledArrival": 52500,
+              "stop": {
+                "gtfsId": "MATKA:345789",
+                "name": "Varkaus Matkakeskus"
+              }
+            },
+            "route": {
+              "shortName": "Kuo-VarkB",
+              "agency": {
+                "name": "Soisalon liikenne Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:461600",
+            "platformCode": null
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 52500,
+          "realtimeDeparture": 52500,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": null,
+          "trip": {
+            "gtfsId": "MATKA:24886_1_5649050",
+            "arrivalStoptime": {
+              "scheduledArrival": 57600,
+              "stop": {
+                "gtfsId": "MATKA:322381",
+                "name": "Outokumpu kaupungintalo P"
+              }
+            },
+            "route": {
+              "shortName": "Kuo-Out",
+              "agency": {
+                "name": "Savonlinja Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:461600",
+            "platformCode": null
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 52500,
+          "realtimeDeparture": 52500,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": null,
+          "trip": {
+            "gtfsId": "MATKA:24886_1_5652572",
+            "arrivalStoptime": {
+              "scheduledArrival": 57600,
+              "stop": {
+                "gtfsId": "MATKA:322381",
+                "name": "Outokumpu kaupungintalo P"
+              }
+            },
+            "route": {
+              "shortName": "Kuo-Out",
+              "agency": {
+                "name": "Savonlinja Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:461598",
+            "platformCode": null
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 58500,
+          "realtimeDeparture": 58500,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": null,
+          "trip": {
+            "gtfsId": "MATKA:24886_1_5652388",
+            "arrivalStoptime": {
+              "scheduledArrival": 63300,
+              "stop": {
+                "gtfsId": "MATKA:345789",
+                "name": "Varkaus Matkakeskus"
+              }
+            },
+            "route": {
+              "shortName": "Kuo-VarkB",
+              "agency": {
+                "name": "Soisalon liikenne Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:461598",
+            "platformCode": null
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 58500,
+          "realtimeDeparture": 58500,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": null,
+          "trip": {
+            "gtfsId": "MATKA:24886_1_5649074",
+            "arrivalStoptime": {
+              "scheduledArrival": 63300,
+              "stop": {
+                "gtfsId": "MATKA:345789",
+                "name": "Varkaus Matkakeskus"
+              }
+            },
+            "route": {
+              "shortName": "Kuo-VarkB",
+              "agency": {
+                "name": "Soisalon liikenne Oy"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

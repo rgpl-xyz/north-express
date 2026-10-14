@@ -6,8 +6,9 @@ const isCI = Boolean(process.env['CI']);
 const BASE_URL = process.env['E2E_BASE_URL'] || undefined;
 
 /**
- * End-to-end tests. Digitraffic is faked in every test (see fake-digitraffic.ts), so
- * they never touch the real API. They run against `ng serve` unless E2E_BASE_URL is set.
+ * End-to-end tests. Digitraffic and the bus proxy are faked in every test (see
+ * fake-digitraffic.ts and fake-digitransit.ts), so they never touch the real APIs. They
+ * run against `ng serve` unless E2E_BASE_URL is set.
  */
 export default defineConfig({
   testDir: '.',

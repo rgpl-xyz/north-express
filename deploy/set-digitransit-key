@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# Stores the Digitransit API key for nginx on the VPS, then reloads nginx. The key is read
+# from a hidden prompt, so it never appears in a command line, a shell history or a log,
+# and it is checked against the API without being printed. Installed as
+# /usr/local/sbin/set-digitransit-key (see README.md); run it from your own terminal:
+#   ssh -t rgpl set-digitransit-key
+set -euo pipefail
+umask 077
+
+dir=/etc/nginx/secrets
+file=$dir/digitransit-key.conf
+mkdir -p "$dir"
+
+read -rsp "Digitransit key (typing is hidden): " key
+echo
+if [[ ! "$key" =~ ^[A-Za-z0-9]{20,64}$ ]]; then
+  echo "That doesn't look like a key (letters and digits only). Nothing saved." >&2
+  exit 1
+fi
+
+# The header goes to curl through a file descriptor, so the key isn't in curl's arguments.
+code=$(curl -s -o /dev/null -w '%{http_code}' -X POST \
+  -H 'Content-Type: application/json' \
+  -H @<(printf 'digitransit-subscription-key: %s\n' "$key") \
+  --data '{"query":"{ stops(name: \"Kamppi\") { gtfsId } }"}' \
+  https://api.digitransit.fi/routing/v2/finland/gtfs/v1)
+if [[ "$code" != 200 ]]; then
+  echo "Digitransit answered HTTP $code with that key. Nothing saved." >&2
+  exit 1
+fi
+
+printf 'proxy_set_header digitransit-subscription-key "%s";\n' "$key" > "$file.new"
+chmod 600 "$file.new"
+mv -f "$file.new" "$file"
+nginx -t -q
+systemctl reload nginx
+echo "Key works (HTTP 200), is saved to $file (readable by root only), and nginx has it."

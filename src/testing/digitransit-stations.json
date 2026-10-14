@@ -1,0 +1,167 @@
+{
+  "data": {
+    "stations": [
+      {
+        "gtfsId": "LINKKI:3",
+        "name": "Äänekoski",
+        "vehicleMode": "BUS",
+        "lat": 62.6022026,
+        "lon": 25.7261152
+      },
+      {
+        "gtfsId": "IngvesSvanback:s4381",
+        "name": "Kokkola, linja-autoasema",
+        "vehicleMode": "BUS",
+        "lat": 63.83545,
+        "lon": 23.127278
+      },
+      {
+        "gtfsId": "MATKA:300013",
+        "name": "Kamppi (kaukoliikenneterminaali)",
+        "vehicleMode": "BUS",
+        "lat": 60.169586,
+        "lon": 24.933375
+      },
+      {
+        "gtfsId": "MATKA:300000",
+        "name": "Kamppi (lähiliikenneterminaali)",
+        "vehicleMode": "BUS",
+        "lat": 60.169008,
+        "lon": 24.931662
+      },
+      {
+        "gtfsId": "PohjolanMatka:s4921",
+        "name": "Kuopio, Matkakeskus",
+        "vehicleMode": "BUS",
+        "lat": 62.898207,
+        "lon": 27.679235
+      },
+      {
+        "gtfsId": "MATKA:401830",
+        "name": "Linja-autoasema",
+        "vehicleMode": "BUS",
+        "lat": 62.8979209,
+        "lon": 27.6802234
+      },
+      {
+        "gtfsId": "MATKA:358750",
+        "name": "Tampere, linja-autoasema",
+        "vehicleMode": "BUS",
+        "lat": 61.493591,
+        "lon": 23.76946
+      },
+      {
+        "gtfsId": "MATKA:388199",
+        "name": "Kuopio, Matkakeskus",
+        "vehicleMode": "BUS",
+        "lat": 62.898207,
+        "lon": 27.679235
+      },
+      {
+        "gtfsId": "MATKA:362881",
+        "name": "Äänekoski las",
+        "vehicleMode": "BUS",
+        "lat": 62.601952,
+        "lon": 25.726057
+      },
+      {
+        "gtfsId": "MATKA:346812",
+        "name": "Kokkola Linja-autoasema",
+        "vehicleMode": "BUS",
+        "lat": 63.836128,
+        "lon": 23.127775
+      },
+      {
+        "gtfsId": "MATKA:357077",
+        "name": "Kuopio, Matkakeskus",
+        "vehicleMode": "BUS",
+        "lat": 62.898207,
+        "lon": 27.679235
+      },
+      {
+        "gtfsId": "MATKA:357076",
+        "name": "Kokkola, linja-autoasema",
+        "vehicleMode": "BUS",
+        "lat": 63.835343,
+        "lon": 23.127334
+      },
+      {
+        "gtfsId": "MATKA:328724",
+        "name": "Linja-autoasema",
+        "vehicleMode": "BUS",
+        "lat": 62.8979209,
+        "lon": 27.6802234
+      },
+      {
+        "gtfsId": "HSL:2000002",
+        "name": "Tapiola (M)",
+        "vehicleMode": "BUS",
+        "lat": 60.175022,
+        "lon": 24.804236
+      },
+      {
+        "gtfsId": "MATKA:466985",
+        "name": "Linja-autoasema",
+        "vehicleMode": "BUS",
+        "lat": 62.897921,
+        "lon": 27.680223
+      },
+      {
+        "gtfsId": "HSL:1000001",
+        "name": "Kamppi (lähiliikenneterminaali)",
+        "vehicleMode": "BUS",
+        "lat": 60.169008,
+        "lon": 24.931662
+      },
+      {
+        "gtfsId": "HSL:1000015",
+        "name": "Kamppi (kaukoliikenneterminaali)",
+        "vehicleMode": "BUS",
+        "lat": 60.169586,
+        "lon": 24.933375
+      },
+      {
+        "gtfsId": "Kuopio:330728",
+        "name": "Linja-autoasema",
+        "vehicleMode": "BUS",
+        "lat": 62.8979209,
+        "lon": 27.6802234
+      },
+      {
+        "gtfsId": "PohjolanMatka:s4381",
+        "name": "Kokkola, linja-autoasema",
+        "vehicleMode": "BUS",
+        "lat": 63.83529,
+        "lon": 23.127341
+      },
+      {
+        "gtfsId": "MATKA:347267",
+        "name": "Mikkeli Matkakeskus",
+        "vehicleMode": null,
+        "lat": 61.687069,
+        "lon": 27.277203
+      },
+      {
+        "gtfsId": "CAR_FERRIES:FFE:StopPlace:7c287c39-aaf2-4066-8cfb-a28048d62663",
+        "name": "Heisala",
+        "vehicleMode": "FERRY",
+        "lat": 60.17726,
+        "lon": 22.25899
+      },
+      {
+        "gtfsId": "digitraffic:MR",
+        "name": "Mäntyharju",
+        "vehicleMode": "RAIL",
+        "lat": 61.421104,
+        "lon": 26.881746
+      },
+      {
+        "gtfsId": "HSL:2000106",
+        "name": "Matinkylän metroasema",
+        "vehicleMode": "SUBWAY",
+        "lat": 60.15947,
+        "lon": 24.73808
+      }
+    ]
+  }
+}

@@ -18,6 +18,8 @@ function statusText(status: DepartureStatus): string {
   switch (status.kind) {
     case 'on-time':
       return 'On time';
+    case 'scheduled':
+      return 'Scheduled';
     case 'late':
       return `${status.minutes} min late`;
     case 'cancelled':
@@ -31,8 +33,9 @@ function formatStatus(params: ValueFormatterParams<DepartureRow, DepartureStatus
 
 const STATUS_ORDER: Record<DepartureStatus['kind'], number> = {
   'on-time': 0,
-  late: 1,
-  cancelled: 2,
+  scheduled: 1,
+  late: 2,
+  cancelled: 3,
 };
 
 /** A missing status sorts first, like a missing track. */
@@ -44,7 +47,7 @@ function minutesLate(status: DepartureStatus | null | undefined): number {
   return status?.kind === 'late' ? status.minutes : 0;
 }
 
-/** On time first, then by how late, then cancelled. */
+/** On time first, then scheduled (no live data), then by how late, then cancelled. */
 function compareStatuses(
   a: DepartureStatus | null | undefined,
   b: DepartureStatus | null | undefined,
@@ -159,7 +162,7 @@ const COMPACT_CHANGES: Readonly<Record<string, Partial<ColDef<DepartureRow>>>> =
 
 /** The board's columns for a phone-width grid: departs, destination, place and status. */
 export function compactColumns(kind: BoardKind): ColDef<DepartureRow>[] {
-  return departureColumns(kind).map((column) => ({
+  return departureColumns({ ...kind, place: kind.placeShort }).map((column) => ({
     ...column,
     ...COMPACT_CHANGES[column.field ?? ''],
   }));

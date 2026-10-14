@@ -1,0 +1,568 @@
+{
+  "data": {
+    "station": {
+      "stoptimesWithoutPatterns": [
+        {
+          "stop": {
+            "gtfsId": "HSL:2211212",
+            "platformCode": "7"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 63540,
+          "realtimeDeparture": 63654,
+          "realtime": true,
+          "realtimeState": "UPDATED",
+          "headsign": "Kivenlahti via Espoonlahti",
+          "trip": {
+            "gtfsId": "HSL:2510_20261013_Ke_1_1650",
+            "arrivalStoptime": {
+              "scheduledArrival": 64920,
+              "stop": {
+                "gtfsId": "HSL:2413210",
+                "name": "Alakaupunki"
+              }
+            },
+            "route": {
+              "shortName": "510",
+              "agency": {
+                "name": "Helsingin seudun liikenne"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "HSL:2211226",
+            "platformCode": "2"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 63720,
+          "realtimeDeparture": 63720,
+          "realtime": true,
+          "realtimeState": "UPDATED",
+          "headsign": "Espoonlahti (M) via Niittykumpu (M)",
+          "trip": {
+            "gtfsId": "HSL:2125_20261013_Ke_1_1742",
+            "arrivalStoptime": {
+              "scheduledArrival": 65880,
+              "stop": {
+                "gtfsId": "HSL:2411301",
+                "name": "Espoonlahti (M)"
+              }
+            },
+            "route": {
+              "shortName": "125",
+              "agency": {
+                "name": "Helsingin seudun liikenne"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "HSL:2211222",
+            "platformCode": "6"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 63780,
+          "realtimeDeparture": 63780,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Leppävaara as.",
+          "trip": {
+            "gtfsId": "HSL:2113_20261013_Ke_1_1743",
+            "arrivalStoptime": {
+              "scheduledArrival": 65160,
+              "stop": {
+                "gtfsId": "HSL:2111234",
+                "name": "Leppävaaran asema"
+              }
+            },
+            "route": {
+              "shortName": "113",
+              "agency": {
+                "name": "Helsingin seudun liikenne"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "HSL:2211213",
+            "platformCode": "11"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 63840,
+          "realtimeDeparture": 63840,
+          "realtime": true,
+          "realtimeState": "UPDATED",
+          "headsign": "Matinkylä (M)",
+          "trip": {
+            "gtfsId": "HSL:2111_20261013_Ke_1_1726",
+            "arrivalStoptime": {
+              "scheduledArrival": 65160,
+              "stop": {
+                "gtfsId": "HSL:2314200",
+                "name": "Matinkylä (M)"
+              }
+            },
+            "route": {
+              "shortName": "111",
+              "agency": {
+                "name": "Helsingin seudun liikenne"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "HSL:2211213",
+            "platformCode": "11"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 63840,
+          "realtimeDeparture": 63840,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Itäkeskus(M) via Leppävaara",
+          "trip": {
+            "gtfsId": "HSL:2554_20261013_Ke_2_1741",
+            "arrivalStoptime": {
+              "scheduledArrival": 67020,
+              "stop": {
+                "gtfsId": "HSL:1453114",
+                "name": "Itäkeskus (M)"
+              }
+            },
+            "route": {
+              "shortName": "554",
+              "agency": {
+                "name": "Helsingin seudun liikenne"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "HSL:2211223",
+            "platformCode": "5"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 63900,
+          "realtimeDeparture": 63900,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Jorvi via Kauniainen",
+          "trip": {
+            "gtfsId": "HSL:2549_20261013_Ke_1_1745",
+            "arrivalStoptime": {
+              "scheduledArrival": 65880,
+              "stop": {
+                "gtfsId": "HSL:2631269",
+                "name": "Jorvin sairaala"
+              }
+            },
+            "route": {
+              "shortName": "549",
+              "agency": {
+                "name": "Helsingin seudun liikenne"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "HSL:2211225",
+            "platformCode": "3"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 63960,
+          "realtimeDeparture": 63960,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Espoon keskus via Urheilupuisto (M)",
+          "trip": {
+            "gtfsId": "HSL:2118_20261013_Ke_1_1746",
+            "arrivalStoptime": {
+              "scheduledArrival": 66120,
+              "stop": {
+                "gtfsId": "HSL:2611208",
+                "name": "Espoon asema"
+              }
+            },
+            "route": {
+              "shortName": "118",
+              "agency": {
+                "name": "Helsingin seudun liikenne"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "HSL:2211212",
+            "platformCode": "7"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 64080,
+          "realtimeDeparture": 64017,
+          "realtime": true,
+          "realtimeState": "UPDATED",
+          "headsign": "Westendinas.",
+          "trip": {
+            "gtfsId": "HSL:2554_20261013_Ke_1_1653",
+            "arrivalStoptime": {
+              "scheduledArrival": 64320,
+              "stop": {
+                "gtfsId": "HSL:2231225",
+                "name": "Westendinasema"
+              }
+            },
+            "route": {
+              "shortName": "554",
+              "agency": {
+                "name": "Helsingin seudun liikenne"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "HSL:2211213",
+            "platformCode": "11"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 64020,
+          "realtimeDeparture": 64021,
+          "realtime": true,
+          "realtimeState": "UPDATED",
+          "headsign": "Herttoniemi (M) via Pasila as.",
+          "trip": {
+            "gtfsId": "HSL:2510_20261013_Ke_2_1725",
+            "arrivalStoptime": {
+              "scheduledArrival": 66660,
+              "stop": {
+                "gtfsId": "HSL:1431121",
+                "name": "Herttoniemi (M)"
+              }
+            },
+            "route": {
+              "shortName": "510",
+              "agency": {
+                "name": "Helsingin seudun liikenne"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "HSL:2211212",
+            "platformCode": "7"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 64080,
+          "realtimeDeparture": 64080,
+          "realtime": true,
+          "realtimeState": "UPDATED",
+          "headsign": "Otaniemi",
+          "trip": {
+            "gtfsId": "HSL:2111_20261013_Ke_2_1726",
+            "arrivalStoptime": {
+              "scheduledArrival": 65100,
+              "stop": {
+                "gtfsId": "HSL:2222209",
+                "name": "Teekkarikylä"
+              }
+            },
+            "route": {
+              "shortName": "111",
+              "agency": {
+                "name": "Helsingin seudun liikenne"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "HSL:2211227",
+            "platformCode": "1"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 64140,
+          "realtimeDeparture": 64140,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Espoonlahti (M) via Niittykumpu (M)",
+          "trip": {
+            "gtfsId": "HSL:2124_20261013_Ke_1_1749",
+            "arrivalStoptime": {
+              "scheduledArrival": 66120,
+              "stop": {
+                "gtfsId": "HSL:2411301",
+                "name": "Espoonlahti (M)"
+              }
+            },
+            "route": {
+              "shortName": "124",
+              "agency": {
+                "name": "Helsingin seudun liikenne"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "HSL:2211212",
+            "platformCode": "7"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 64020,
+          "realtimeDeparture": 64316,
+          "realtime": true,
+          "realtimeState": "UPDATED",
+          "headsign": "Kivenlahti via Espoonlahti",
+          "trip": {
+            "gtfsId": "HSL:2510_20261013_Ke_1_1658",
+            "arrivalStoptime": {
+              "scheduledArrival": 65400,
+              "stop": {
+                "gtfsId": "HSL:2413210",
+                "name": "Alakaupunki"
+              }
+            },
+            "route": {
+              "shortName": "510",
+              "agency": {
+                "name": "Helsingin seudun liikenne"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "HSL:2211212",
+            "platformCode": "7"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 64440,
+          "realtimeDeparture": 64440,
+          "realtime": true,
+          "realtimeState": "UPDATED",
+          "headsign": "Kivenlahti via Espoonlahti",
+          "trip": {
+            "gtfsId": "HSL:2510_20261013_Ke_1_1706",
+            "arrivalStoptime": {
+              "scheduledArrival": 65820,
+              "stop": {
+                "gtfsId": "HSL:2413210",
+                "name": "Alakaupunki"
+              }
+            },
+            "route": {
+              "shortName": "510",
+              "agency": {
+                "name": "Helsingin seudun liikenne"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "HSL:2211224",
+            "platformCode": "4"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 64500,
+          "realtimeDeparture": 64500,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Jupperi via Kauniainen",
+          "trip": {
+            "gtfsId": "HSL:2548_20261013_Ke_1_1755",
+            "arrivalStoptime": {
+              "scheduledArrival": 66900,
+              "stop": {
+                "gtfsId": "HSL:2143201",
+                "name": "Jupperi"
+              }
+            },
+            "route": {
+              "shortName": "548",
+              "agency": {
+                "name": "Helsingin seudun liikenne"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "HSL:2211225",
+            "platformCode": "3"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 64560,
+          "realtimeDeparture": 64560,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Espoon keskus via Urheilupuisto (M)",
+          "trip": {
+            "gtfsId": "HSL:2118_20261013_Ke_1_1756",
+            "arrivalStoptime": {
+              "scheduledArrival": 66660,
+              "stop": {
+                "gtfsId": "HSL:2611208",
+                "name": "Espoon asema"
+              }
+            },
+            "route": {
+              "shortName": "118",
+              "agency": {
+                "name": "Helsingin seudun liikenne"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "HSL:2211226",
+            "platformCode": "2"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 64620,
+          "realtimeDeparture": 64620,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Espoonlahti (M) via Niittykumpu (M)",
+          "trip": {
+            "gtfsId": "HSL:2125_20261013_Ke_1_1757",
+            "arrivalStoptime": {
+              "scheduledArrival": 66720,
+              "stop": {
+                "gtfsId": "HSL:2411301",
+                "name": "Espoonlahti (M)"
+              }
+            },
+            "route": {
+              "shortName": "125",
+              "agency": {
+                "name": "Helsingin seudun liikenne"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "HSL:2211213",
+            "platformCode": "11"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 64620,
+          "realtimeDeparture": 64620,
+          "realtime": true,
+          "realtimeState": "UPDATED",
+          "headsign": "Herttoniemi (M) via Pasila as.",
+          "trip": {
+            "gtfsId": "HSL:2510_20261013_Ke_2_1735",
+            "arrivalStoptime": {
+              "scheduledArrival": 67260,
+              "stop": {
+                "gtfsId": "HSL:1431121",
+                "name": "Herttoniemi (M)"
+              }
+            },
+            "route": {
+              "shortName": "510",
+              "agency": {
+                "name": "Helsingin seudun liikenne"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "HSL:2211222",
+            "platformCode": "6"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 64680,
+          "realtimeDeparture": 64680,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Leppävaara as.",
+          "trip": {
+            "gtfsId": "HSL:2113_20261013_Ke_1_1758",
+            "arrivalStoptime": {
+              "scheduledArrival": 66060,
+              "stop": {
+                "gtfsId": "HSL:2111234",
+                "name": "Leppävaaran asema"
+              }
+            },
+            "route": {
+              "shortName": "113",
+              "agency": {
+                "name": "Helsingin seudun liikenne"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "HSL:2211213",
+            "platformCode": "11"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 64740,
+          "realtimeDeparture": 64740,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Matinkylä (M)",
+          "trip": {
+            "gtfsId": "HSL:2111_20261013_Ke_1_1741",
+            "arrivalStoptime": {
+              "scheduledArrival": 66060,
+              "stop": {
+                "gtfsId": "HSL:2314200",
+                "name": "Matinkylä (M)"
+              }
+            },
+            "route": {
+              "shortName": "111",
+              "agency": {
+                "name": "Helsingin seudun liikenne"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "HSL:2211212",
+            "platformCode": "7"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 64860,
+          "realtimeDeparture": 64933,
+          "realtime": true,
+          "realtimeState": "UPDATED",
+          "headsign": "Kivenlahti via Espoonlahti",
+          "trip": {
+            "gtfsId": "HSL:2510_20261013_Ke_1_1714",
+            "arrivalStoptime": {
+              "scheduledArrival": 66180,
+              "stop": {
+                "gtfsId": "HSL:2413210",
+                "name": "Alakaupunki"
+              }
+            },
+            "route": {
+              "shortName": "510",
+              "agency": {
+                "name": "Helsingin seudun liikenne"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -10,6 +10,9 @@ export const NAVIGATION: readonly NavigationLink[] = [
   {
     routerLink: '#',
     name: 'Departures',
-    links: [{ routerLink: '/departures/trains', name: 'Trains' }],
+    links: [
+      { routerLink: '/departures/trains', name: 'Trains' },
+      { routerLink: '/departures/buses', name: 'Buses' },
+    ],
   },
 ];

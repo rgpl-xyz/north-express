@@ -8,4 +8,5 @@ import { APP_NAME } from '../../core/app-info';
 })
 export class Footer {
   protected readonly appName = APP_NAME;
+  protected readonly year = new Date().getFullYear();
 }

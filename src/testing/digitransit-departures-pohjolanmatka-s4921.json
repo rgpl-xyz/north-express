@@ -1,0 +1,232 @@
+{
+  "data": {
+    "station": {
+      "stoptimesWithoutPatterns": [
+        {
+          "stop": {
+            "gtfsId": "PohjolanMatka:1478",
+            "platformCode": "1"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 22500,
+          "realtimeDeparture": 22500,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Iisalmi",
+          "trip": {
+            "gtfsId": "PohjolanMatka:216587.458",
+            "arrivalStoptime": {
+              "scheduledArrival": 28200,
+              "stop": {
+                "gtfsId": "PohjolanMatka:61393",
+                "name": "Tulo"
+              }
+            },
+            "route": {
+              "shortName": null,
+              "agency": {
+                "name": "Pohjolan Matka"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "PohjolanMatka:1461",
+            "platformCode": "2"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 25200,
+          "realtimeDeparture": 25200,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Iisalmi",
+          "trip": {
+            "gtfsId": "PohjolanMatka:216584.458",
+            "arrivalStoptime": {
+              "scheduledArrival": 30300,
+              "stop": {
+                "gtfsId": "PohjolanMatka:61393",
+                "name": "Tulo"
+              }
+            },
+            "route": {
+              "shortName": null,
+              "agency": {
+                "name": "Pohjolan Matka"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "PohjolanMatka:38283",
+            "platformCode": "Tulo"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 28500,
+          "realtimeDeparture": 28500,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Kuopio",
+          "trip": {
+            "gtfsId": "PohjolanMatka:216585.458",
+            "arrivalStoptime": {
+              "scheduledArrival": 28500,
+              "stop": {
+                "gtfsId": "PohjolanMatka:38283",
+                "name": "Tulo"
+              }
+            },
+            "route": {
+              "shortName": null,
+              "agency": {
+                "name": "Pohjolan Matka"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "PohjolanMatka:1478",
+            "platformCode": "1"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 44400,
+          "realtimeDeparture": 44400,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Iisalmi",
+          "trip": {
+            "gtfsId": "PohjolanMatka:216582.458",
+            "arrivalStoptime": {
+              "scheduledArrival": 49500,
+              "stop": {
+                "gtfsId": "PohjolanMatka:61393",
+                "name": "Tulo"
+              }
+            },
+            "route": {
+              "shortName": null,
+              "agency": {
+                "name": "Pohjolan Matka"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "PohjolanMatka:1478",
+            "platformCode": "1"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 51300,
+          "realtimeDeparture": 51300,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Iisalmi",
+          "trip": {
+            "gtfsId": "PohjolanMatka:216589.458",
+            "arrivalStoptime": {
+              "scheduledArrival": 56400,
+              "stop": {
+                "gtfsId": "PohjolanMatka:61393",
+                "name": "Tulo"
+              }
+            },
+            "route": {
+              "shortName": null,
+              "agency": {
+                "name": "Pohjolan Matka"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "PohjolanMatka:38283",
+            "platformCode": "Tulo"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 53100,
+          "realtimeDeparture": 53100,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Kuopio",
+          "trip": {
+            "gtfsId": "PohjolanMatka:215097.458",
+            "arrivalStoptime": {
+              "scheduledArrival": 53100,
+              "stop": {
+                "gtfsId": "PohjolanMatka:38283",
+                "name": "Tulo"
+              }
+            },
+            "route": {
+              "shortName": null,
+              "agency": {
+                "name": "Pohjolan Matka"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "PohjolanMatka:38283",
+            "platformCode": "Tulo"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 58500,
+          "realtimeDeparture": 58500,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Kuopio",
+          "trip": {
+            "gtfsId": "PohjolanMatka:216590.458",
+            "arrivalStoptime": {
+              "scheduledArrival": 58500,
+              "stop": {
+                "gtfsId": "PohjolanMatka:38283",
+                "name": "Tulo"
+              }
+            },
+            "route": {
+              "shortName": null,
+              "agency": {
+                "name": "Pohjolan Matka"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "PohjolanMatka:4663",
+            "platformCode": "8"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 58800,
+          "realtimeDeparture": 58800,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "Iisalmi",
+          "trip": {
+            "gtfsId": "PohjolanMatka:216592.458",
+            "arrivalStoptime": {
+              "scheduledArrival": 63900,
+              "stop": {
+                "gtfsId": "PohjolanMatka:61393",
+                "name": "Tulo"
+              }
+            },
+            "route": {
+              "shortName": null,
+              "agency": {
+                "name": "Pohjolan Matka"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

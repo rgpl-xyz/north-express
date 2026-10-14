@@ -1,0 +1,176 @@
+{
+  "data": {
+    "station": {
+      "stoptimesWithoutPatterns": [
+        {
+          "stop": {
+            "gtfsId": "MATKA:466989",
+            "platformCode": "4"
+          },
+          "serviceDay": 1791925200,
+          "scheduledDeparture": 68400,
+          "realtimeDeparture": 68400,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "3006",
+          "trip": {
+            "gtfsId": "MATKA:22474_FLI:ServiceJourney:23329716-f374-4ace-9f72-924d453ddd92",
+            "arrivalStoptime": {
+              "scheduledArrival": 75300,
+              "stop": {
+                "gtfsId": "MATKA:466987",
+                "name": "Joensuu linja-autoasema"
+              }
+            },
+            "route": {
+              "shortName": "3006",
+              "agency": {
+                "name": "FlixBus Finland Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:466989",
+            "platformCode": "4"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 32700,
+          "realtimeDeparture": 32700,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "3004",
+          "trip": {
+            "gtfsId": "MATKA:22474_FLI:ServiceJourney:39c11c52-7b25-4eca-995c-aedfae2c7612",
+            "arrivalStoptime": {
+              "scheduledArrival": 39300,
+              "stop": {
+                "gtfsId": "MATKA:323412",
+                "name": "Jyväskylä Matkakeskus"
+              }
+            },
+            "route": {
+              "shortName": "3004",
+              "agency": {
+                "name": "FlixBus Finland Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:466989",
+            "platformCode": "4"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 43200,
+          "realtimeDeparture": 43200,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "3004",
+          "trip": {
+            "gtfsId": "MATKA:22474_FLI:ServiceJourney:61dbbf88-249a-4e1f-b6ee-671e4ff9af77",
+            "arrivalStoptime": {
+              "scheduledArrival": 50400,
+              "stop": {
+                "gtfsId": "MATKA:466987",
+                "name": "Joensuu linja-autoasema"
+              }
+            },
+            "route": {
+              "shortName": "3004",
+              "agency": {
+                "name": "FlixBus Finland Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:466989",
+            "platformCode": "4"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 48000,
+          "realtimeDeparture": 48000,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "3006",
+          "trip": {
+            "gtfsId": "MATKA:22474_FLI:ServiceJourney:eb3367f9-f809-439f-98af-3505adfc0554",
+            "arrivalStoptime": {
+              "scheduledArrival": 69600,
+              "stop": {
+                "gtfsId": "MATKA:459501",
+                "name": "Katajanokan terminaali"
+              }
+            },
+            "route": {
+              "shortName": "3006",
+              "agency": {
+                "name": "FlixBus Finland Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:466989",
+            "platformCode": "4"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 60900,
+          "realtimeDeparture": 60900,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "3004",
+          "trip": {
+            "gtfsId": "MATKA:22474_FLI:ServiceJourney:dc650d9e-6592-4b76-890f-7d3d4ca0bebe",
+            "arrivalStoptime": {
+              "scheduledArrival": 68100,
+              "stop": {
+                "gtfsId": "MATKA:466987",
+                "name": "Joensuu linja-autoasema"
+              }
+            },
+            "route": {
+              "shortName": "3004",
+              "agency": {
+                "name": "FlixBus Finland Oy"
+              }
+            }
+          }
+        },
+        {
+          "stop": {
+            "gtfsId": "MATKA:466989",
+            "platformCode": "4"
+          },
+          "serviceDay": 1792011600,
+          "scheduledDeparture": 63300,
+          "realtimeDeparture": 63300,
+          "realtime": false,
+          "realtimeState": "SCHEDULED",
+          "headsign": "3004",
+          "trip": {
+            "gtfsId": "MATKA:22474_FLI:ServiceJourney:22eda9eb-06e5-404d-bcb5-0b7b2d7f70b7",
+            "arrivalStoptime": {
+              "scheduledArrival": 70200,
+              "stop": {
+                "gtfsId": "MATKA:323412",
+                "name": "Jyväskylä Matkakeskus"
+              }
+            },
+            "route": {
+              "shortName": "3004",
+              "agency": {
+                "name": "FlixBus Finland Oy"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
