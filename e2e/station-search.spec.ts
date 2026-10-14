@@ -76,3 +76,47 @@ test('on a phone, a tapped station lets the keyboard close and shows its board',
   await expect(field(page)).not.toBeFocused();
   await expect(page.getByRole('row').filter({ hasText: 'Oulu' })).toBeVisible();
 });
+
+for (const width of [390, 1280]) {
+  test(`at ${width}px the longest station name fits the field, and fills it`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto('/departures/buses');
+    await chooseStation(page, 'Kantasataman paikallisliikenneterminaali (Kotka)');
+    const field = page.getByLabel('Station', { exact: true });
+    await field.blur();
+
+    await expect
+      .poll(() => field.evaluate((input) => input.scrollWidth <= input.clientWidth))
+      .toBe(true);
+    // Not shrunk more than it needs: the name fills most of the field's room.
+    const filled = await field.evaluate((input) => {
+      const style = getComputedStyle(input);
+      const probe = document.createElement('span');
+      Object.assign(probe.style, {
+        position: 'absolute',
+        whiteSpace: 'pre',
+        fontFamily: style.fontFamily,
+        fontSize: style.fontSize,
+        fontStyle: style.fontStyle,
+        fontWeight: style.fontWeight,
+      });
+      probe.textContent = input.value;
+      document.body.append(probe);
+      const width = probe.getBoundingClientRect().width;
+      probe.remove();
+      return width / (input.clientWidth - parseFloat(style.paddingRight));
+    });
+    expect(filled).toBeGreaterThan(0.85);
+  });
+}
+
+test('a short station name keeps the sign size', async ({ page }) => {
+  await page.goto('/departures/trains');
+  const field = page.getByLabel('Station', { exact: true });
+  const signSize = await field.evaluate((input) => getComputedStyle(input).fontSize);
+
+  await chooseStation(page, 'Tampere');
+  await field.blur();
+
+  expect(await field.evaluate((input) => getComputedStyle(input).fontSize)).toBe(signSize);
+});

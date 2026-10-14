@@ -161,6 +161,27 @@
         "vehicleMode": "SUBWAY",
         "lat": 60.15947,
         "lon": 24.73808
+      },
+      {
+        "gtfsId": "MATKA:358299",
+        "name": "Helsinki-Vantaan lentoasema, Matkakeskus",
+        "vehicleMode": "BUS",
+        "lat": 60.317166,
+        "lon": 24.966863
+      },
+      {
+        "gtfsId": "MATKA:393172",
+        "name": "Helsinki-Vantaan lentoasema, Matkakeskus",
+        "vehicleMode": "BUS",
+        "lat": 60.317262,
+        "lon": 24.966676
+      },
+      {
+        "gtfsId": "Kotka:9000010",
+        "name": "Kantasataman paikallisliikenneterminaali (Kotka)",
+        "vehicleMode": "BUS",
+        "lat": 60.4696014,
+        "lon": 26.9505896
       }
     ]
   }

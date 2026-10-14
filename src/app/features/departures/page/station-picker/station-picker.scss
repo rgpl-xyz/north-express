@@ -5,10 +5,17 @@
 }
 
 input {
+  // The sign's size, or smaller when a long name needs it (--fit, from the component),
+  // down to 16px, below which iOS zooms in when the field gets focus. A name longer still
+  // ends in an ellipsis. The padding above smaller text keeps the field's height, so the
+  // board below doesn't move, and the name on the rule.
+  --sign: clamp(1.75rem, 3.5vw, 2.5rem);
+  --size: max(1rem, min(var(--sign), var(--fit, var(--sign))));
+
   width: 100%;
-  padding: 0 2.75rem 0.25rem 0;
+  padding: calc((var(--sign) - var(--size)) * 1.15) 2.75rem 0.25rem 0;
   font-family: var(--ne-condensed);
-  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-size: var(--size);
   font-weight: 700;
   line-height: 1.15;
   color: #fff;
@@ -16,6 +23,7 @@ input {
   border: 0;
   border-bottom: 3px solid #fff;
   border-radius: 0;
+  text-overflow: ellipsis;
 
   &::placeholder {
     color: #fff;

@@ -12,11 +12,13 @@ import tampere from './digitransit-departures-matka-358750.json';
 import tapiola from './digitransit-departures-hsl-2000002.json';
 
 /**
- * 23 stations trimmed from the stations query at 14:40 UTC on 14 October 2026. Bus
+ * 26 stations trimmed from the stations query at 14:40 UTC on 14 October 2026. Bus
  * stations that several feeds list: Kuopio, Matkakeskus (three ids), Kokkola (four, in
- * two spellings), Kuopio's "Linja-autoasema" (four), Kamppi's two terminals (two each).
- * Listed once: Tampere, linja-autoasema, Tapiola (M) and two Äänekoski stations. Plus one
- * station each of RAIL, FERRY, SUBWAY and no mode, which the bus board leaves out.
+ * two spellings), Kuopio's "Linja-autoasema" (four), Kamppi's two terminals and
+ * Helsinki-Vantaan lentoasema, Matkakeskus (two each). Listed once: Tampere,
+ * linja-autoasema, Tapiola (M), two Äänekoski stations, and the longest name in the list,
+ * Kantasataman paikallisliikenneterminaali (Kotka). Plus one station each of RAIL, FERRY,
+ * SUBWAY and no mode, which the bus board leaves out.
  */
 export const BUS_STATIONS_FIXTURE = stations as StationsResponse;
 

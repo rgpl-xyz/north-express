@@ -1,19 +1,23 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   ElementRef,
+  afterNextRender,
   afterRenderEffect,
   computed,
   effect,
   inject,
   input,
   model,
+  signal,
   untracked,
   viewChild,
 } from '@angular/core';
 import { Combobox, ComboboxPopup, ComboboxWidget } from '@angular/aria/combobox';
 import { Listbox, Option } from '@angular/aria/listbox';
 import type { Station } from '../../data/departures.models';
+import { sizeToFit } from './fit-text';
 import { aliasesOf, searchStations } from './station-search';
 
 /**
@@ -31,6 +35,7 @@ import { aliasesOf, searchStations } from './station-search';
 })
 export class StationPicker {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly destroyRef = inject(DestroyRef);
   // The field's text and whether its list is open live in the combobox, and are read and
   // set there directly. A copy bound both ways can miss a change made and undone between
   // two renders, such as typing then pressing Escape at once.
@@ -66,6 +71,21 @@ export class StationPicker {
   protected readonly noMatch = computed(() =>
     this.matches().length === 0 ? `No station matches "${this.text().trim()}".` : '',
   );
+  /** The width the field has for its text, kept up to date as the window changes. */
+  private readonly room = signal(0);
+  /** Counts font loads: text measured before its font arrives is in a fallback font. */
+  private readonly fontLoads = signal(0);
+  /**
+   * The font size at which the field's text just fits it. The stylesheet uses it only when
+   * it is smaller than the sign's own size, so a long name shrinks instead of being cut off.
+   */
+  protected readonly fit = computed(() => {
+    this.fontLoads();
+    const field = this.field();
+    const size = field ? sizeToFit(this.text() || this.placeholder(), field, this.room()) : null;
+    return size === null ? null : `${size}px`;
+  });
+
   /** Read out as the list narrows, for people who can't see it. */
   protected readonly announcement = computed(() => {
     if (!this.open() || this.text() === this.chosenName()) {
@@ -81,6 +101,7 @@ export class StationPicker {
       const name = this.chosenName();
       untracked(() => this.combobox()?.value.set(name));
     });
+    afterNextRender(() => this.watchRoom());
     // Keep the highlighted station in view as the arrow keys move through a long list.
     afterRenderEffect(() => {
       const id = this.listbox()?.activeDescendant();
@@ -127,6 +148,24 @@ export class StationPicker {
   protected toggleAll(): void {
     this.show(this.chosenName(), !this.open());
     this.focus();
+  }
+
+  /** Measures the field's room now and whenever it changes, such as a phone turned sideways. */
+  private watchRoom(): void {
+    const field = this.field();
+    if (!field || typeof ResizeObserver === 'undefined') {
+      return;
+    }
+    const observer = new ResizeObserver(([entry]) => this.room.set(entry.contentRect.width));
+    observer.observe(field);
+    const fonts = document.fonts;
+    const measureAgain = () => this.fontLoads.update((count) => count + 1);
+    fonts.addEventListener('loadingdone', measureAgain);
+    void fonts.ready.then(measureAgain);
+    this.destroyRef.onDestroy(() => {
+      observer.disconnect();
+      fonts.removeEventListener('loadingdone', measureAgain);
+    });
   }
 
   private show(text: string, open: boolean): void {

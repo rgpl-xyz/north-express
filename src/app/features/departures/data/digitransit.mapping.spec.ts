@@ -57,8 +57,10 @@ describe('toBusStations', () => {
 
   it('lists each bus station once, in Finnish alphabetical order', () => {
     expect(stations.map((listed) => listed.name)).toEqual([
+      'Helsinki-Vantaan lentoasema, Matkakeskus',
       'Kamppi (kaukoliikenneterminaali)',
       'Kamppi (lähiliikenneterminaali)',
+      'Kantasataman paikallisliikenneterminaali (Kotka)',
       'Kokkola, linja-autoasema',
       'Kuopio, Matkakeskus',
       'Linja-autoasema',
