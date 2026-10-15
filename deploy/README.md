@@ -61,7 +61,7 @@ deploy/deploy.sh            # builds and publishes origin/main
 deploy/deploy.sh <commit>   # any commit already on origin/main
 ```
 
-The script refuses commits that are not on `origin/main`, builds from a clean `git archive` (no local changes or `node_modules`), and switches the `current` symlink in one rename, so visitors never see a half-copied release.
+The script refuses commits that are not on `origin/main` and builds from a clean `git archive` (no local changes or `node_modules`). A release is unpacked outside `releases/`, moved in with one rename and never changed afterwards. A commit whose release is already on the server is switched to without rebuilding, so redeploying an earlier commit is a quick rollback. The `current` symlink also switches in one rename, so visitors never see a half-copied release.
 
 ## Roll back
 
