@@ -105,7 +105,10 @@ describe('DigitransitBusSource', () => {
       }
 
       expect(next).toHaveBeenCalledWith(
-        toBusDepartureRows(KUOPIO_IDS.map((id) => busDeparturesFixture(id))),
+        toBusDepartureRows(
+          KUOPIO_IDS.map((id) => busDeparturesFixture(id)),
+          toBusStations(BUS_STATIONS_FIXTURE),
+        ),
       );
       expect(next.mock.calls[0][0]).toHaveLength(9);
     });

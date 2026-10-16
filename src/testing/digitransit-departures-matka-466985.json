@@ -19,7 +19,12 @@
               "scheduledArrival": 75300,
               "stop": {
                 "gtfsId": "MATKA:466987",
-                "name": "Joensuu linja-autoasema"
+                "name": "Joensuu linja-autoasema",
+                "lat": 62.601187,
+                "lon": 29.777399,
+                "parentStation": {
+                  "gtfsId": "MATKA:440575"
+                }
               }
             },
             "route": {
@@ -47,7 +52,10 @@
               "scheduledArrival": 39300,
               "stop": {
                 "gtfsId": "MATKA:323412",
-                "name": "Jyväskylä Matkakeskus"
+                "name": "Jyväskylä Matkakeskus",
+                "lat": 62.2425116,
+                "lon": 25.7551547,
+                "parentStation": null
               }
             },
             "route": {
@@ -75,7 +83,12 @@
               "scheduledArrival": 50400,
               "stop": {
                 "gtfsId": "MATKA:466987",
-                "name": "Joensuu linja-autoasema"
+                "name": "Joensuu linja-autoasema",
+                "lat": 62.601187,
+                "lon": 29.777399,
+                "parentStation": {
+                  "gtfsId": "MATKA:440575"
+                }
               }
             },
             "route": {
@@ -103,7 +116,12 @@
               "scheduledArrival": 69600,
               "stop": {
                 "gtfsId": "MATKA:459501",
-                "name": "Katajanokan terminaali"
+                "name": "Katajanokan terminaali",
+                "lat": 60.164209,
+                "lon": 24.969333,
+                "parentStation": {
+                  "gtfsId": "MATKA:459489"
+                }
               }
             },
             "route": {
@@ -131,7 +149,12 @@
               "scheduledArrival": 68100,
               "stop": {
                 "gtfsId": "MATKA:466987",
-                "name": "Joensuu linja-autoasema"
+                "name": "Joensuu linja-autoasema",
+                "lat": 62.601187,
+                "lon": 29.777399,
+                "parentStation": {
+                  "gtfsId": "MATKA:440575"
+                }
               }
             },
             "route": {
@@ -159,7 +182,10 @@
               "scheduledArrival": 70200,
               "stop": {
                 "gtfsId": "MATKA:323412",
-                "name": "Jyväskylä Matkakeskus"
+                "name": "Jyväskylä Matkakeskus",
+                "lat": 62.2425116,
+                "lon": 25.7551547,
+                "parentStation": null
               }
             },
             "route": {

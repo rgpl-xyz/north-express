@@ -3,41 +3,43 @@ import { formatFinlandTime } from '../../../../shared/finland-time';
 import type { DepartureRow, DepartureStatus } from '../../data/departures.models';
 import type { BoardKind } from '../board-kind';
 
-/** A departure as the grid shows it: the first of a later day carries that day's name. */
-export interface BoardRow extends DepartureRow {
-  readonly dayBreak?: string;
-}
-
-/** The day a row begins, such as "Tomorrow", if it is the first departure of a later day. */
-export function dayBreakOf(row: DepartureRow | undefined): string | undefined {
-  return (row as BoardRow | undefined)?.dayBreak;
+/**
+ * What the Destination cells need from the board, through the grid's context: the station
+ * on the board, each listed station's address and name, and what a click does.
+ */
+export interface DestinationActions {
+  /** The station on the board, whose own departures have nothing to open. */
+  current(): string | null;
+  /** The address of a station's board, so the link works as a link: a new tab, a copy. */
+  href(code: string): string;
+  nameOf(code: string): string | undefined;
+  /** Opens the board of the station a departure ends at. */
+  open(code: string): void;
+  /** Says, next to the cell, that a departure ends at no station on the list. */
+  explain(row: DepartureRow, target: HTMLElement): void;
 }
 
 /**
- * What the Departs cell shows: the timetabled time, the expected one when it is another
- * minute, and the day when the row is the first of a later day. Empty strings for none.
+ * What the Departs cell shows: the timetabled time, and the expected one when it is another
+ * minute, or an empty string.
  */
 function departsParts(scheduledAt: string | null | undefined, row: DepartureRow | undefined) {
   const scheduled = formatFinlandTime(scheduledAt);
   const expected = formatFinlandTime(row?.expected ?? null);
-  return {
-    scheduled,
-    expected: expected !== scheduled ? expected : '',
-    day: dayBreakOf(row) ?? '',
-  };
+  return { scheduled, expected: expected !== scheduled ? expected : '' };
 }
 
 /**
- * The Departs cell in words, "Tomorrow, 14:02, expected 14:03". ag-grid redraws a cell only
- * when its value or this text changes, and the value is the timetabled time alone, so the
- * text has to carry the expected time and the day for the cell to keep up with them.
+ * The Departs cell in words, "14:02, expected 14:03". ag-grid redraws a cell only when its
+ * value or this text changes, and the value is the timetabled time alone, so the text has to
+ * carry the expected time for the cell to keep up with it.
  */
 function departsText(params: ValueFormatterParams<DepartureRow, string | null>): string {
-  const { scheduled, expected, day } = departsParts(params.value, params.data);
+  const { scheduled, expected } = departsParts(params.value, params.data);
   if (!scheduled) {
     return '';
   }
-  return [day, scheduled, expected && `expected ${expected}`].filter(Boolean).join(', ');
+  return expected ? `${scheduled}, expected ${expected}` : scheduled;
 }
 
 const trackOrder = new Intl.Collator('en', { numeric: true });
@@ -98,37 +100,72 @@ function marker(className: string, text: string): HTMLElement {
 
 /**
  * The departure time. Where Digitraffic expects the train at another minute, the
- * timetabled time is struck through above the expected one, which is at full size: that is
- * the time to be on the platform. The first departure of a later day has the day's name on
- * that line too. Screen readers hear "Tomorrow, 14:02, expected 14:03".
+ * timetabled time is struck through and the expected one follows it at full size:
+ * that is the time to be on the platform. Screen readers hear "14:02, expected 14:03".
  */
 function departureTime(
   params: ICellRendererParams<DepartureRow, string | null>,
 ): HTMLElement | string {
-  const { scheduled, expected, day } = departsParts(params.value, params.data);
+  const { scheduled, expected } = departsParts(params.value, params.data);
   if (!scheduled) {
     return '';
   }
   const cell = marker('departs', '');
-  if (!day && !expected) {
-    cell.textContent = scheduled;
-    return cell;
-  }
-  const above = marker('departs-above', '');
-  if (day) {
-    above.append(marker('departs-day', day), marker('visually-hidden', ', '));
-  }
   if (expected) {
-    above.append(marker('departs-superseded', scheduled));
     cell.append(
-      above,
+      marker('departs-superseded', scheduled),
       marker('visually-hidden', ', expected '),
       marker('departs-expected', expected),
     );
   } else {
-    cell.append(above, scheduled);
+    cell.textContent = scheduled;
   }
   return cell;
+}
+
+/** A click that opens a link where the user asked for it, such as a new tab, not here. */
+function opensElsewhere(event: MouseEvent): boolean {
+  return event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey;
+}
+
+/**
+ * The destination, as a link to the board of the station the departure ends at. Where it
+ * ends at no station on the list, a button that says so instead; where it ends at the
+ * station on the board, as a loop does, plain text.
+ */
+function destinationCell(params: ICellRendererParams<DepartureRow, string>): HTMLElement | string {
+  const row = params.data;
+  const actions = params.context as DestinationActions | undefined;
+  if (!row || !actions) {
+    return params.value ?? '';
+  }
+  const code = row.destinationCode;
+  if (code !== null && code === actions.current()) {
+    return row.destination;
+  }
+  if (code === null) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'destination-link';
+    button.textContent = row.destination;
+    button.addEventListener('click', () => actions.explain(row, button));
+    return button;
+  }
+  const link = document.createElement('a');
+  link.className = 'destination-link';
+  link.href = actions.href(code);
+  link.textContent = row.destination;
+  const name = actions.nameOf(code);
+  if (name && name !== row.destination) {
+    link.title = `Departures from ${name}`;
+  }
+  link.addEventListener('click', (event) => {
+    if (!opensElsewhere(event)) {
+      event.preventDefault();
+      actions.open(code);
+    }
+  });
+  return link;
 }
 
 /** The track number in a ring, like a platform marker. The ring is styled in styles.scss. */
@@ -165,6 +202,7 @@ export function departureColumns(kind: BoardKind): ColDef<DepartureRow>[] {
     {
       headerName: 'Destination',
       field: 'destination',
+      cellRenderer: destinationCell,
       cellClass: 'board-destination',
       flex: 1.5,
       minWidth: 120,

@@ -19,7 +19,12 @@
               "scheduledArrival": 63900,
               "stop": {
                 "gtfsId": "MATKA:357085",
-                "name": "Tulo"
+                "name": "Tulo",
+                "lat": 62.898207,
+                "lon": 27.679235,
+                "parentStation": {
+                  "gtfsId": "MATKA:357077"
+                }
               }
             },
             "route": {
@@ -47,7 +52,12 @@
               "scheduledArrival": 24000,
               "stop": {
                 "gtfsId": "MATKA:357085",
-                "name": "Tulo"
+                "name": "Tulo",
+                "lat": 62.898207,
+                "lon": 27.679235,
+                "parentStation": {
+                  "gtfsId": "MATKA:357077"
+                }
               }
             },
             "route": {
@@ -75,7 +85,12 @@
               "scheduledArrival": 27000,
               "stop": {
                 "gtfsId": "MATKA:357085",
-                "name": "Tulo"
+                "name": "Tulo",
+                "lat": 62.898207,
+                "lon": 27.679235,
+                "parentStation": {
+                  "gtfsId": "MATKA:357077"
+                }
               }
             },
             "route": {
@@ -103,7 +118,12 @@
               "scheduledArrival": 47100,
               "stop": {
                 "gtfsId": "MATKA:357373",
-                "name": "30-35"
+                "name": "30-35",
+                "lat": 60.1697279,
+                "lon": 24.9337071,
+                "parentStation": {
+                  "gtfsId": "MATKA:300013"
+                }
               }
             },
             "route": {
@@ -131,7 +151,12 @@
               "scheduledArrival": 27900,
               "stop": {
                 "gtfsId": "MATKA:357085",
-                "name": "Tulo"
+                "name": "Tulo",
+                "lat": 62.898207,
+                "lon": 27.679235,
+                "parentStation": {
+                  "gtfsId": "MATKA:357077"
+                }
               }
             },
             "route": {
@@ -159,7 +184,12 @@
               "scheduledArrival": 54000,
               "stop": {
                 "gtfsId": "MATKA:357373",
-                "name": "30-35"
+                "name": "30-35",
+                "lat": 60.1697279,
+                "lon": 24.9337071,
+                "parentStation": {
+                  "gtfsId": "MATKA:300013"
+                }
               }
             },
             "route": {
@@ -187,7 +217,12 @@
               "scheduledArrival": 34500,
               "stop": {
                 "gtfsId": "MATKA:357085",
-                "name": "Tulo"
+                "name": "Tulo",
+                "lat": 62.898207,
+                "lon": 27.679235,
+                "parentStation": {
+                  "gtfsId": "MATKA:357077"
+                }
               }
             },
             "route": {
@@ -215,7 +250,12 @@
               "scheduledArrival": 65100,
               "stop": {
                 "gtfsId": "MATKA:357373",
-                "name": "30-35"
+                "name": "30-35",
+                "lat": 60.1697279,
+                "lon": 24.9337071,
+                "parentStation": {
+                  "gtfsId": "MATKA:300013"
+                }
               }
             },
             "route": {
@@ -243,7 +283,12 @@
               "scheduledArrival": 48300,
               "stop": {
                 "gtfsId": "MATKA:357085",
-                "name": "Tulo"
+                "name": "Tulo",
+                "lat": 62.898207,
+                "lon": 27.679235,
+                "parentStation": {
+                  "gtfsId": "MATKA:357077"
+                }
               }
             },
             "route": {
@@ -271,7 +316,12 @@
               "scheduledArrival": 54300,
               "stop": {
                 "gtfsId": "MATKA:357085",
-                "name": "Tulo"
+                "name": "Tulo",
+                "lat": 62.898207,
+                "lon": 27.679235,
+                "parentStation": {
+                  "gtfsId": "MATKA:357077"
+                }
               }
             },
             "route": {
@@ -299,7 +349,12 @@
               "scheduledArrival": 74400,
               "stop": {
                 "gtfsId": "MATKA:357373",
-                "name": "30-35"
+                "name": "30-35",
+                "lat": 60.1697279,
+                "lon": 24.9337071,
+                "parentStation": {
+                  "gtfsId": "MATKA:300013"
+                }
               }
             },
             "route": {
@@ -327,7 +382,12 @@
               "scheduledArrival": 58200,
               "stop": {
                 "gtfsId": "MATKA:357085",
-                "name": "Tulo"
+                "name": "Tulo",
+                "lat": 62.898207,
+                "lon": 27.679235,
+                "parentStation": {
+                  "gtfsId": "MATKA:357077"
+                }
               }
             },
             "route": {
@@ -355,7 +415,12 @@
               "scheduledArrival": 63300,
               "stop": {
                 "gtfsId": "MATKA:357085",
-                "name": "Tulo"
+                "name": "Tulo",
+                "lat": 62.898207,
+                "lon": 27.679235,
+                "parentStation": {
+                  "gtfsId": "MATKA:357077"
+                }
               }
             },
             "route": {

@@ -4,12 +4,12 @@ import type {
   ValueFormatterFunc,
   ValueFormatterParams,
 } from 'ag-grid-community';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import type { DepartureRow, DepartureStatus } from '../../data/departures.models';
 import { BUS_BOARD, TRAIN_BOARD } from '../board-kind';
 import {
-  type BoardRow,
   DEFAULT_COLUMN,
+  type DestinationActions,
   compactColumns,
   departureColumns,
 } from './departure-columns';
@@ -99,33 +99,17 @@ describe('the Departs column', () => {
     expect(cell.textContent).toBe('14:02, expected 14:03');
   });
 
-  it('names the day above the first departure of a later day', () => {
-    const renderer = column('scheduled').cellRenderer as (
-      params: ICellRendererParams<DepartureRow>,
-    ) => HTMLElement;
-    const cell = (expected: string | null) =>
-      renderer({
-        value: SCHEDULED,
-        data: { scheduled: SCHEDULED, expected, dayBreak: 'Tomorrow' } as BoardRow,
-      } as ICellRendererParams<DepartureRow>);
-
-    expect(cell(null).querySelector('.departs-day')?.textContent).toBe('Tomorrow');
-    expect(cell(null).textContent).toBe('Tomorrow, 14:02');
-    expect(cell('2026-10-13T11:03:48.000Z').textContent).toBe('Tomorrow, 14:02, expected 14:03');
-  });
-
-  it('says the expected time and the day in its text, so the cell redraws when they change', () => {
+  it('says the expected time in its text, so the cell redraws when it changes', () => {
     const formatter = column('scheduled').valueFormatter as ValueFormatterFunc<DepartureRow>;
-    const text = (row: Partial<BoardRow>) =>
+    const text = (expected: string | null) =>
       formatter({
         value: SCHEDULED,
-        data: { scheduled: SCHEDULED, expected: null, ...row },
+        data: { scheduled: SCHEDULED, expected },
       } as ValueFormatterParams<DepartureRow>);
 
-    expect(text({})).toBe('14:02');
-    expect(text({ expected: '2026-10-13T11:02:30.000Z' })).toBe('14:02');
-    expect(text({ expected: '2026-10-13T11:03:48.000Z' })).toBe('14:02, expected 14:03');
-    expect(text({ dayBreak: 'Tomorrow' })).toBe('Tomorrow, 14:02');
+    expect(text(null)).toBe('14:02');
+    expect(text('2026-10-13T11:02:30.000Z')).toBe('14:02');
+    expect(text('2026-10-13T11:03:48.000Z')).toBe('14:02, expected 14:03');
   });
 
   it('shows the timetabled time alone when the expected time is the same minute', () => {
@@ -211,6 +195,88 @@ describe('the Track column', () => {
 
     expect(ring.textContent).toBe('<b>1</b>');
     expect(ring.children).toHaveLength(0);
+  });
+});
+
+describe('the Destination column', () => {
+  const STATIONS: Readonly<Record<string, string>> = {
+    HKI: 'Helsinki',
+    'HSL:1000015': 'Kamppi (kaukoliikenneterminaali)',
+  };
+
+  function actions(current: string | null = 'TPE') {
+    return {
+      current: () => current,
+      href: (code: string) => `/departures/trains?station=${code}`,
+      nameOf: (code: string) => STATIONS[code],
+      open: vi.fn<(code: string) => void>(),
+      explain: vi.fn<(row: DepartureRow, target: HTMLElement) => void>(),
+    } satisfies DestinationActions;
+  }
+
+  function cell(
+    row: Partial<DepartureRow>,
+    context: DestinationActions = actions(),
+  ): HTMLElement | string {
+    const renderer = column('destination').cellRenderer as (
+      params: ICellRendererParams<DepartureRow>,
+    ) => HTMLElement | string;
+    const data = { destination: 'Helsinki', destinationCode: 'HKI', ...row } as DepartureRow;
+    return renderer({
+      value: data.destination,
+      data,
+      context,
+    } as ICellRendererParams<DepartureRow>);
+  }
+
+  it('links to the board of the station the departure ends at', () => {
+    const context = actions();
+    const link = cell({}, context) as HTMLAnchorElement;
+    const click = new MouseEvent('click', { button: 0, cancelable: true });
+
+    link.dispatchEvent(click);
+
+    expect(link.tagName).toBe('A');
+    expect(link.textContent).toBe('Helsinki');
+    expect(link.getAttribute('href')).toBe('/departures/trains?station=HKI');
+    expect(click.defaultPrevented).toBe(true);
+    expect(context.open).toHaveBeenCalledWith('HKI');
+  });
+
+  it('leaves a click for a new tab to the browser', () => {
+    const context = actions();
+    const link = cell({}, context) as HTMLAnchorElement;
+    const click = new MouseEvent('click', { button: 0, ctrlKey: true, cancelable: true });
+
+    link.dispatchEvent(click);
+
+    expect(click.defaultPrevented).toBe(false);
+    expect(context.open).not.toHaveBeenCalled();
+  });
+
+  it('names the station in the link’s title when the destination reads differently', () => {
+    const bus = cell({ destinationCode: 'HSL:1000015' }) as HTMLAnchorElement;
+
+    expect(bus.title).toBe('Departures from Kamppi (kaukoliikenneterminaali)');
+    expect((cell({}) as HTMLAnchorElement).title).toBe('');
+  });
+
+  it('is a button that says why, for a departure that ends at no station on the list', () => {
+    const context = actions();
+    const button = cell({ destination: 'Lahti', destinationCode: null }, context) as HTMLElement;
+
+    button.click();
+
+    expect(button.tagName).toBe('BUTTON');
+    expect(button.getAttribute('type')).toBe('button');
+    expect(context.explain).toHaveBeenCalledWith(
+      expect.objectContaining({ destination: 'Lahti' }),
+      button,
+    );
+  });
+
+  it('is plain text for a departure that ends at the station on the board', () => {
+    expect(cell({ destination: 'Tampere', destinationCode: 'TPE' })).toBe('Tampere');
   });
 });
 

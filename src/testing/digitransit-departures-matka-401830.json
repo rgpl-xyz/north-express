@@ -19,7 +19,10 @@
               "scheduledArrival": 72000,
               "stop": {
                 "gtfsId": "MATKA:345789",
-                "name": "Varkaus Matkakeskus"
+                "name": "Varkaus Matkakeskus",
+                "lat": 62.312936,
+                "lon": 27.873897,
+                "parentStation": null
               }
             },
             "route": {
@@ -47,7 +50,10 @@
               "scheduledArrival": 72000,
               "stop": {
                 "gtfsId": "MATKA:345789",
-                "name": "Varkaus Matkakeskus"
+                "name": "Varkaus Matkakeskus",
+                "lat": 62.312936,
+                "lon": 27.873897,
+                "parentStation": null
               }
             },
             "route": {
@@ -75,7 +81,10 @@
               "scheduledArrival": 28500,
               "stop": {
                 "gtfsId": "MATKA:345783",
-                "name": "Savontie 8"
+                "name": "Savontie 8",
+                "lat": 62.328695,
+                "lon": 27.889211,
+                "parentStation": null
               }
             },
             "route": {
@@ -103,7 +112,10 @@
               "scheduledArrival": 28500,
               "stop": {
                 "gtfsId": "MATKA:345783",
-                "name": "Savontie 8"
+                "name": "Savontie 8",
+                "lat": 62.328695,
+                "lon": 27.889211,
+                "parentStation": null
               }
             },
             "route": {
@@ -131,7 +143,10 @@
               "scheduledArrival": 52500,
               "stop": {
                 "gtfsId": "MATKA:345789",
-                "name": "Varkaus Matkakeskus"
+                "name": "Varkaus Matkakeskus",
+                "lat": 62.312936,
+                "lon": 27.873897,
+                "parentStation": null
               }
             },
             "route": {
@@ -159,7 +174,10 @@
               "scheduledArrival": 52500,
               "stop": {
                 "gtfsId": "MATKA:345789",
-                "name": "Varkaus Matkakeskus"
+                "name": "Varkaus Matkakeskus",
+                "lat": 62.312936,
+                "lon": 27.873897,
+                "parentStation": null
               }
             },
             "route": {
@@ -187,7 +205,10 @@
               "scheduledArrival": 57600,
               "stop": {
                 "gtfsId": "MATKA:322381",
-                "name": "Outokumpu kaupungintalo P"
+                "name": "Outokumpu kaupungintalo P",
+                "lat": 62.725951,
+                "lon": 29.019849,
+                "parentStation": null
               }
             },
             "route": {
@@ -215,7 +236,10 @@
               "scheduledArrival": 57600,
               "stop": {
                 "gtfsId": "MATKA:322381",
-                "name": "Outokumpu kaupungintalo P"
+                "name": "Outokumpu kaupungintalo P",
+                "lat": 62.725951,
+                "lon": 29.019849,
+                "parentStation": null
               }
             },
             "route": {
@@ -243,7 +267,10 @@
               "scheduledArrival": 63300,
               "stop": {
                 "gtfsId": "MATKA:345789",
-                "name": "Varkaus Matkakeskus"
+                "name": "Varkaus Matkakeskus",
+                "lat": 62.312936,
+                "lon": 27.873897,
+                "parentStation": null
               }
             },
             "route": {
@@ -271,7 +298,10 @@
               "scheduledArrival": 63300,
               "stop": {
                 "gtfsId": "MATKA:345789",
-                "name": "Varkaus Matkakeskus"
+                "name": "Varkaus Matkakeskus",
+                "lat": 62.312936,
+                "lon": 27.873897,
+                "parentStation": null
               }
             },
             "route": {

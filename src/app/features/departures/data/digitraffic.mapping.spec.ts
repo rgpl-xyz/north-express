@@ -191,6 +191,7 @@ describe('toDepartureRows', () => {
         scheduled: '2026-10-13T09:40:00.000Z',
         expected: '2026-10-13T09:40:00.000Z',
         destination: 'Nokia',
+        destinationCode: 'NOA',
         track: '2',
         train: 'Commuter M',
         status: { kind: 'on-time' },
@@ -200,6 +201,7 @@ describe('toDepartureRows', () => {
         scheduled: '2026-10-13T11:00:00.000Z',
         expected: '2026-10-13T11:00:00.000Z',
         destination: 'Helsinki',
+        destinationCode: 'HKI',
         track: '1',
         train: 'IC 38',
         status: { kind: 'on-time' },
@@ -209,6 +211,7 @@ describe('toDepartureRows', () => {
         scheduled: '2026-10-13T11:02:00.000Z',
         expected: '2026-10-13T11:03:48.000Z',
         destination: 'Oulu',
+        destinationCode: 'OL',
         track: '2',
         train: 'IC 25',
         status: { kind: 'late', minutes: 2 },
@@ -218,6 +221,7 @@ describe('toDepartureRows', () => {
         scheduled: '2026-10-13T11:11:00.000Z',
         expected: null,
         destination: 'Pori',
+        destinationCode: 'PRI',
         track: '3',
         train: 'IC 467',
         status: { kind: 'on-time' },
@@ -270,12 +274,17 @@ describe('toDepartureRows', () => {
     expect(rowFor(1735)?.destination).toBe('Nokia');
   });
 
-  it('falls back to the station code when the destination is not in the stations list', () => {
-    const destinations = toDepartureRows(TAMPERE_DEPARTURES_FIXTURE, 'TPE', new Map()).map(
-      (departure) => departure.destination,
-    );
+  it('gives the code of the station where the train ends, for the board to open', () => {
+    expect(rowFor(38)?.destinationCode).toBe('HKI');
+    expect(rowFor(1735)?.destinationCode).toBe('NOA');
+  });
 
-    expect(destinations).toEqual(['NOA', 'HKI', 'OL', 'PRI']);
+  it('falls back to the station code when the destination is not in the stations list', () => {
+    const rows = toDepartureRows(TAMPERE_DEPARTURES_FIXTURE, 'TPE', new Map());
+
+    expect(rows.map((departure) => departure.destination)).toEqual(['NOA', 'HKI', 'OL', 'PRI']);
+    // Not stations on the list, so there is no board to open.
+    expect(rows.map((departure) => departure.destinationCode)).toEqual([null, null, null, null]);
   });
 
   it('uses the actual time when there is no live estimate', () => {
@@ -374,6 +383,7 @@ describe('toDepartureRows for ring-line trains (P and I)', () => {
         scheduled: '2026-10-13T10:16:30.000Z',
         expected: '2026-10-13T10:16:30.000Z',
         destination: 'Helsinki',
+        destinationCode: 'HKI',
         track: '1',
         train: 'Commuter P',
         status: { kind: 'on-time' },
@@ -387,6 +397,14 @@ describe('toDepartureRows for ring-line trains (P and I)', () => {
     expect(departure.scheduled).toBe('2026-10-13T09:22:30.000Z');
     expect(departure.track).toBe('11');
     expect(departure.destination).toBe('Lentoasema (Airport)');
+  });
+
+  it('opens the airport from a ring-line train bound for it', () => {
+    const withAirport = new Map([...STATION_NAMES, ['LEN', 'Lentoasema']]);
+
+    const [departure] = toDepartureRows([beforeDeparture(RING_TRAIN)], 'PSL', withAirport);
+
+    expect(departure.destinationCode).toBe('LEN');
   });
 
   it('shows Helsinki departures as bound for the airport', () => {

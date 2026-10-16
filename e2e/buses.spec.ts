@@ -71,7 +71,19 @@ test('the first departure after midnight is marked as tomorrow', async ({ page }
 
   const tomorrow = page.getByRole('row').filter({ hasText: 'Tomorrow' });
   await expect(tomorrow).toHaveCount(1);
-  await expect(tomorrow).toContainText('02:15');
+  // A line of its own, right above the departure.
+  const rows = await page.getByRole('row').allTextContents();
+  expect(rows[rows.findIndex((row) => row.includes('Tomorrow')) + 1]).toContain('02:15');
+
+  // So the time stays level with the rest of its row.
+  const night = page.getByRole('row').filter({ hasText: '02:15' });
+  const middle = async (part: string) => {
+    const box = await night.locator(part).boundingBox();
+    return (box?.y ?? 0) + (box?.height ?? 0) / 2;
+  };
+  expect(Math.abs((await middle('.departs')) - (await middle('.destination-link')))).toBeLessThan(
+    3,
+  );
 
   await page.getByRole('columnheader', { name: 'Destination' }).click();
   await expect(page.getByRole('row').filter({ hasText: 'Tomorrow' })).toHaveCount(0);

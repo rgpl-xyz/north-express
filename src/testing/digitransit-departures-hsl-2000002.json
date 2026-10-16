@@ -19,7 +19,10 @@
               "scheduledArrival": 64920,
               "stop": {
                 "gtfsId": "HSL:2413210",
-                "name": "Alakaupunki"
+                "name": "Alakaupunki",
+                "lat": 60.155434,
+                "lon": 24.631803,
+                "parentStation": null
               }
             },
             "route": {
@@ -47,7 +50,12 @@
               "scheduledArrival": 65880,
               "stop": {
                 "gtfsId": "HSL:2411301",
-                "name": "Espoonlahti (M)"
+                "name": "Espoonlahti (M)",
+                "lat": 60.150474,
+                "lon": 24.652942,
+                "parentStation": {
+                  "gtfsId": "HSL:2000213"
+                }
               }
             },
             "route": {
@@ -75,7 +83,12 @@
               "scheduledArrival": 65160,
               "stop": {
                 "gtfsId": "HSL:2111234",
-                "name": "Leppävaaran asema"
+                "name": "Leppävaaran asema",
+                "lat": 60.218887,
+                "lon": 24.812701,
+                "parentStation": {
+                  "gtfsId": "HSL:2000001"
+                }
               }
             },
             "route": {
@@ -103,7 +116,12 @@
               "scheduledArrival": 65160,
               "stop": {
                 "gtfsId": "HSL:2314200",
-                "name": "Matinkylä (M)"
+                "name": "Matinkylä (M)",
+                "lat": 60.159927,
+                "lon": 24.73946,
+                "parentStation": {
+                  "gtfsId": "HSL:2000212"
+                }
               }
             },
             "route": {
@@ -131,7 +149,12 @@
               "scheduledArrival": 67020,
               "stop": {
                 "gtfsId": "HSL:1453114",
-                "name": "Itäkeskus (M)"
+                "name": "Itäkeskus (M)",
+                "lat": 60.210296,
+                "lon": 25.077854,
+                "parentStation": {
+                  "gtfsId": "HSL:1000008"
+                }
               }
             },
             "route": {
@@ -159,7 +182,10 @@
               "scheduledArrival": 65880,
               "stop": {
                 "gtfsId": "HSL:2631269",
-                "name": "Jorvin sairaala"
+                "name": "Jorvin sairaala",
+                "lat": 60.221014,
+                "lon": 24.68508,
+                "parentStation": null
               }
             },
             "route": {
@@ -187,7 +213,12 @@
               "scheduledArrival": 66120,
               "stop": {
                 "gtfsId": "HSL:2611208",
-                "name": "Espoon asema"
+                "name": "Espoon asema",
+                "lat": 60.206091,
+                "lon": 24.658466,
+                "parentStation": {
+                  "gtfsId": "HSL:2000004"
+                }
               }
             },
             "route": {
@@ -215,7 +246,12 @@
               "scheduledArrival": 64320,
               "stop": {
                 "gtfsId": "HSL:2231225",
-                "name": "Westendinasema"
+                "name": "Westendinasema",
+                "lat": 60.168845,
+                "lon": 24.804419,
+                "parentStation": {
+                  "gtfsId": "HSL:2000006"
+                }
               }
             },
             "route": {
@@ -243,7 +279,10 @@
               "scheduledArrival": 66660,
               "stop": {
                 "gtfsId": "HSL:1431121",
-                "name": "Herttoniemi (M)"
+                "name": "Herttoniemi (M)",
+                "lat": 60.194533,
+                "lon": 25.029695,
+                "parentStation": null
               }
             },
             "route": {
@@ -271,7 +310,10 @@
               "scheduledArrival": 65100,
               "stop": {
                 "gtfsId": "HSL:2222209",
-                "name": "Teekkarikylä"
+                "name": "Teekkarikylä",
+                "lat": 60.188342,
+                "lon": 24.834881,
+                "parentStation": null
               }
             },
             "route": {
@@ -299,7 +341,12 @@
               "scheduledArrival": 66120,
               "stop": {
                 "gtfsId": "HSL:2411301",
-                "name": "Espoonlahti (M)"
+                "name": "Espoonlahti (M)",
+                "lat": 60.150474,
+                "lon": 24.652942,
+                "parentStation": {
+                  "gtfsId": "HSL:2000213"
+                }
               }
             },
             "route": {
@@ -327,7 +374,10 @@
               "scheduledArrival": 65400,
               "stop": {
                 "gtfsId": "HSL:2413210",
-                "name": "Alakaupunki"
+                "name": "Alakaupunki",
+                "lat": 60.155434,
+                "lon": 24.631803,
+                "parentStation": null
               }
             },
             "route": {
@@ -355,7 +405,10 @@
               "scheduledArrival": 65820,
               "stop": {
                 "gtfsId": "HSL:2413210",
-                "name": "Alakaupunki"
+                "name": "Alakaupunki",
+                "lat": 60.155434,
+                "lon": 24.631803,
+                "parentStation": null
               }
             },
             "route": {
@@ -383,7 +436,10 @@
               "scheduledArrival": 66900,
               "stop": {
                 "gtfsId": "HSL:2143201",
-                "name": "Jupperi"
+                "name": "Jupperi",
+                "lat": 60.253117,
+                "lon": 24.774669,
+                "parentStation": null
               }
             },
             "route": {
@@ -411,7 +467,12 @@
               "scheduledArrival": 66660,
               "stop": {
                 "gtfsId": "HSL:2611208",
-                "name": "Espoon asema"
+                "name": "Espoon asema",
+                "lat": 60.206091,
+                "lon": 24.658466,
+                "parentStation": {
+                  "gtfsId": "HSL:2000004"
+                }
               }
             },
             "route": {
@@ -439,7 +500,12 @@
               "scheduledArrival": 66720,
               "stop": {
                 "gtfsId": "HSL:2411301",
-                "name": "Espoonlahti (M)"
+                "name": "Espoonlahti (M)",
+                "lat": 60.150474,
+                "lon": 24.652942,
+                "parentStation": {
+                  "gtfsId": "HSL:2000213"
+                }
               }
             },
             "route": {
@@ -467,7 +533,10 @@
               "scheduledArrival": 67260,
               "stop": {
                 "gtfsId": "HSL:1431121",
-                "name": "Herttoniemi (M)"
+                "name": "Herttoniemi (M)",
+                "lat": 60.194533,
+                "lon": 25.029695,
+                "parentStation": null
               }
             },
             "route": {
@@ -495,7 +564,12 @@
               "scheduledArrival": 66060,
               "stop": {
                 "gtfsId": "HSL:2111234",
-                "name": "Leppävaaran asema"
+                "name": "Leppävaaran asema",
+                "lat": 60.218887,
+                "lon": 24.812701,
+                "parentStation": {
+                  "gtfsId": "HSL:2000001"
+                }
               }
             },
             "route": {
@@ -523,7 +597,12 @@
               "scheduledArrival": 66060,
               "stop": {
                 "gtfsId": "HSL:2314200",
-                "name": "Matinkylä (M)"
+                "name": "Matinkylä (M)",
+                "lat": 60.159927,
+                "lon": 24.73946,
+                "parentStation": {
+                  "gtfsId": "HSL:2000212"
+                }
               }
             },
             "route": {
@@ -551,7 +630,10 @@
               "scheduledArrival": 66180,
               "stop": {
                 "gtfsId": "HSL:2413210",
-                "name": "Alakaupunki"
+                "name": "Alakaupunki",
+                "lat": 60.155434,
+                "lon": 24.631803,
+                "parentStation": null
               }
             },
             "route": {

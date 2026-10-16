@@ -26,7 +26,10 @@ export const BUS_STATIONS_FIXTURE = stations as StationsResponse;
 
 /**
  * The departures query for one Digitransit station, by id, at about 14:40 UTC on
- * 14 October 2026 (17:40 in Finland). Only Tapiola's HSL buses have live data.
+ * 14 October 2026 (17:40 in Finland). Only Tapiola's HSL buses have live data. Each
+ * trip's last stop has its position and station as Digitransit gave them on 16 October;
+ * PohjolanMatka:61393, Kuopio's arrival platform in that feed, had gone from it by then,
+ * so it has the position and id of its station, PohjolanMatka:s4921.
  */
 export const BUS_DEPARTURES_FIXTURES: ReadonlyMap<string, DeparturesResponse> = new Map([
   // Tampere, linja-autoasema: 20 stoptimes, 4 of them buses that end there.

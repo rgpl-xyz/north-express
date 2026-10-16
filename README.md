@@ -36,6 +36,8 @@ The e2e tests answer Digitraffic and `/api/buses` from fakes that serve the resp
 
 Trains and buses each have a board under Departures. To find a station, type part of its name (Ähtäri can be typed as "ahtari"), its Swedish name, such as Helsingfors or Åbo, or a train station's code, such as TPE, and pick it from the list. The list shows a station's Swedish name under its Finnish one. Nearest station picks the station closest to you, if you let the browser share your location; the location stays in the browser. The station picked goes into the address, as in `/departures/trains?station=TPE`, so a board can be bookmarked or shared.
 
+A departure's destination opens the board of the station it ends at. Where that station isn't on the list, pressing the destination says so instead. From the keyboard, Enter on a Destination cell does the same.
+
 If the data can't be loaded, the page says so and offers Try again. When only a refresh fails, the departures already shown stay up with the time they are from.
 
 Times are Finland time whatever the viewer's time zone.
@@ -57,6 +59,8 @@ A train running early counts as on time, and delays are the whole minutes Digitr
 Digitransit lists a bus station once in each operator's feed, sometimes spelled differently: Kuopio, Matkakeskus is in three. Stations with the same name, ignoring case and commas, less than a kilometre apart are listed once, with their departures merged. A bus listed twice under two trips is shown once.
 
 Feeds also list buses that end at the station among its departures. These are arrivals and are left out. Where a feed gives no headsign, or only the route number, the destination is the trip's last stop.
+
+A bus's destination opens the station its last stop is part of, so a bus from Tampere to Helsinki opens Kamppi's long-distance terminal. Some feeds don't say which station a stop is part of; then it is the listed bus station within 200 m of the stop, if there is one.
 
 Most long-distance feeds have no live data, so their buses say Scheduled rather than On time. HSL's buses have live data.
 

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ErrorHandler, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ErrorHandler, input, output } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router, provideRouter } from '@angular/router';
@@ -9,7 +9,7 @@ import {
   departureRow,
 } from '../../../../testing/in-memory-departure-source';
 import { DepartureSource } from '../data/departure-source';
-import type { DepartureRow } from '../data/departures.models';
+import type { DepartureRow, Station } from '../data/departures.models';
 import { DepartureGrid } from './departure-grid/departure-grid';
 import { StationPicker } from './station-picker/station-picker';
 import { DeparturesPage } from './departures-page';
@@ -23,6 +23,10 @@ import { DeparturesPage } from './departures-page';
 class DepartureGridStub {
   readonly rows = input.required<readonly DepartureRow[]>();
   readonly loading = input(false);
+  readonly station = input<string | null>(null);
+  readonly stations = input<readonly Station[]>([]);
+  readonly stationLink = input<(code: string) => string>(() => '');
+  readonly stationPicked = output<string>();
 }
 
 const ROWS = [departureRow({ id: 'a' }), departureRow({ id: 'b', train: 'IC 38' })];
@@ -349,6 +353,25 @@ describe('DeparturesPage', () => {
 
       expect(field().value).toBe('Tampere');
       expect(source.latestDepartures('TPE')).toBeDefined();
+    });
+
+    it('gives the grid the station on the board, the list, and each station’s address', async () => {
+      await showTampere();
+
+      expect(grid().station()).toBe('TPE');
+      expect(grid().stations()).toEqual(TEST_STATIONS);
+      expect(grid().stationLink()('HKI')).toBe('/?station=HKI');
+    });
+
+    it('opens the station a destination picks, with focus on the heading', async () => {
+      await showTampere();
+
+      grid().stationPicked.emit('HKI');
+      await settle();
+
+      expect(router().url).toBe('/?station=HKI');
+      expect(field().value).toBe('Helsinki');
+      expect(document.activeElement).toBe(element.querySelector('h1'));
     });
 
     it('loses a code that is not a station, without a new history entry', async () => {

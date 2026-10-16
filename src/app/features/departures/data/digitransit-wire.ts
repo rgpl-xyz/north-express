@@ -56,10 +56,19 @@ export interface DigitransitStoptime {
   readonly headsign: string | null;
   readonly trip: {
     readonly gtfsId: string;
-    /** The trip's last stop, where it arrives, and when, counted like the departures. */
+    /**
+     * The trip's last stop, where it arrives, and when, counted like the departures. With
+     * the station the stop is part of; some feeds leave that out.
+     */
     readonly arrivalStoptime: {
       readonly scheduledArrival: number;
-      readonly stop: { readonly gtfsId: string; readonly name: string };
+      readonly stop: {
+        readonly gtfsId: string;
+        readonly name: string;
+        readonly lat: number;
+        readonly lon: number;
+        readonly parentStation: { readonly gtfsId: string } | null;
+      };
     } | null;
     readonly route: {
       readonly shortName: string | null;

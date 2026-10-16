@@ -115,6 +115,26 @@ export class DeparturesPage {
     });
   }
 
+  /** The address of a station's board, for the board's destination links. */
+  protected readonly stationLink = (code: string): string =>
+    this.router.serializeUrl(
+      this.router.createUrlTree([], {
+        relativeTo: this.route,
+        queryParams: { station: code },
+        queryParamsHandling: 'merge',
+      }),
+    );
+
+  /**
+   * A destination's board, opened from the board. Its link goes with the old rows, so focus
+   * moves up to the heading, which brings the station field, now naming it, into view. Not
+   * to the field itself: that would open a phone's keyboard.
+   */
+  protected openDestination(code: string, heading: HTMLElement): void {
+    void this.showStation(code);
+    heading.focus();
+  }
+
   /** The picker after stations load; Refresh after departures load (loaded or empty). */
   protected tryAgain(
     alert: BoardAlert,

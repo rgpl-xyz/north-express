@@ -19,7 +19,12 @@
               "scheduledArrival": 28200,
               "stop": {
                 "gtfsId": "PohjolanMatka:61393",
-                "name": "Tulo"
+                "name": "Tulo",
+                "lat": 62.898207,
+                "lon": 27.679235,
+                "parentStation": {
+                  "gtfsId": "PohjolanMatka:s4921"
+                }
               }
             },
             "route": {
@@ -47,7 +52,12 @@
               "scheduledArrival": 30300,
               "stop": {
                 "gtfsId": "PohjolanMatka:61393",
-                "name": "Tulo"
+                "name": "Tulo",
+                "lat": 62.898207,
+                "lon": 27.679235,
+                "parentStation": {
+                  "gtfsId": "PohjolanMatka:s4921"
+                }
               }
             },
             "route": {
@@ -75,7 +85,12 @@
               "scheduledArrival": 28500,
               "stop": {
                 "gtfsId": "PohjolanMatka:38283",
-                "name": "Tulo"
+                "name": "Tulo",
+                "lat": 62.898207,
+                "lon": 27.679235,
+                "parentStation": {
+                  "gtfsId": "PohjolanMatka:s4921"
+                }
               }
             },
             "route": {
@@ -103,7 +118,12 @@
               "scheduledArrival": 49500,
               "stop": {
                 "gtfsId": "PohjolanMatka:61393",
-                "name": "Tulo"
+                "name": "Tulo",
+                "lat": 62.898207,
+                "lon": 27.679235,
+                "parentStation": {
+                  "gtfsId": "PohjolanMatka:s4921"
+                }
               }
             },
             "route": {
@@ -131,7 +151,12 @@
               "scheduledArrival": 56400,
               "stop": {
                 "gtfsId": "PohjolanMatka:61393",
-                "name": "Tulo"
+                "name": "Tulo",
+                "lat": 62.898207,
+                "lon": 27.679235,
+                "parentStation": {
+                  "gtfsId": "PohjolanMatka:s4921"
+                }
               }
             },
             "route": {
@@ -159,7 +184,12 @@
               "scheduledArrival": 53100,
               "stop": {
                 "gtfsId": "PohjolanMatka:38283",
-                "name": "Tulo"
+                "name": "Tulo",
+                "lat": 62.898207,
+                "lon": 27.679235,
+                "parentStation": {
+                  "gtfsId": "PohjolanMatka:s4921"
+                }
               }
             },
             "route": {
@@ -187,7 +217,12 @@
               "scheduledArrival": 58500,
               "stop": {
                 "gtfsId": "PohjolanMatka:38283",
-                "name": "Tulo"
+                "name": "Tulo",
+                "lat": 62.898207,
+                "lon": 27.679235,
+                "parentStation": {
+                  "gtfsId": "PohjolanMatka:s4921"
+                }
               }
             },
             "route": {
@@ -215,7 +250,12 @@
               "scheduledArrival": 63900,
               "stop": {
                 "gtfsId": "PohjolanMatka:61393",
-                "name": "Tulo"
+                "name": "Tulo",
+                "lat": 62.898207,
+                "lon": 27.679235,
+                "parentStation": {
+                  "gtfsId": "PohjolanMatka:s4921"
+                }
               }
             },
             "route": {

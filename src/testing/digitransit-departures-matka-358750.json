@@ -19,7 +19,12 @@
               "scheduledArrival": 72900,
               "stop": {
                 "gtfsId": "MATKA:357373",
-                "name": "30-35"
+                "name": "30-35",
+                "lat": 60.1697279,
+                "lon": 24.9337071,
+                "parentStation": {
+                  "gtfsId": "MATKA:300013"
+                }
               }
             },
             "route": {
@@ -47,7 +52,12 @@
               "scheduledArrival": 67500,
               "stop": {
                 "gtfsId": "MATKA:358759",
-                "name": "2"
+                "name": "2",
+                "lat": 61.493677,
+                "lon": 23.769715,
+                "parentStation": {
+                  "gtfsId": "MATKA:358750"
+                }
               }
             },
             "route": {
@@ -75,7 +85,12 @@
               "scheduledArrival": 75300,
               "stop": {
                 "gtfsId": "MATKA:371992",
-                "name": "T"
+                "name": "T",
+                "lat": 60.977258,
+                "lon": 25.658533,
+                "parentStation": {
+                  "gtfsId": "MATKA:359102"
+                }
               }
             },
             "route": {
@@ -103,7 +118,10 @@
               "scheduledArrival": 76740,
               "stop": {
                 "gtfsId": "MATKA:312806",
-                "name": "Linja-autoasema, tulolaituri"
+                "name": "Linja-autoasema, tulolaituri",
+                "lat": 60.4564094,
+                "lon": 22.2666123,
+                "parentStation": null
               }
             },
             "route": {
@@ -131,7 +149,12 @@
               "scheduledArrival": 77400,
               "stop": {
                 "gtfsId": "MATKA:459143",
-                "name": "Tulo"
+                "name": "Tulo",
+                "lat": 62.242551,
+                "lon": 25.755179,
+                "parentStation": {
+                  "gtfsId": "MATKA:346836"
+                }
               }
             },
             "route": {
@@ -159,7 +182,12 @@
               "scheduledArrival": 16800,
               "stop": {
                 "gtfsId": "MATKA:358761",
-                "name": "14"
+                "name": "14",
+                "lat": 60.317209,
+                "lon": 24.96677,
+                "parentStation": {
+                  "gtfsId": "MATKA:358299"
+                }
               }
             },
             "route": {
@@ -187,7 +215,12 @@
               "scheduledArrival": 26100,
               "stop": {
                 "gtfsId": "MATKA:358306",
-                "name": "12"
+                "name": "12",
+                "lat": 60.317113,
+                "lon": 24.966957,
+                "parentStation": {
+                  "gtfsId": "MATKA:358299"
+                }
               }
             },
             "route": {
@@ -215,7 +248,12 @@
               "scheduledArrival": 26700,
               "stop": {
                 "gtfsId": "MATKA:357373",
-                "name": "30-35"
+                "name": "30-35",
+                "lat": 60.1697279,
+                "lon": 24.9337071,
+                "parentStation": {
+                  "gtfsId": "MATKA:300013"
+                }
               }
             },
             "route": {
@@ -243,7 +281,10 @@
               "scheduledArrival": 27600,
               "stop": {
                 "gtfsId": "MATKA:387593",
-                "name": "Mänttä Ratakatu"
+                "name": "Mänttä Ratakatu",
+                "lat": 62.0303535,
+                "lon": 24.6248365,
+                "parentStation": null
               }
             },
             "route": {
@@ -271,7 +312,12 @@
               "scheduledArrival": 31500,
               "stop": {
                 "gtfsId": "MATKA:357373",
-                "name": "30-35"
+                "name": "30-35",
+                "lat": 60.1697279,
+                "lon": 24.9337071,
+                "parentStation": {
+                  "gtfsId": "MATKA:300013"
+                }
               }
             },
             "route": {
@@ -299,7 +345,10 @@
               "scheduledArrival": 31200,
               "stop": {
                 "gtfsId": "MATKA:387593",
-                "name": "Mänttä Ratakatu"
+                "name": "Mänttä Ratakatu",
+                "lat": 62.0303535,
+                "lon": 24.6248365,
+                "parentStation": null
               }
             },
             "route": {
@@ -327,7 +376,12 @@
               "scheduledArrival": 28080,
               "stop": {
                 "gtfsId": "MATKA:358759",
-                "name": "2"
+                "name": "2",
+                "lat": 61.493677,
+                "lon": 23.769715,
+                "parentStation": {
+                  "gtfsId": "MATKA:358750"
+                }
               }
             },
             "route": {
@@ -355,7 +409,12 @@
               "scheduledArrival": 31920,
               "stop": {
                 "gtfsId": "MATKA:358755",
-                "name": "6"
+                "name": "6",
+                "lat": 61.677126,
+                "lon": 24.353345,
+                "parentStation": {
+                  "gtfsId": "MATKA:358753"
+                }
               }
             },
             "route": {
@@ -383,7 +442,12 @@
               "scheduledArrival": 37800,
               "stop": {
                 "gtfsId": "MATKA:358306",
-                "name": "12"
+                "name": "12",
+                "lat": 60.317113,
+                "lon": 24.966957,
+                "parentStation": {
+                  "gtfsId": "MATKA:358299"
+                }
               }
             },
             "route": {
@@ -411,7 +475,12 @@
               "scheduledArrival": 38700,
               "stop": {
                 "gtfsId": "MATKA:357373",
-                "name": "30-35"
+                "name": "30-35",
+                "lat": 60.1697279,
+                "lon": 24.9337071,
+                "parentStation": {
+                  "gtfsId": "MATKA:300013"
+                }
               }
             },
             "route": {
@@ -439,7 +508,12 @@
               "scheduledArrival": 29400,
               "stop": {
                 "gtfsId": "MATKA:358759",
-                "name": "2"
+                "name": "2",
+                "lat": 61.493677,
+                "lon": 23.769715,
+                "parentStation": {
+                  "gtfsId": "MATKA:358750"
+                }
               }
             },
             "route": {
@@ -467,7 +541,12 @@
               "scheduledArrival": 31680,
               "stop": {
                 "gtfsId": "MATKA:358759",
-                "name": "2"
+                "name": "2",
+                "lat": 61.493677,
+                "lon": 23.769715,
+                "parentStation": {
+                  "gtfsId": "MATKA:358750"
+                }
               }
             },
             "route": {
@@ -495,7 +574,10 @@
               "scheduledArrival": 38400,
               "stop": {
                 "gtfsId": "MATKA:360336",
-                "name": "Kyynärö I"
+                "name": "Kyynärö I",
+                "lat": 61.404723,
+                "lon": 24.79849,
+                "parentStation": null
               }
             },
             "route": {
@@ -523,7 +605,12 @@
               "scheduledArrival": 42300,
               "stop": {
                 "gtfsId": "MATKA:357373",
-                "name": "30-35"
+                "name": "30-35",
+                "lat": 60.1697279,
+                "lon": 24.9337071,
+                "parentStation": {
+                  "gtfsId": "MATKA:300013"
+                }
               }
             },
             "route": {
@@ -551,7 +638,12 @@
               "scheduledArrival": 50700,
               "stop": {
                 "gtfsId": "MATKA:459142",
-                "name": "Tulo"
+                "name": "Tulo",
+                "lat": 62.898207,
+                "lon": 27.679235,
+                "parentStation": {
+                  "gtfsId": "MATKA:388199"
+                }
               }
             },
             "route": {

@@ -7,7 +7,7 @@
       ends="stations"
     />
     <!-- The mode first, as on Finnish wayfinding signs: a pictogram plate, then the board's name. -->
-    <h1 class="board-mode">
+    <h1 class="board-mode" tabindex="-1" #heading>
       <span class="mode-plate"><app-mode-pictogram [mode]="kind.mode" /></span>
       {{ kind.heading }}
     </h1>
@@ -87,6 +87,13 @@
         <span>{{ lastUpdated }}</span>
       }
     </p>
-    <app-departure-grid [rows]="rows()" [loading]="loading()" />
+    <app-departure-grid
+      [rows]="rows()"
+      [loading]="loading()"
+      [station]="selectedCode()"
+      [stations]="stations()"
+      [stationLink]="stationLink"
+      (stationPicked)="openDestination($event, heading)"
+    />
   }
 </div>

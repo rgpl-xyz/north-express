@@ -106,20 +106,25 @@ function departureIndex(train: DigitrafficTrain, stationCode: string): number {
 
 /**
  * Ring-line trains show the airport as their destination until they have passed it,
- * as HSL's own displays do; every other train shows its last station.
+ * as HSL's own displays do; every other train shows its last station. The code is that
+ * station's, if it is on the list.
  */
 function destinationOf(
   train: DigitrafficTrain,
   index: number,
   stationNames: ReadonlyMap<string, string>,
-): string {
+): Pick<DepartureRow, 'destination' | 'destinationCode'> {
   const rows = train.timeTableRows;
+  const listed = (code: string) => (stationNames.has(code) ? code : null);
   const isRingLine = RING_LINES.has(train.commuterLineID ?? '');
   if (isRingLine && rows.slice(index + 1).some((row) => row.stationShortCode === AIRPORT_CODE)) {
-    return AIRPORT_DESTINATION;
+    return { destination: AIRPORT_DESTINATION, destinationCode: listed(AIRPORT_CODE) };
   }
   const lastStation = rows.at(-1)?.stationShortCode ?? '';
-  return stationNames.get(lastStation) ?? lastStation;
+  return {
+    destination: stationNames.get(lastStation) ?? lastStation,
+    destinationCode: listed(lastStation),
+  };
 }
 
 function toDepartureRow(
@@ -132,7 +137,7 @@ function toDepartureRow(
     id: `${train.departureDate}-${train.trainNumber}`,
     scheduled: departure.scheduledTime,
     expected: departure.actualTime ?? departure.liveEstimateTime ?? null,
-    destination: destinationOf(train, index, stationNames),
+    ...destinationOf(train, index, stationNames),
     track: departure.commercialTrack ?? '',
     train: trainLabel(train),
     status: departureStatus(train, departure),
@@ -142,7 +147,7 @@ function toDepartureRow(
 /**
  * One row per passenger train that passengers can board at the station, sorted by
  * scheduled departure: the order the departure board shows them in. `stationNames`
- * maps station codes to display names for the destination column.
+ * maps the listed stations' codes to display names for the destination column.
  */
 export function toDepartureRows(
   trains: readonly DigitrafficTrain[],

@@ -8,7 +8,9 @@ import type {
   DigitransitStation,
   DigitransitStoptime,
 } from './digitransit-wire';
-import { toBusDepartureRows, toBusStations } from './digitransit.mapping';
+import { type BusStations, toBusDepartureRows, toBusStations } from './digitransit.mapping';
+
+type LastStop = NonNullable<DigitransitStoptime['trip']['arrivalStoptime']>['stop'];
 
 function station(overrides: Partial<DigitransitStation> = {}): DigitransitStation {
   return {
@@ -38,7 +40,13 @@ function stoptime(overrides: Partial<DigitransitStoptime> = {}): DigitransitStop
       gtfsId: 'MATKA:trip-1',
       arrivalStoptime: {
         scheduledArrival: 70200, // 19:30
-        stop: { gtfsId: 'MATKA:20', name: 'Lahti, Matkakeskus' },
+        stop: {
+          gtfsId: 'MATKA:20',
+          name: 'Lahti, Matkakeskus',
+          lat: 60.98,
+          lon: 25.65,
+          parentStation: null,
+        },
       },
       route: { shortName: 'OB37', agency: { name: 'OnniBus' } },
     },
@@ -50,7 +58,11 @@ function departuresResponse(...stoptimes: DigitransitStoptime[]): DeparturesResp
   return { data: { station: { stoptimesWithoutPatterns: stoptimes } } };
 }
 
-const fixtureRows = (...ids: string[]) => toBusDepartureRows(ids.map(busDeparturesFixture));
+const FIXTURE_STATIONS = toBusStations(BUS_STATIONS_FIXTURE);
+const NO_STATIONS = toBusStations(stationsResponse());
+
+const fixtureRows = (...ids: string[]) =>
+  toBusDepartureRows(ids.map(busDeparturesFixture), FIXTURE_STATIONS);
 
 describe('toBusStations', () => {
   const { stations, ids } = toBusStations(BUS_STATIONS_FIXTURE);
@@ -159,12 +171,13 @@ describe('toBusStations', () => {
 
 describe('toBusDepartureRows', () => {
   it('maps a departure: times, platform, route and headsign', () => {
-    expect(toBusDepartureRows([departuresResponse(stoptime())])).toEqual([
+    expect(toBusDepartureRows([departuresResponse(stoptime())], NO_STATIONS)).toEqual([
       {
         id: 'MATKA:trip-1/MATKA:9/1791990000',
         scheduled: '2026-10-14T15:00:00.000Z',
         expected: null,
         destination: 'Lahti',
+        destinationCode: null,
         track: '3',
         train: 'OB37',
         status: { kind: 'scheduled' },
@@ -209,12 +222,15 @@ describe('toBusDepartureRows', () => {
   it('keeps a loop that starts and ends at the station, and leaves out its return', () => {
     const loop = stoptime().trip;
     const here = { gtfsId: 'MATKA:20', platformCode: '3' };
-    const rows = toBusDepartureRows([
-      departuresResponse(
-        stoptime({ stop: here, trip: loop }),
-        stoptime({ stop: here, trip: loop, scheduledDeparture: 70200, realtimeDeparture: 70200 }),
-      ),
-    ]);
+    const rows = toBusDepartureRows(
+      [
+        departuresResponse(
+          stoptime({ stop: here, trip: loop }),
+          stoptime({ stop: here, trip: loop, scheduledDeparture: 70200, realtimeDeparture: 70200 }),
+        ),
+      ],
+      NO_STATIONS,
+    );
 
     expect(rows.map((row) => row.scheduled)).toEqual(['2026-10-14T15:00:00.000Z']);
   });
@@ -223,7 +239,10 @@ describe('toBusDepartureRows', () => {
     // 20 stoptimes from 18:00 to 18:19, 15 of them buses ending here.
     const busy = Array.from({ length: 20 }, (_, minute) => {
       const time = 64800 + minute * 60;
-      const here = { scheduledArrival: time, stop: { gtfsId: 'MATKA:9', name: 'Here' } };
+      const here = {
+        scheduledArrival: time,
+        stop: { gtfsId: 'MATKA:9', name: 'Here', lat: 61, lon: 25, parentStation: null },
+      };
       const { trip } = stoptime();
       return stoptime({
         scheduledDeparture: time,
@@ -233,7 +252,10 @@ describe('toBusDepartureRows', () => {
     });
     const quiet = stoptime({ scheduledDeparture: 68400, realtimeDeparture: 68400 }); // 19:00
 
-    const rows = toBusDepartureRows([departuresResponse(...busy), departuresResponse(quiet)]);
+    const rows = toBusDepartureRows(
+      [departuresResponse(...busy), departuresResponse(quiet)],
+      NO_STATIONS,
+    );
 
     expect(rows).toHaveLength(5);
     expect(rows.at(-1)?.scheduled).toBe('2026-10-14T15:19:00.000Z');
@@ -253,7 +275,9 @@ describe('toBusDepartureRows', () => {
       [timetable, live],
       [live, timetable],
     ]) {
-      expect(toBusDepartureRows(responses).map((row) => row.status)).toEqual([{ kind: 'on-time' }]);
+      expect(toBusDepartureRows(responses, NO_STATIONS).map((row) => row.status)).toEqual([
+        { kind: 'on-time' },
+      ]);
     }
   });
 
@@ -263,7 +287,7 @@ describe('toBusDepartureRows', () => {
 
   describe('status', () => {
     const statusOf = (overrides: Partial<DigitransitStoptime>) =>
-      toBusDepartureRows([departuresResponse(stoptime(overrides))])[0];
+      toBusDepartureRows([departuresResponse(stoptime(overrides))], NO_STATIONS)[0];
 
     it('is scheduled without live data, with no expected time', () => {
       expect(statusOf({})).toMatchObject({ status: { kind: 'scheduled' }, expected: null });
@@ -302,6 +326,78 @@ describe('toBusDepartureRows', () => {
   });
 
   it('throws for a station Digitransit does not know', () => {
-    expect(() => toBusDepartureRows([{ data: { station: null } }])).toThrow('no such station');
+    expect(() => toBusDepartureRows([{ data: { station: null } }], NO_STATIONS)).toThrow(
+      'no such station',
+    );
+  });
+});
+
+describe('the station a bus ends at', () => {
+  const lahti = station({ gtfsId: 'MATKA:20', name: 'Lahti, Matkakeskus', lat: 60.98, lon: 25.65 });
+  const LAHTI = toBusStations(stationsResponse(lahti));
+
+  /** A last stop in Lahti, part of no station, unless the overrides say otherwise. */
+  function lastStop(overrides: Partial<LastStop> = {}): LastStop {
+    return {
+      gtfsId: 'MATKA:21',
+      name: 'Tulo',
+      lat: 60.98,
+      lon: 25.65,
+      parentStation: null,
+      ...overrides,
+    };
+  }
+
+  function endsAt(stop: LastStop, listed: BusStations = LAHTI): string | null {
+    const { trip } = stoptime();
+    const ending = stoptime({
+      trip: { ...trip, arrivalStoptime: { scheduledArrival: 70200, stop } },
+    });
+    return toBusDepartureRows([departuresResponse(ending)], listed)[0].destinationCode;
+  }
+
+  it('is the listed station its last stop is part of', () => {
+    // In Tampere, but part of Lahti's station, as the feed says.
+    expect(endsAt(lastStop({ parentStation: { gtfsId: 'MATKA:20' }, lat: 61.5, lon: 23.8 }))).toBe(
+      'MATKA:20',
+    );
+  });
+
+  it('is the code the station is listed under when several feeds list it', () => {
+    expect(endsAt(lastStop({ parentStation: { gtfsId: 'MATKA:346812' } }), FIXTURE_STATIONS)).toBe(
+      'INGVESSVANBACK:S4381',
+    );
+  });
+
+  it('is the listed station a short walk from the stop, for a feed that leaves it out', () => {
+    // About 100 m north of the station.
+    expect(endsAt(lastStop({ lat: 60.9809 }))).toBe('MATKA:20');
+  });
+
+  it('is nothing when the stop is further from every listed station', () => {
+    // About 500 m north, and a station that isn't listed.
+    expect(endsAt(lastStop({ lat: 60.9845 }))).toBeNull();
+    expect(endsAt(lastStop({ parentStation: { gtfsId: 'HSL:9' }, lat: 61.5 }))).toBeNull();
+  });
+
+  it('is nothing for a trip with no last stop', () => {
+    const { trip } = stoptime();
+    const rows = toBusDepartureRows(
+      [departuresResponse(stoptime({ trip: { ...trip, arrivalStoptime: null } }))],
+      LAHTI,
+    );
+
+    expect(rows[0].destinationCode).toBeNull();
+  });
+
+  it('takes the Tampere buses to Helsinki to Kamppi’s long-distance terminal', () => {
+    const toHelsinki = fixtureRows('MATKA:358750').filter((row) => row.destination === 'Helsinki');
+    const ends = toHelsinki.map(
+      (row) =>
+        FIXTURE_STATIONS.stations.find((listed) => listed.code === row.destinationCode)?.name,
+    );
+
+    expect(ends.length).toBeGreaterThan(0);
+    expect(new Set(ends)).toEqual(new Set(['Kamppi (kaukoliikenneterminaali)']));
   });
 });

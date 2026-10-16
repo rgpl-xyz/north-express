@@ -18,6 +18,13 @@ export interface BusStations {
 /** Same-named stations closer than this are one station that several feeds list. */
 const SAME_PLACE_KM = 1;
 
+/**
+ * A last stop this close to a listed station is part of it. The feeds that leave out a
+ * stop's station put their bus station stops within about 110 m of it; the stops that
+ * aren't at one, such as a railway station's yard, were 500 m away or more.
+ */
+const AT_STATION_KM = 0.2;
+
 /** As many as the train board shows, and as many as the query asks each station for. */
 const MAX_DEPARTURES = 20;
 
@@ -153,13 +160,39 @@ function completeUntil(stations: readonly (readonly DigitransitStoptime[])[]): n
   );
 }
 
-function toBusDepartureRow(stoptime: DigitransitStoptime): DepartureRow {
+/**
+ * The listed bus station where a trip ends: the station its last stop is part of, or for
+ * a feed that doesn't say, the listed station a short walk from the stop. Null if neither.
+ */
+function endStation({ trip }: DigitransitStoptime, { stations, ids }: BusStations): string | null {
+  const last = trip.arrivalStoptime?.stop;
+  if (!last) {
+    return null;
+  }
+  const parent = last.parentStation?.gtfsId;
+  for (const [code, stationIds] of ids) {
+    if (parent && stationIds.includes(parent)) {
+      return code;
+    }
+  }
+  let nearest: { code: string; km: number } | null = null;
+  for (const { code, position } of stations) {
+    const km = position ? kmBetween(last, position) : Infinity;
+    if (km <= AT_STATION_KM && (!nearest || km < nearest.km)) {
+      nearest = { code, km };
+    }
+  }
+  return nearest?.code ?? null;
+}
+
+function toBusDepartureRow(stoptime: DigitransitStoptime, listed: BusStations): DepartureRow {
   const { serviceDay, scheduledDeparture, stop, trip } = stoptime;
   return {
     id: `${trip.gtfsId}/${stop.gtfsId}/${serviceDay + scheduledDeparture}`,
     scheduled: isoTime(serviceDay, scheduledDeparture),
     expected: stoptime.realtime ? isoTime(serviceDay, stoptime.realtimeDeparture) : null,
     destination: destinationOf(stoptime),
+    destinationCode: endStation(stoptime, listed),
     track: stop.platformCode ?? '',
     // The route number, or the operator for routes without one, as many long-distance ones are.
     train: trip.route.shortName || trip.route.agency.name,
@@ -196,16 +229,19 @@ function stoptimesOf(response: DeparturesResponse): readonly DigitransitStoptime
  * The next departures from a bus station, given the departures of each Digitransit
  * station behind it: buses that end there are left out, rows that read the same are
  * shown once, nothing later than the stations' answers all reach is kept, and the first
- * 20 by scheduled time remain. An answer without data, such as an unknown station, is
- * an error.
+ * 20 by scheduled time remain. Each row has the station on the `listed` stations where it
+ * ends, if any. An answer without data, such as an unknown station, is an error.
  */
-export function toBusDepartureRows(responses: readonly DeparturesResponse[]): DepartureRow[] {
+export function toBusDepartureRows(
+  responses: readonly DeparturesResponse[],
+  listed: BusStations,
+): DepartureRow[] {
   const stations = responses.map(stoptimesOf);
   const until = completeUntil(stations);
   const rows = stations
     .flat()
     .filter((stoptime) => !isArrival(stoptime) && departsAt(stoptime) <= until)
-    .map(toBusDepartureRow)
+    .map((stoptime) => toBusDepartureRow(stoptime, listed))
     .sort((a, b) => Date.parse(a.scheduled) - Date.parse(b.scheduled));
   return shownOnce(rows).slice(0, MAX_DEPARTURES);
 }

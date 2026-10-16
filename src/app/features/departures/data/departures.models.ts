@@ -34,6 +34,11 @@ export interface DepartureRow {
   /** ISO timestamp (UTC) of the actual time or live estimate, if the feed has one. */
   readonly expected: string | null;
   readonly destination: string;
+  /**
+   * The code of the station on this board's list where the departure ends, so the board
+   * can open it; null when it ends somewhere the list doesn't have.
+   */
+  readonly destinationCode: string | null;
   /** Where to board: a train's track or a bus platform. */
   readonly track: string;
   /** The train, or the bus route (its operator when the route has no number). */

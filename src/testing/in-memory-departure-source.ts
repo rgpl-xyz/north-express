@@ -94,6 +94,7 @@ export function departureRow(overrides: Partial<DepartureRow> = {}): DepartureRo
     scheduled: '2026-10-13T11:02:00.000Z',
     expected: '2026-10-13T11:03:48.000Z',
     destination: 'Oulu',
+    destinationCode: null,
     track: '2',
     train: 'IC 25',
     status: { kind: 'late', minutes: 2 },

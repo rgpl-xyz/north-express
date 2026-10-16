@@ -34,20 +34,20 @@ export class DigitransitBusSource implements DepartureSource {
 
   /**
    * Departures from every Digitransit station behind the code, requested in parallel.
-   * Needs the station list for that, so it fails when the list can't be loaded.
+   * Needs the station list for that, and to tell where each bus ends, so it fails when
+   * the list can't be loaded.
    */
   departures(stationCode: string): Observable<readonly DepartureRow[]> {
     return this.busStations.pipe(
-      switchMap(({ ids }) => {
-        const stationIds = ids.get(stationCode);
+      switchMap((listed) => {
+        const stationIds = listed.ids.get(stationCode);
         if (!stationIds) {
           return throwError(() => new Error(`No bus station ${stationCode}`));
         }
         return forkJoin(
           stationIds.map((id) => this.http.get<DeparturesResponse>(busDeparturesUrl(id))),
-        );
+        ).pipe(map((responses) => toBusDepartureRows(responses, listed)));
       }),
-      map(toBusDepartureRows),
     );
   }
 }
