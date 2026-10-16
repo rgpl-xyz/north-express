@@ -11,7 +11,7 @@ test('the Departures menu opens the bus board', async ({ page }) => {
 
   await expect(page).toHaveURL(/\/departures\/buses$/);
   await expect(page).toHaveTitle('Buses | The North Express');
-  await expect(page.getByRole('heading', { name: 'Bus departures' })).toBeAttached();
+  await expect(page.getByRole('heading', { level: 1, name: 'Bus departures' })).toBeVisible();
   await expect(field(page)).toBeEnabled();
 });
 

@@ -109,13 +109,15 @@ export function placeStops(names: readonly string[], endX: number): DrawnStop[] 
   `,
   styleUrl: './track-line.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { 'aria-hidden': 'true' },
+  host: { 'aria-hidden': 'true', '[class.road]': 'road()' },
 })
 export class TrackLine {
   /** Station names from the start of the line; with none, the line is drawn alone. */
   readonly stops = input<readonly string[]>(MAIN_LINE);
   /** Whether the stops are named, or drawn as dots only. */
   readonly named = input(true);
+  /** Draws the line dashed, like a road's centre line, for a bus board. */
+  readonly road = input(false);
   readonly ends = input<LineEnds>('open');
 
   protected readonly placed = computed(() =>

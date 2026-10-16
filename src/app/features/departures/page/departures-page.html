@@ -1,7 +1,16 @@
 <div class="sign-band">
   <div class="container">
-    <app-track-line class="sign-band-art d-none d-xl-block" [named]="false" ends="stations" />
-    <h1 class="visually-hidden">{{ kind.heading }}</h1>
+    <app-track-line
+      class="sign-band-art d-none d-xl-block"
+      [named]="false"
+      [road]="kind.mode === 'bus'"
+      ends="stations"
+    />
+    <!-- The mode first, as on Finnish wayfinding signs: a pictogram plate, then the board's name. -->
+    <h1 class="board-mode">
+      <span class="mode-plate"><app-mode-pictogram [mode]="kind.mode" /></span>
+      {{ kind.heading }}
+    </h1>
     <div class="row g-3 align-items-end">
       <div class="col-12 col-md-8 col-lg-6">
         <app-station-picker

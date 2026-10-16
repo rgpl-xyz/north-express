@@ -4,6 +4,7 @@ import { NavigationStart, Router, RouterLink, RouterLinkActive } from '@angular/
 import { filter } from 'rxjs';
 import { APP_NAME } from '../../core/app-info';
 import { NAVIGATION, type NavigationLink } from '../../core/navigation/navigation';
+import { ModePictogram } from '../../shared/mode-pictogram';
 
 /**
  * Bootstrap navbar driven by signals instead of Bootstrap's JavaScript: the toggler
@@ -12,7 +13,7 @@ import { NAVIGATION, type NavigationLink } from '../../core/navigation/navigatio
  */
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, ModePictogram],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

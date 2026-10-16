@@ -4,6 +4,7 @@ test('choosing a station shows its departures', async ({ page }) => {
   await page.goto('/departures/trains');
 
   await expect(page).toHaveTitle('Trains | The North Express');
+  await expect(page.getByRole('heading', { level: 1, name: 'Train departures' })).toBeVisible();
   await expect(page.getByText('Choose a station to see its next departures.')).toBeVisible();
 
   const picker = page.getByLabel('Station', { exact: true });

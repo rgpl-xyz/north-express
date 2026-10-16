@@ -14,6 +14,7 @@ import { type BoardAlert, DepartureBoard } from '../board/departure-board';
 import { BOARD_KIND } from './board-kind';
 import type { DepartureRow, Station } from '../data/departures.models';
 import { TrackLine } from '../../../layout/track-line/track-line';
+import { ModePictogram } from '../../../shared/mode-pictogram';
 import { DepartureGrid } from './departure-grid/departure-grid';
 import { NearestStation } from './nearest-station/nearest-station';
 import { StationPicker } from './station-picker/station-picker';
@@ -23,7 +24,7 @@ const NONE: readonly never[] = [];
 /** Renders the departure board; all loading logic and wording live in DepartureBoard. */
 @Component({
   selector: 'app-departures-page',
-  imports: [StationPicker, DepartureGrid, NearestStation, TrackLine],
+  imports: [StationPicker, DepartureGrid, NearestStation, ModePictogram, TrackLine],
   providers: [DepartureBoard],
   templateUrl: './departures-page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

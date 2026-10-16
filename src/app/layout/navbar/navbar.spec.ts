@@ -74,6 +74,14 @@ describe('Navbar', () => {
     expect(hrefs).toEqual(['/', '/home', '/departures/trains', '/departures/buses']);
   });
 
+  it('marks Trains and Buses with their pictograms', () => {
+    const drawn = Array.from(element.querySelectorAll('#nav-departures-menu svg'), (svg) =>
+      svg.getAttribute('data-mode'),
+    );
+
+    expect(drawn).toEqual(['train', 'bus']);
+  });
+
   it('opens and closes the collapsed menu with the toggler', async () => {
     expect(menuToggle().getAttribute('aria-expanded')).toBe('false');
     expect(collapse().classList).not.toContain('show');

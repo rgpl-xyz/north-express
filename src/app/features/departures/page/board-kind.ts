@@ -1,8 +1,11 @@
 import { InjectionToken } from '@angular/core';
+import type { TransportMode } from '../../../shared/mode-pictogram';
 
-/** What sets one departures page apart from another: its heading and two column names. */
+/** What sets one departures page apart from another: its mode, heading and column names. */
 export interface BoardKind {
-  /** The page's heading, for screen readers; on screen the station picker is the sign. */
+  /** Trains or buses, shown by its pictogram next to the heading. */
+  readonly mode: TransportMode;
+  /** The page's heading, above the station sign, so the board says what it shows. */
   readonly heading: string;
   /** The column for where to board, such as a train's track. */
   readonly place: string;
@@ -13,6 +16,7 @@ export interface BoardKind {
 }
 
 export const TRAIN_BOARD: BoardKind = {
+  mode: 'train',
   heading: 'Train departures',
   place: 'Track',
   placeShort: 'Track',
@@ -20,6 +24,7 @@ export const TRAIN_BOARD: BoardKind = {
 };
 
 export const BUS_BOARD: BoardKind = {
+  mode: 'bus',
   heading: 'Bus departures',
   place: 'Platform',
   // As UK station boards shorten it.

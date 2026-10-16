@@ -42,14 +42,7 @@ const late = (minutes: number): DepartureStatus => ({ kind: 'late', minutes });
 
 describe('departureColumns', () => {
   it('names the place and service columns for the kind of board', () => {
-    const bus = {
-      heading: 'Bus departures',
-      place: 'Platform',
-      placeShort: 'Plat',
-      service: 'Bus',
-    };
-
-    expect(departureColumns(bus).map((candidate) => candidate.headerName)).toEqual([
+    expect(departureColumns(BUS_BOARD).map((candidate) => candidate.headerName)).toEqual([
       'Departs',
       'Destination',
       'Platform',

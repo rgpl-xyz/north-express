@@ -133,6 +133,32 @@ $btn-transition: none;
   height: 100%;
 }
 
+// The board's mode above its sign: a white plate with the pictogram in signal blue, then
+// the board's name in condensed capitals, smaller than the station name it leads.
+.board-mode {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 1rem;
+  font-family: var(--ne-condensed);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mode-plate {
+  display: inline-grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.875rem;
+  color: var(--bs-primary);
+  background-color: #fff;
+  border-radius: 3px;
+}
+
 .sign-title {
   font-size: clamp(2.5rem, 6vw, 3.75rem);
   line-height: 1;

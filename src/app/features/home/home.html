@@ -8,10 +8,14 @@
           board and whether it is on time.
         </p>
         <div class="d-grid d-sm-flex gap-3">
-          <a class="btn btn-primary btn-lg" routerLink="/departures/trains">See train departures</a>
-          <a class="btn btn-outline-light btn-lg" routerLink="/departures/buses"
-            >See bus departures</a
-          >
+          <a class="btn btn-primary btn-lg board-link" routerLink="/departures/trains">
+            <app-mode-pictogram mode="train" />
+            See train departures
+          </a>
+          <a class="btn btn-outline-light btn-lg board-link" routerLink="/departures/buses">
+            <app-mode-pictogram mode="bus" />
+            See bus departures
+          </a>
         </div>
       </div>
       <div class="col-12 col-lg-6">

@@ -29,6 +29,11 @@ svg {
   stroke-width: 8;
 }
 
+// A road rather than a railway: the line broken into dashes, the stops kept.
+:host(.road) .rail {
+  stroke-dasharray: 14 9;
+}
+
 .stop {
   fill: var(--bs-primary);
   stroke: currentColor;

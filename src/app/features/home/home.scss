@@ -5,3 +5,15 @@
 .lead {
   max-width: 32rem;
 }
+
+// Each way in carries its board's pictogram, the size of a capital.
+.board-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  app-mode-pictogram {
+    font-size: 1.375rem;
+  }
+}

@@ -49,8 +49,12 @@
                       routerLinkActive="active"
                       ariaCurrentWhenActive="page"
                       (click)="closeMenus()"
-                      >{{ child.name }}</a
                     >
+                      @if (child.mode) {
+                        <app-mode-pictogram class="menu-pictogram" [mode]="child.mode" />
+                      }
+                      {{ child.name }}
+                    </a>
                   </li>
                 }
               </ul>
