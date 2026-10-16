@@ -51,6 +51,29 @@ describe('GlobalErrorHandler', () => {
     expect(notifications.toasts()).toHaveLength(1);
   });
 
+  describe('a window error event', () => {
+    // As Angular passes one on: an Error with the event as its cause.
+    const fromWindow = (message: string) =>
+      new Error(message, { cause: new ErrorEvent('error', { message }) });
+
+    it('takes ResizeObserver’s loop notice, which is not an error, without a toast', () => {
+      const consoleDebug = vi.spyOn(console, 'debug').mockImplementation(() => undefined);
+      const notice = fromWindow('ResizeObserver loop completed with undelivered notifications.');
+
+      handler.handleError(notice);
+
+      expect(notifications.toasts()).toEqual([]);
+      expect(consoleError).not.toHaveBeenCalled();
+      expect(consoleDebug).toHaveBeenCalledWith(notice);
+    });
+
+    it('shows the toast for any other', () => {
+      handler.handleError(fromWindow('Script error.'));
+
+      expect(notifications.toasts()).toHaveLength(1);
+    });
+  });
+
   it('does not throw when the toast cannot be shown', () => {
     vi.spyOn(notifications, 'error').mockImplementation(() => {
       throw new Error('toast failed');

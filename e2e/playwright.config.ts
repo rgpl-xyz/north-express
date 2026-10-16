@@ -29,7 +29,7 @@ export default defineConfig({
     {
       name: 'iphone',
       use: { ...devices['iPhone 13'] },
-      testMatch: /(station-search|nearest-station)\.spec\.ts/,
+      testMatch: /(station-search|nearest-station|error-toast)\.spec\.ts/,
     },
   ],
   webServer: BASE_URL
