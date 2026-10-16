@@ -7,7 +7,12 @@ import type {
 import { describe, expect, it } from 'vitest';
 import type { DepartureRow, DepartureStatus } from '../../data/departures.models';
 import { BUS_BOARD, TRAIN_BOARD } from '../board-kind';
-import { DEFAULT_COLUMN, compactColumns, departureColumns } from './departure-columns';
+import {
+  type BoardRow,
+  DEFAULT_COLUMN,
+  compactColumns,
+  departureColumns,
+} from './departure-columns';
 
 const DEPARTURE_COLUMNS = departureColumns(TRAIN_BOARD);
 
@@ -92,6 +97,35 @@ describe('the Departs column', () => {
     expect(cell.querySelector('.departs-superseded')?.textContent).toBe('14:02');
     expect(cell.querySelector('.departs-expected')?.textContent).toBe('14:03');
     expect(cell.textContent).toBe('14:02, expected 14:03');
+  });
+
+  it('names the day above the first departure of a later day', () => {
+    const renderer = column('scheduled').cellRenderer as (
+      params: ICellRendererParams<DepartureRow>,
+    ) => HTMLElement;
+    const cell = (expected: string | null) =>
+      renderer({
+        value: SCHEDULED,
+        data: { scheduled: SCHEDULED, expected, dayBreak: 'Tomorrow' } as BoardRow,
+      } as ICellRendererParams<DepartureRow>);
+
+    expect(cell(null).querySelector('.departs-day')?.textContent).toBe('Tomorrow');
+    expect(cell(null).textContent).toBe('Tomorrow, 14:02');
+    expect(cell('2026-10-13T11:03:48.000Z').textContent).toBe('Tomorrow, 14:02, expected 14:03');
+  });
+
+  it('says the expected time and the day in its text, so the cell redraws when they change', () => {
+    const formatter = column('scheduled').valueFormatter as ValueFormatterFunc<DepartureRow>;
+    const text = (row: Partial<BoardRow>) =>
+      formatter({
+        value: SCHEDULED,
+        data: { scheduled: SCHEDULED, expected: null, ...row },
+      } as ValueFormatterParams<DepartureRow>);
+
+    expect(text({})).toBe('14:02');
+    expect(text({ expected: '2026-10-13T11:02:30.000Z' })).toBe('14:02');
+    expect(text({ expected: '2026-10-13T11:03:48.000Z' })).toBe('14:02, expected 14:03');
+    expect(text({ dayBreak: 'Tomorrow' })).toBe('Tomorrow, 14:02');
   });
 
   it('shows the timetabled time alone when the expected time is the same minute', () => {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatFinlandClock, formatFinlandTime } from './finland-time';
+import { finlandDay, formatFinlandClock, formatFinlandTime } from './finland-time';
 
 describe('formatFinlandTime', () => {
   it('shows summer times in Finnish summer time (UTC+3)', () => {
@@ -33,5 +33,13 @@ describe('formatFinlandClock', () => {
 
   it('returns an empty string when there is no time', () => {
     expect(formatFinlandClock(null)).toBe('');
+  });
+});
+
+describe('finlandDay', () => {
+  it('gives the day in Finland, which can be a day on from UTC', () => {
+    expect(finlandDay('2026-10-14T20:59:00.000Z')).toBe('2026-10-14');
+    expect(finlandDay('2026-10-14T21:00:00.000Z')).toBe('2026-10-15');
+    expect(finlandDay(null)).toBe('');
   });
 });

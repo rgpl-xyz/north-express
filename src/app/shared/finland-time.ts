@@ -15,6 +15,13 @@ const FINLAND_CLOCK = new Intl.DateTimeFormat('en-GB', {
   second: '2-digit',
 });
 
+const FINLAND_DAY = new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'Europe/Helsinki',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+
 type TimeValue = string | Date | null | undefined;
 
 function toDate(value: TimeValue): Date | null {
@@ -35,4 +42,10 @@ export function formatFinlandTime(value: TimeValue): string {
 export function formatFinlandClock(value: TimeValue): string {
   const date = toDate(value);
   return date ? FINLAND_CLOCK.format(date) : '';
+}
+
+/** The day in Finland, as "2026-10-14", which sorts as text; "" when there is no valid time. */
+export function finlandDay(value: TimeValue): string {
+  const date = toDate(value);
+  return date ? FINLAND_DAY.format(date) : '';
 }

@@ -128,6 +128,12 @@ $btn-transition: none;
   pointer-events: none;
 }
 
+// Mirrored, so the line's low end runs out at the right, clear of the controls on the rule,
+// and its high end sits above them.
+.sign-band-art {
+  transform: scaleX(-1);
+}
+
 .sign-band .sign-band-art svg {
   width: 100%;
   height: 100%;
@@ -227,6 +233,29 @@ $btn-transition: none;
   display: flex;
   flex-direction: column;
   line-height: 1;
+}
+
+// The first departure of a later day starts under a heavier rule, like the header's.
+.board .ag-row.day-break {
+  box-shadow: inset 0 2px 0 var(--bs-dark);
+}
+
+// The line above a departure time: the day, at the first departure of a later day, and the
+// timetabled time when the expected one differs.
+.departs-above {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.5rem;
+  align-items: baseline;
+}
+
+.departs-day {
+  font-family: var(--ne-condensed);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bs-primary);
 }
 
 .departs-superseded {

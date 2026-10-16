@@ -63,3 +63,16 @@ test('the footer credits Digitransit for the bus data', async ({ page }) => {
     page.getByRole('link', { name: `© Digitransit ${new Date().getFullYear()}` }),
   ).toHaveAttribute('href', 'https://digitransit.fi/en/');
 });
+
+test('the first departure after midnight is marked as tomorrow', async ({ page }) => {
+  // The time the fixtures were captured: 17:40 on 14 October 2026 in Finland.
+  await page.clock.setFixedTime(new Date('2026-10-14T14:40:00.000Z'));
+  await page.goto('/departures/buses?station=MATKA:358750');
+
+  const tomorrow = page.getByRole('row').filter({ hasText: 'Tomorrow' });
+  await expect(tomorrow).toHaveCount(1);
+  await expect(tomorrow).toContainText('02:15');
+
+  await page.getByRole('columnheader', { name: 'Destination' }).click();
+  await expect(page.getByRole('row').filter({ hasText: 'Tomorrow' })).toHaveCount(0);
+});

@@ -3,8 +3,41 @@ import { formatFinlandTime } from '../../../../shared/finland-time';
 import type { DepartureRow, DepartureStatus } from '../../data/departures.models';
 import type { BoardKind } from '../board-kind';
 
-function formatTime(params: ValueFormatterParams<DepartureRow, string | null>): string {
-  return formatFinlandTime(params.value);
+/** A departure as the grid shows it: the first of a later day carries that day's name. */
+export interface BoardRow extends DepartureRow {
+  readonly dayBreak?: string;
+}
+
+/** The day a row begins, such as "Tomorrow", if it is the first departure of a later day. */
+export function dayBreakOf(row: DepartureRow | undefined): string | undefined {
+  return (row as BoardRow | undefined)?.dayBreak;
+}
+
+/**
+ * What the Departs cell shows: the timetabled time, the expected one when it is another
+ * minute, and the day when the row is the first of a later day. Empty strings for none.
+ */
+function departsParts(scheduledAt: string | null | undefined, row: DepartureRow | undefined) {
+  const scheduled = formatFinlandTime(scheduledAt);
+  const expected = formatFinlandTime(row?.expected ?? null);
+  return {
+    scheduled,
+    expected: expected !== scheduled ? expected : '',
+    day: dayBreakOf(row) ?? '',
+  };
+}
+
+/**
+ * The Departs cell in words, "Tomorrow, 14:02, expected 14:03". ag-grid redraws a cell only
+ * when its value or this text changes, and the value is the timetabled time alone, so the
+ * text has to carry the expected time and the day for the cell to keep up with them.
+ */
+function departsText(params: ValueFormatterParams<DepartureRow, string | null>): string {
+  const { scheduled, expected, day } = departsParts(params.value, params.data);
+  if (!scheduled) {
+    return '';
+  }
+  return [day, scheduled, expected && `expected ${expected}`].filter(Boolean).join(', ');
 }
 
 const trackOrder = new Intl.Collator('en', { numeric: true });
@@ -65,26 +98,35 @@ function marker(className: string, text: string): HTMLElement {
 
 /**
  * The departure time. Where Digitraffic expects the train at another minute, the
- * timetabled time is struck through and the expected one follows it at full size:
- * that is the time to be on the platform. Screen readers hear "14:02, expected 14:03".
+ * timetabled time is struck through above the expected one, which is at full size: that is
+ * the time to be on the platform. The first departure of a later day has the day's name on
+ * that line too. Screen readers hear "Tomorrow, 14:02, expected 14:03".
  */
 function departureTime(
   params: ICellRendererParams<DepartureRow, string | null>,
 ): HTMLElement | string {
-  const scheduled = formatFinlandTime(params.value);
-  const expected = formatFinlandTime(params.data?.expected ?? null);
+  const { scheduled, expected, day } = departsParts(params.value, params.data);
   if (!scheduled) {
     return '';
   }
   const cell = marker('departs', '');
-  if (expected && expected !== scheduled) {
+  if (!day && !expected) {
+    cell.textContent = scheduled;
+    return cell;
+  }
+  const above = marker('departs-above', '');
+  if (day) {
+    above.append(marker('departs-day', day), marker('visually-hidden', ', '));
+  }
+  if (expected) {
+    above.append(marker('departs-superseded', scheduled));
     cell.append(
-      marker('departs-superseded', scheduled),
+      above,
       marker('visually-hidden', ', expected '),
       marker('departs-expected', expected),
     );
   } else {
-    cell.textContent = scheduled;
+    cell.append(above, scheduled);
   }
   return cell;
 }
@@ -115,7 +157,7 @@ export function departureColumns(kind: BoardKind): ColDef<DepartureRow>[] {
     {
       headerName: 'Departs',
       field: 'scheduled',
-      valueFormatter: formatTime,
+      valueFormatter: departsText,
       cellRenderer: departureTime,
       cellClass: 'board-time',
       minWidth: 150,
