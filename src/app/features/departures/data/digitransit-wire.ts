@@ -29,6 +29,8 @@ export interface GraphQlResponse<T> {
 export interface DigitransitStation {
   readonly gtfsId: string;
   readonly name: string;
+  /** The name in Swedish where the feed has one; otherwise the same as name, or null. */
+  readonly sv?: string | null;
   /** BUS, RAIL, FERRY, SUBWAY, TRAM, or null when the station mixes them. */
   readonly vehicleMode: string | null;
   readonly lat: number;

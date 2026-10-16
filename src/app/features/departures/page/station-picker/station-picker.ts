@@ -111,6 +111,11 @@ export class StationPicker {
     });
   }
 
+  /** An option's name for screen readers: the station's names, with commas between. */
+  protected optionName(station: Station): string {
+    return [station.name, ...aliasesOf(station)].join(', ');
+  }
+
   /** Moves keyboard focus to the field. */
   focus(): void {
     this.field()?.focus();

@@ -34,7 +34,7 @@ The e2e tests answer Digitraffic and `/api/buses` from fakes that serve the resp
 
 ## Departures
 
-Trains and buses each have a board under Departures. To find a station, type part of its name (Ähtäri can be typed as "ahtari") or a train station's code, such as TPE, and pick it from the list. The station picked goes into the address, as in `/departures/trains?station=TPE`, so a board can be bookmarked or shared.
+Trains and buses each have a board under Departures. To find a station, type part of its name (Ähtäri can be typed as "ahtari"), its Swedish name, such as Helsingfors or Åbo, or a train station's code, such as TPE, and pick it from the list. The list shows a station's Swedish name under its Finnish one. The station picked goes into the address, as in `/departures/trains?station=TPE`, so a board can be bookmarked or shared.
 
 If the data can't be loaded, the page says so and offers Try again. When only a refresh fails, the departures already shown stay up with the time they are from.
 
@@ -45,6 +45,8 @@ Times are Finland time whatever the viewer's time zone.
 Digitraffic returns whole trains with their full timetables. For the chosen station the app uses the first stop where passengers can board and the train hasn't left yet. The P and I ring trains call at Pasila twice, so taking the first stop would show a departure that already happened. Cargo trains and shunting moves are left out.
 
 Ring trains on their way to the airport show "Lentoasema (Airport)" rather than Helsinki, where they end. In the search, "Airport" finds Lentoasema.
+
+Digitraffic has only Finnish names. The Swedish names of the 72 stations that have one come from Digitransit's Finland feed, kept in `digitraffic-swedish-names.ts`.
 
 Only stations with passenger traffic are listed, without the "asema" that Digitraffic puts at the end of many names.
 
@@ -57,6 +59,8 @@ Digitransit lists a bus station once in each operator's feed, sometimes spelled 
 Feeds also list buses that end at the station among its departures. These are arrivals and are left out. Where a feed gives no headsign, or only the route number, the destination is the trip's last stop.
 
 Most long-distance feeds have no live data, so their buses say Scheduled rather than On time. HSL's buses have live data.
+
+Bus stations are found by their Swedish names too, where the feed has one, such as Hagalund (M) for Tapiola (M).
 
 A station's code in the address is its first Digitransit id, as in `/departures/buses?station=MATKA:358750`.
 

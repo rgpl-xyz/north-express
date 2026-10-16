@@ -1,13 +1,8 @@
 import type { Station } from '../../data/departures.models';
 
-/** Other names people look a station up by. Digitraffic has only the Finnish one. */
-const ALIASES: Readonly<Record<string, readonly string[]>> = {
-  LEN: ['Airport', 'Helsinki Airport'],
-};
-
-/** The other names a station is found by, such as "Airport" for Lentoasema. */
+/** The other names a station is found by, such as Helsingfors for Helsinki. */
 export function aliasesOf(station: Station): readonly string[] {
-  return ALIASES[station.code] ?? [];
+  return station.aliases ?? [];
 }
 
 /** Lower case with the accents taken off, so "ahtari" finds Ähtäri and "seina" Seinäjoki. */

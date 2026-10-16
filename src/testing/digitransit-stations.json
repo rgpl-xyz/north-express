@@ -6,182 +6,208 @@
         "name": "Äänekoski",
         "vehicleMode": "BUS",
         "lat": 62.6022026,
-        "lon": 25.7261152
+        "lon": 25.7261152,
+        "sv": "Äänekoski"
       },
       {
         "gtfsId": "IngvesSvanback:s4381",
         "name": "Kokkola, linja-autoasema",
         "vehicleMode": "BUS",
         "lat": 63.83545,
-        "lon": 23.127278
+        "lon": 23.127278,
+        "sv": "Kokkola, linja-autoasema"
       },
       {
         "gtfsId": "MATKA:300013",
         "name": "Kamppi (kaukoliikenneterminaali)",
         "vehicleMode": "BUS",
         "lat": 60.169586,
-        "lon": 24.933375
+        "lon": 24.933375,
+        "sv": "Kamppi (kaukoliikenneterminaali)"
       },
       {
         "gtfsId": "MATKA:300000",
         "name": "Kamppi (lähiliikenneterminaali)",
         "vehicleMode": "BUS",
         "lat": 60.169008,
-        "lon": 24.931662
+        "lon": 24.931662,
+        "sv": "Kamppi (lähiliikenneterminaali)"
       },
       {
         "gtfsId": "PohjolanMatka:s4921",
         "name": "Kuopio, Matkakeskus",
         "vehicleMode": "BUS",
         "lat": 62.898207,
-        "lon": 27.679235
+        "lon": 27.679235,
+        "sv": "Kuopio, Matkakeskus"
       },
       {
         "gtfsId": "MATKA:401830",
         "name": "Linja-autoasema",
         "vehicleMode": "BUS",
         "lat": 62.8979209,
-        "lon": 27.6802234
+        "lon": 27.6802234,
+        "sv": "Linja-autoasema"
       },
       {
         "gtfsId": "MATKA:358750",
         "name": "Tampere, linja-autoasema",
         "vehicleMode": "BUS",
         "lat": 61.493591,
-        "lon": 23.76946
+        "lon": 23.76946,
+        "sv": "Tampere, linja-autoasema"
       },
       {
         "gtfsId": "MATKA:388199",
         "name": "Kuopio, Matkakeskus",
         "vehicleMode": "BUS",
         "lat": 62.898207,
-        "lon": 27.679235
+        "lon": 27.679235,
+        "sv": "Kuopio, Matkakeskus"
       },
       {
         "gtfsId": "MATKA:362881",
         "name": "Äänekoski las",
         "vehicleMode": "BUS",
         "lat": 62.601952,
-        "lon": 25.726057
+        "lon": 25.726057,
+        "sv": "Äänekoski las"
       },
       {
         "gtfsId": "MATKA:346812",
         "name": "Kokkola Linja-autoasema",
         "vehicleMode": "BUS",
         "lat": 63.836128,
-        "lon": 23.127775
+        "lon": 23.127775,
+        "sv": "Kokkola Linja-autoasema"
       },
       {
         "gtfsId": "MATKA:357077",
         "name": "Kuopio, Matkakeskus",
         "vehicleMode": "BUS",
         "lat": 62.898207,
-        "lon": 27.679235
+        "lon": 27.679235,
+        "sv": "Kuopio, Matkakeskus"
       },
       {
         "gtfsId": "MATKA:357076",
         "name": "Kokkola, linja-autoasema",
         "vehicleMode": "BUS",
         "lat": 63.835343,
-        "lon": 23.127334
+        "lon": 23.127334,
+        "sv": "Kokkola, linja-autoasema"
       },
       {
         "gtfsId": "MATKA:328724",
         "name": "Linja-autoasema",
         "vehicleMode": "BUS",
         "lat": 62.8979209,
-        "lon": 27.6802234
+        "lon": 27.6802234,
+        "sv": "Linja-autoasema"
       },
       {
         "gtfsId": "HSL:2000002",
         "name": "Tapiola (M)",
         "vehicleMode": "BUS",
         "lat": 60.175022,
-        "lon": 24.804236
+        "lon": 24.804236,
+        "sv": "Hagalund (M)"
       },
       {
         "gtfsId": "MATKA:466985",
         "name": "Linja-autoasema",
         "vehicleMode": "BUS",
         "lat": 62.897921,
-        "lon": 27.680223
+        "lon": 27.680223,
+        "sv": "Linja-autoasema"
       },
       {
         "gtfsId": "HSL:1000001",
         "name": "Kamppi (lähiliikenneterminaali)",
         "vehicleMode": "BUS",
         "lat": 60.169008,
-        "lon": 24.931662
+        "lon": 24.931662,
+        "sv": "Kamppi (lähiliikenneterminaali)"
       },
       {
         "gtfsId": "HSL:1000015",
         "name": "Kamppi (kaukoliikenneterminaali)",
         "vehicleMode": "BUS",
         "lat": 60.169586,
-        "lon": 24.933375
+        "lon": 24.933375,
+        "sv": "Kamppi (kaukoliikenneterminaali)"
       },
       {
         "gtfsId": "Kuopio:330728",
         "name": "Linja-autoasema",
         "vehicleMode": "BUS",
         "lat": 62.8979209,
-        "lon": 27.6802234
+        "lon": 27.6802234,
+        "sv": "Linja-autoasema"
       },
       {
         "gtfsId": "PohjolanMatka:s4381",
         "name": "Kokkola, linja-autoasema",
         "vehicleMode": "BUS",
         "lat": 63.83529,
-        "lon": 23.127341
+        "lon": 23.127341,
+        "sv": "Kokkola, linja-autoasema"
       },
       {
         "gtfsId": "MATKA:347267",
         "name": "Mikkeli Matkakeskus",
         "vehicleMode": null,
         "lat": 61.687069,
-        "lon": 27.277203
+        "lon": 27.277203,
+        "sv": "Mikkeli Matkakeskus"
       },
       {
         "gtfsId": "CAR_FERRIES:FFE:StopPlace:7c287c39-aaf2-4066-8cfb-a28048d62663",
         "name": "Heisala",
         "vehicleMode": "FERRY",
         "lat": 60.17726,
-        "lon": 22.25899
+        "lon": 22.25899,
+        "sv": "Heisala"
       },
       {
         "gtfsId": "digitraffic:MR",
         "name": "Mäntyharju",
         "vehicleMode": "RAIL",
         "lat": 61.421104,
-        "lon": 26.881746
+        "lon": 26.881746,
+        "sv": "Mäntyharju"
       },
       {
         "gtfsId": "HSL:2000106",
         "name": "Matinkylän metroasema",
         "vehicleMode": "SUBWAY",
         "lat": 60.15947,
-        "lon": 24.73808
+        "lon": 24.73808,
+        "sv": "Matinkylän metroasema"
       },
       {
         "gtfsId": "MATKA:358299",
         "name": "Helsinki-Vantaan lentoasema, Matkakeskus",
         "vehicleMode": "BUS",
         "lat": 60.317166,
-        "lon": 24.966863
+        "lon": 24.966863,
+        "sv": "Helsinki-Vantaan lentoasema, Matkakeskus"
       },
       {
         "gtfsId": "MATKA:393172",
         "name": "Helsinki-Vantaan lentoasema, Matkakeskus",
         "vehicleMode": "BUS",
         "lat": 60.317262,
-        "lon": 24.966676
+        "lon": 24.966676,
+        "sv": "Helsinki-Vantaan lentoasema, Matkakeskus"
       },
       {
         "gtfsId": "Kotka:9000010",
         "name": "Kantasataman paikallisliikenneterminaali (Kotka)",
         "vehicleMode": "BUS",
         "lat": 60.4696014,
-        "lon": 26.9505896
+        "lon": 26.9505896,
+        "sv": "Kantasataman paikallisliikenneterminaali (Kotka)"
       }
     ]
   }

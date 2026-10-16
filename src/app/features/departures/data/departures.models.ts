@@ -6,6 +6,8 @@
 export interface Station {
   readonly code: string;
   readonly name: string;
+  /** Other names people look it up by, such as its Swedish name, shown next to the name. */
+  readonly aliases?: readonly string[];
 }
 
 /**

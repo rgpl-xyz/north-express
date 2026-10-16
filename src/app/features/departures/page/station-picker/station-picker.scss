@@ -94,10 +94,12 @@ ul {
   }
 }
 
+// The name, with the chosen station's check mark at the end of its line, and any other names
+// on a smaller line below it, as bilingual Finnish station signs show them.
 li {
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 0.5rem;
   padding: 0.4rem 0.875rem;
   font-family: var(--ne-condensed);
   font-size: 1.25rem;
@@ -107,18 +109,29 @@ li {
   &[data-active='true'] {
     color: #fff;
     background: var(--bs-primary);
+
+    .aliases {
+      color: inherit;
+      opacity: 0.85;
+    }
   }
 
   &[aria-selected='true']::after {
-    margin-left: auto;
+    grid-row: 1;
+    grid-column: 2;
     content: '✓';
   }
 }
 
-.alias {
-  font-size: 1rem;
+.aliases {
+  display: flex;
+  flex-wrap: wrap;
+  grid-column: 1;
+  column-gap: 0.5rem;
+  font-size: 0.9375rem;
   font-weight: 500;
-  opacity: 0.7;
+  line-height: 1.2;
+  color: var(--bs-secondary-color);
 }
 
 .no-match {

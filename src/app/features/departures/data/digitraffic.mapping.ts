@@ -4,6 +4,7 @@ import type {
   DigitrafficTimeTableRow,
   DigitrafficTrain,
 } from './digitraffic-wire';
+import { SWEDISH_NAMES } from './digitraffic-swedish-names';
 
 /** Digitraffic train categories that carry passengers; cargo and shunting moves are left out. */
 const PASSENGER_CATEGORIES: ReadonlySet<string> = new Set(['Long-distance', 'Commuter']);
@@ -22,14 +23,32 @@ function stationDisplayName(stationName: string): string {
   return stationName.replace(STATION_SUFFIX, '').replaceAll('_', ' ');
 }
 
-/** Passenger stations, named for display and sorted in Finnish alphabetical order. */
+/** Names people search for in English, besides the Swedish ones. */
+const ENGLISH_NAMES: Readonly<Record<string, readonly string[]>> = {
+  [AIRPORT_CODE]: ['Airport', 'Helsinki Airport'],
+};
+
+/** A station's other names: its Swedish name if it has one, then any English ones. */
+function aliasesFor(code: string): readonly string[] {
+  const swedish = SWEDISH_NAMES[code];
+  return [...(swedish ? [swedish] : []), ...(ENGLISH_NAMES[code] ?? [])];
+}
+
+/**
+ * Passenger stations, named for display and sorted in Finnish alphabetical order, with
+ * the other names people look them up by.
+ */
 export function toStations(stations: readonly DigitrafficStation[]): Station[] {
   return stations
     .filter((station) => station.passengerTraffic)
-    .map((station) => ({
-      code: station.stationShortCode,
-      name: stationDisplayName(station.stationName),
-    }))
+    .map((station) => {
+      const aliases = aliasesFor(station.stationShortCode);
+      return {
+        code: station.stationShortCode,
+        name: stationDisplayName(station.stationName),
+        ...(aliases.length > 0 && { aliases }),
+      };
+    })
     .sort((a, b) => finnishOrder.compare(a.name, b.name));
 }
 

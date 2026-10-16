@@ -10,10 +10,12 @@ test.beforeEach(async ({ page }) => {
 
 test('a station is found without its accents, or by its code', async ({ page }) => {
   await field(page).fill('ahtari');
-  await expect(page.getByRole('option')).toHaveText(['Ähtäri']);
+  // An option is named by its Swedish name too, where there is one.
+  await expect(page.getByRole('option')).toHaveCount(1);
+  await expect(page.getByRole('option')).toHaveAccessibleName('Ähtäri, Etseri');
 
   await field(page).fill('tpe');
-  await expect(page.getByRole('option').first()).toHaveText('Tampere');
+  await expect(page.getByRole('option').first()).toHaveAccessibleName('Tampere, Tammerfors');
 });
 
 test('the arrow keys and Enter pick a station', async ({ page }) => {
@@ -119,4 +121,22 @@ test('a short station name keeps the sign size', async ({ page }) => {
   await field.blur();
 
   expect(await field.evaluate((input) => getComputedStyle(input).fontSize)).toBe(signSize);
+});
+
+test('a bilingual station is found by its Swedish name, which the list shows too', async ({
+  page,
+}) => {
+  await page.goto('/departures/trains');
+  await field(page).fill('tammerfors');
+
+  const option = page.getByRole('option');
+  await expect(option).toHaveCount(1);
+  await expect(option).toHaveAccessibleName('Tampere, Tammerfors');
+  // The Swedish name on its own line, below the Finnish one.
+  const finnish = await option.locator('.name').boundingBox();
+  const swedish = await option.locator('.aliases').boundingBox();
+  expect(swedish?.y).toBeGreaterThanOrEqual((finnish?.y ?? 0) + (finnish?.height ?? 0) - 1);
+
+  await option.click();
+  await expect(field(page)).toHaveValue('Tampere');
 });

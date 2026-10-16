@@ -36,8 +36,17 @@ export const test = base.extend<{ digitraffic: FakeDigitraffic; digitransit: Fak
   ],
 });
 
-/** Picks a station the way a person does: types its name, then clicks it in the list. */
+/** Matches a name that is `name`, or starts with it then a comma, as "Tampere, Tammerfors" does. */
+export function startingWith(name: string): RegExp {
+  const literal = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(`^${literal}(, |$)`);
+}
+
+/**
+ * Picks a station the way a person does: types its name, then clicks it in the list. An
+ * option's name is the station's name, then its other names, as in "Tampere, Tammerfors".
+ */
 export async function chooseStation(page: Page, name: string): Promise<void> {
   await page.getByLabel('Station', { exact: true }).fill(name);
-  await page.getByRole('option', { name, exact: true }).click();
+  await page.getByRole('option', { name: startingWith(name) }).click();
 }

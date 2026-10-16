@@ -51,10 +51,19 @@
         [activeDescendant]="listbox.activeDescendant()"
       >
         @for (station of matches(); track station.code) {
-          <li ngOption [value]="station.code" [label]="station.name">
-            {{ station.name }}
-            @for (alias of aliasesOf(station); track alias) {
-              <span class="alias">{{ alias }}</span>
+          <li
+            ngOption
+            [value]="station.code"
+            [label]="station.name"
+            [attr.aria-label]="optionName(station)"
+          >
+            <span class="name">{{ station.name }}</span>
+            @if (aliasesOf(station).length > 0) {
+              <span class="aliases">
+                @for (alias of aliasesOf(station); track alias) {
+                  <span>{{ alias }}</span>
+                }
+              </span>
             }
           </li>
         }

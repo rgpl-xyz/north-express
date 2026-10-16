@@ -107,7 +107,9 @@ describe('toStations', () => {
   });
 
   it('uses the display name for each station', () => {
-    expect(toStations(STATIONS_FIXTURE)).toContainEqual({ code: 'HKI', name: 'Helsinki' });
+    expect(toStations(STATIONS_FIXTURE)).toContainEqual(
+      expect.objectContaining({ code: 'HKI', name: 'Helsinki' }),
+    );
   });
 
   it('sorts by display name in Finnish alphabetical order', () => {
@@ -412,5 +414,31 @@ describe('toDepartureRows for ring-line trains (P and I)', () => {
     const [departure] = toDepartureRows([otherLine], 'HKI', STATION_NAMES);
 
     expect(departure.destination).toBe('Helsinki');
+  });
+});
+
+describe('station names', () => {
+  const lentoasema: DigitrafficStation = {
+    stationName: 'Lentoasema',
+    stationShortCode: 'LEN',
+    passengerTraffic: true,
+    countryCode: 'FI',
+    type: 'STATION',
+  };
+
+  it('gives a bilingual station its Swedish name too', () => {
+    const stations = toStations(STATIONS_FIXTURE);
+
+    expect(stations.find((station) => station.code === 'HKI')?.aliases).toEqual(['Helsingfors']);
+    expect(stations.find((station) => station.code === 'TKU')?.aliases).toEqual(['Åbo']);
+    expect(stations.find((station) => station.code === 'NOA')).not.toHaveProperty('aliases');
+  });
+
+  it('gives Lentoasema its Swedish name and the English ones people search for', () => {
+    expect(toStations([lentoasema])[0].aliases).toEqual([
+      'Flygplatsen',
+      'Airport',
+      'Helsinki Airport',
+    ]);
   });
 });

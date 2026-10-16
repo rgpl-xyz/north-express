@@ -3,11 +3,11 @@ import type { Station } from '../../data/departures.models';
 import { aliasesOf, fold, searchStations } from './station-search';
 
 const STATIONS: readonly Station[] = [
-  { code: 'HKI', name: 'Helsinki' },
-  { code: 'LEN', name: 'Lentoasema' },
-  { code: 'PSL', name: 'Pasila' },
+  { code: 'HKI', name: 'Helsinki', aliases: ['Helsingfors'] },
+  { code: 'LEN', name: 'Lentoasema', aliases: ['Flygplatsen', 'Airport', 'Helsinki Airport'] },
+  { code: 'PSL', name: 'Pasila', aliases: ['Böle'] },
   { code: 'SK', name: 'Seinäjoki' },
-  { code: 'TPE', name: 'Tampere' },
+  { code: 'TPE', name: 'Tampere', aliases: ['Tammerfors'] },
   { code: 'ÄHT', name: 'Ähtäri' },
 ];
 
@@ -47,7 +47,14 @@ describe('searchStations', () => {
   it('finds Lentoasema by "airport" too', () => {
     expect(names('airport')).toEqual(['Lentoasema']);
     expect(names('helsinki air')).toEqual(['Lentoasema']);
-    expect(aliasesOf(STATIONS[1])).toEqual(['Airport', 'Helsinki Airport']);
+    expect(aliasesOf(STATIONS[1])).toEqual(['Flygplatsen', 'Airport', 'Helsinki Airport']);
+  });
+
+  it('finds a bilingual station by its Swedish name, accents ignored', () => {
+    expect(names('helsingfors')).toEqual(['Helsinki']);
+    expect(names('bole')).toEqual(['Pasila']);
+    expect(names('tammer')).toEqual(['Tampere']);
+    expect(aliasesOf(STATIONS[3])).toEqual([]);
   });
 
   it('finds nothing for text no station has', () => {

@@ -18,7 +18,9 @@ import tapiola from './digitransit-departures-hsl-2000002.json';
  * Helsinki-Vantaan lentoasema, Matkakeskus (two each). Listed once: Tampere,
  * linja-autoasema, Tapiola (M), two Äänekoski stations, and the longest name in the list,
  * Kantasataman paikallisliikenneterminaali (Kotka). Plus one station each of RAIL, FERRY,
- * SUBWAY and no mode, which the bus board leaves out.
+ * SUBWAY and no mode, which the bus board leaves out. Each has its name in Swedish (sv)
+ * from the same feed, added on 16 October 2026; only Tapiola (M) has one of its own,
+ * Hagalund (M).
  */
 export const BUS_STATIONS_FIXTURE = stations as StationsResponse;
 

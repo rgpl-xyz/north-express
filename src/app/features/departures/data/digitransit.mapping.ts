@@ -60,6 +60,18 @@ function groupSamePlace(stations: readonly DigitransitStation[]): DigitransitSta
   return groups;
 }
 
+/** The group's Swedish names that differ from the name it's listed under, each once. */
+function swedishNames(group: readonly DigitransitStation[], name: string): string[] {
+  const seen = new Set([nameKey(name)]);
+  return group.flatMap(({ sv }) => {
+    if (!sv || seen.has(nameKey(sv))) {
+      return [];
+    }
+    seen.add(nameKey(sv));
+    return [sv];
+  });
+}
+
 /**
  * Bus stations, each listed once. Feeds list the same station separately (Kuopio's
  * Matkakeskus is in three), so same-named stations a short walk apart become one,
@@ -71,13 +83,18 @@ export function toBusStations(response: StationsResponse): BusStations {
     (station) => station.vehicleMode === 'BUS' && STATION_ID.test(station.gtfsId),
   );
   const listed = groupSamePlace(busStations)
-    .map((group) => ({
-      station: {
-        code: group[0].gtfsId.toLocaleUpperCase('fi'),
-        name: (group.find((station) => station.name.includes(', ')) ?? group[0]).name,
-      },
-      ids: group.map((station) => station.gtfsId),
-    }))
+    .map((group) => {
+      const name = (group.find((station) => station.name.includes(', ')) ?? group[0]).name;
+      const aliases = swedishNames(group, name);
+      return {
+        station: {
+          code: group[0].gtfsId.toLocaleUpperCase('fi'),
+          name,
+          ...(aliases.length > 0 && { aliases }),
+        },
+        ids: group.map((station) => station.gtfsId),
+      };
+    })
     .sort(
       (a, b) =>
         finnishOrder.compare(a.station.name, b.station.name) ||

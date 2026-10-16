@@ -94,6 +94,30 @@ describe('toBusStations', () => {
     ]);
   });
 
+  it('names a station in Swedish too, where its feed has a Swedish name of its own', () => {
+    expect(stations.find((listed) => listed.name === 'Tapiola (M)')?.aliases).toEqual([
+      'Hagalund (M)',
+    ]);
+    expect(
+      stations.find((listed) => listed.name === 'Tampere, linja-autoasema'),
+    ).not.toHaveProperty('aliases');
+  });
+
+  it('gives each Swedish name once, and none that is the name it is listed under', () => {
+    const result = toBusStations(
+      stationsResponse(
+        station({ gtfsId: 'A:1', name: 'Kamppi', sv: 'Kampen' }),
+        station({ gtfsId: 'A:2', name: 'Kamppi', sv: 'Kampen' }),
+        station({ gtfsId: 'B:1', name: 'Pasila', sv: 'Pasila' }),
+      ),
+    );
+
+    expect(result.stations).toEqual([
+      { code: 'A:1', name: 'Kamppi', aliases: ['Kampen'] },
+      { code: 'B:1', name: 'Pasila' },
+    ]);
+  });
+
   it('keeps same-named stations apart when they are in different towns', () => {
     const result = toBusStations(
       stationsResponse(
