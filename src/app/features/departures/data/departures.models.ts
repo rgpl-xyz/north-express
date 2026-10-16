@@ -1,3 +1,5 @@
+import type { LatLon } from '../../../shared/distance';
+
 /*
  * What the app shows. These are the only data types UI code imports; the Digitraffic
  * and Digitransit wire shapes stay inside the data folder.
@@ -8,6 +10,8 @@ export interface Station {
   readonly name: string;
   /** Other names people look it up by, such as its Swedish name, shown next to the name. */
   readonly aliases?: readonly string[];
+  /** Where the station is, for finding the one nearest the user. */
+  readonly position?: LatLon;
 }
 
 /**

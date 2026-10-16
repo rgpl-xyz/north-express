@@ -20,6 +20,8 @@ export interface DigitrafficStation {
   readonly stationName: string;
   readonly stationShortCode: string;
   readonly passengerTraffic: boolean;
+  readonly latitude: number;
+  readonly longitude: number;
   readonly countryCode: string;
   readonly type: string;
 }

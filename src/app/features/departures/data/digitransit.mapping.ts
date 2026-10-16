@@ -1,3 +1,4 @@
+import { kmBetween } from '../../../shared/distance';
 import type { DepartureRow, DepartureStatus, Station } from './departures.models';
 import {
   type DeparturesResponse,
@@ -20,8 +21,6 @@ const SAME_PLACE_KM = 1;
 /** As many as the train board shows, and as many as the query asks each station for. */
 const MAX_DEPARTURES = 20;
 
-const KM_PER_DEGREE = 111.2;
-
 const finnishOrder = new Intl.Collator('fi');
 
 /** The data of a GraphQL answer; an error when it reports one or has no data. */
@@ -35,12 +34,6 @@ function dataOf<T>(response: GraphQlResponse<T>): T {
 /** "Kokkola Linja-autoasema" and "Kokkola, linja-autoasema" are the same name. */
 function nameKey(name: string): string {
   return name.replaceAll(',', ' ').replace(/\s+/g, ' ').trim().toLocaleLowerCase('fi');
-}
-
-/** Flat-earth distance in km, close enough over the size of a bus station. */
-function kmBetween(a: DigitransitStation, b: DigitransitStation): number {
-  const dx = (b.lon - a.lon) * Math.cos(((a.lat + b.lat) / 2) * (Math.PI / 180));
-  return Math.hypot(dx, b.lat - a.lat) * KM_PER_DEGREE;
 }
 
 /** Same-named stations near each other, each group in id order. */
@@ -90,6 +83,7 @@ export function toBusStations(response: StationsResponse): BusStations {
         station: {
           code: group[0].gtfsId.toLocaleUpperCase('fi'),
           name,
+          position: { lat: group[0].lat, lon: group[0].lon },
           ...(aliases.length > 0 && { aliases }),
         },
         ids: group.map((station) => station.gtfsId),

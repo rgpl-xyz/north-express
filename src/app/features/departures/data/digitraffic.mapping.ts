@@ -46,6 +46,7 @@ export function toStations(stations: readonly DigitrafficStation[]): Station[] {
       return {
         code: station.stationShortCode,
         name: stationDisplayName(station.stationName),
+        position: { lat: station.latitude, lon: station.longitude },
         ...(aliases.length > 0 && { aliases }),
       };
     })

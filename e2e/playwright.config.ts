@@ -25,8 +25,12 @@ export default defineConfig({
   },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    // The station search on an iPhone: Safari's engine, a touch screen and a phone's width.
-    { name: 'iphone', use: { ...devices['iPhone 13'] }, testMatch: 'station-search.spec.ts' },
+    // Finding a station on an iPhone: Safari's engine, a touch screen and a phone's width.
+    {
+      name: 'iphone',
+      use: { ...devices['iPhone 13'] },
+      testMatch: /(station-search|nearest-station)\.spec\.ts/,
+    },
   ],
   webServer: BASE_URL
     ? undefined

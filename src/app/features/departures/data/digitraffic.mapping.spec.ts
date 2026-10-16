@@ -57,6 +57,8 @@ function displayNameOf(stationName: string): string {
     stationName,
     stationShortCode: 'X',
     passengerTraffic: true,
+    latitude: 60.3,
+    longitude: 24.96,
     countryCode: 'FI',
     type: 'STATION',
   };
@@ -422,6 +424,8 @@ describe('station names', () => {
     stationName: 'Lentoasema',
     stationShortCode: 'LEN',
     passengerTraffic: true,
+    latitude: 60.3,
+    longitude: 24.96,
     countryCode: 'FI',
     type: 'STATION',
   };
@@ -440,5 +444,13 @@ describe('station names', () => {
       'Airport',
       'Helsinki Airport',
     ]);
+  });
+});
+
+describe('station positions', () => {
+  it('gives each station its position, for finding the nearest one', () => {
+    const helsinki = toStations(STATIONS_FIXTURE).find((station) => station.code === 'HKI');
+
+    expect(helsinki?.position).toEqual({ lat: 60.171356, lon: 24.941444 });
   });
 });

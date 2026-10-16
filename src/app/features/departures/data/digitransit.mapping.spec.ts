@@ -113,8 +113,8 @@ describe('toBusStations', () => {
     );
 
     expect(result.stations).toEqual([
-      { code: 'A:1', name: 'Kamppi', aliases: ['Kampen'] },
-      { code: 'B:1', name: 'Pasila' },
+      { code: 'A:1', name: 'Kamppi', aliases: ['Kampen'], position: { lat: 61, lon: 25 } },
+      { code: 'B:1', name: 'Pasila', position: { lat: 61, lon: 25 } },
     ]);
   });
 
@@ -127,8 +127,8 @@ describe('toBusStations', () => {
     );
 
     expect(result.stations).toEqual([
-      { code: 'LAHTI:1', name: 'Matkakeskus' },
-      { code: 'PORI:1', name: 'Matkakeskus' },
+      { code: 'LAHTI:1', name: 'Matkakeskus', position: { lat: 60.98, lon: 25.66 } },
+      { code: 'PORI:1', name: 'Matkakeskus', position: { lat: 61.48, lon: 21.79 } },
     ]);
   });
 

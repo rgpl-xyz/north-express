@@ -1,0 +1,11 @@
+// A crosshair, the usual sign for "where I am", in the button's own colour.
+svg {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.375rem;
+  vertical-align: -0.125em;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: square;
+  stroke-width: 2;
+}

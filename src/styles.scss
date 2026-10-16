@@ -98,16 +98,21 @@ $btn-transition: none;
     --bs-btn-focus-box-shadow: var(--ne-on-blue-focus);
   }
 
-  // A second choice next to it: white outline and lettering, filled white on hover.
+  // A second choice next to it: white outline and lettering, tinted on hover and press but
+  // never filled, so it stays second even when a tap leaves the hover on.
   .btn-outline-light {
     --bs-btn-color: #fff;
     --bs-btn-border-color: #fff;
-    --bs-btn-hover-color: var(--bs-primary);
-    --bs-btn-hover-bg: #fff;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: rgba(255, 255, 255, 0.15);
     --bs-btn-hover-border-color: #fff;
-    --bs-btn-active-color: var(--bs-primary);
-    --bs-btn-active-bg: #{$paper};
-    --bs-btn-active-border-color: #{$paper};
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: rgba(255, 255, 255, 0.25);
+    --bs-btn-active-border-color: #fff;
+    --bs-btn-disabled-color: rgba(255, 255, 255, 0.75);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: rgba(255, 255, 255, 0.5);
+    --bs-btn-disabled-opacity: 1;
     --bs-btn-focus-box-shadow: var(--ne-on-blue-focus);
   }
 }

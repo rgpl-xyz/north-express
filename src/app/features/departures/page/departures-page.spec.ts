@@ -40,7 +40,8 @@ describe('DeparturesPage', () => {
     picker()
       .stations()
       .map((station) => station.name);
-  const liveRegion = () => element.querySelector<HTMLElement>('[role="status"]')!;
+  // The board's own live region; the Nearest station message has another.
+  const liveRegion = () => element.querySelector<HTMLElement>('.board-status')!;
   const alertBox = () => element.querySelector<HTMLElement>('.alert');
   const grid = () =>
     fixture.debugElement.query(By.directive(DepartureGridStub))

@@ -34,7 +34,7 @@ The e2e tests answer Digitraffic and `/api/buses` from fakes that serve the resp
 
 ## Departures
 
-Trains and buses each have a board under Departures. To find a station, type part of its name (Ähtäri can be typed as "ahtari"), its Swedish name, such as Helsingfors or Åbo, or a train station's code, such as TPE, and pick it from the list. The list shows a station's Swedish name under its Finnish one. The station picked goes into the address, as in `/departures/trains?station=TPE`, so a board can be bookmarked or shared.
+Trains and buses each have a board under Departures. To find a station, type part of its name (Ähtäri can be typed as "ahtari"), its Swedish name, such as Helsingfors or Åbo, or a train station's code, such as TPE, and pick it from the list. The list shows a station's Swedish name under its Finnish one. Nearest station picks the station closest to you, if you let the browser share your location; the location stays in the browser. The station picked goes into the address, as in `/departures/trains?station=TPE`, so a board can be bookmarked or shared.
 
 If the data can't be loaded, the page says so and offers Try again. When only a refresh fails, the departures already shown stay up with the time they are from.
 
