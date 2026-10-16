@@ -121,6 +121,7 @@ describe('toStations', () => {
       'Nokia',
       'Oulu',
       'Pasila',
+      'Pasila autojuna-asema',
       'Pietari (Finljandski)',
       'Pori',
       'Tampere',
@@ -452,5 +453,12 @@ describe('station positions', () => {
     const helsinki = toStations(STATIONS_FIXTURE).find((station) => station.code === 'HKI');
 
     expect(helsinki?.position).toEqual({ lat: 60.171356, lon: 24.941444 });
+  });
+
+  it('gives a car-train terminal no position, so the nearest station is never one', () => {
+    const terminal = toStations(STATIONS_FIXTURE).find((station) => station.code === 'PAU');
+
+    expect(terminal?.name).toBe('Pasila autojuna-asema');
+    expect(terminal).not.toHaveProperty('position');
   });
 });

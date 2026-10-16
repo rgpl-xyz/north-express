@@ -5,7 +5,8 @@ const field = (page: Page) => page.getByLabel('Station', { exact: true });
 const nearestButton = (page: Page) => page.getByRole('button', { name: 'Nearest station' });
 
 test.describe('with the location shared', () => {
-  // About 700 m north of Pasila station.
+  // About 700 m north of Pasila station, and nearer still to Pasila autojuna-asema, a
+  // car-train terminal, which the search passes over.
   test.use({
     geolocation: { latitude: 60.2052, longitude: 24.9335 },
     permissions: ['geolocation'],

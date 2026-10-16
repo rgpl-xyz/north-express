@@ -54,7 +54,8 @@ test('text no station has is answered, not just left empty', async ({ page }) =>
 test('the chevron opens the whole list', async ({ page }) => {
   await page.getByRole('button', { name: 'Show all stations' }).click();
 
-  await expect(page.getByRole('option')).toHaveCount(12);
+  // Every passenger station in the fixture.
+  await expect(page.getByRole('option')).toHaveCount(13);
   await expect(field(page)).toBeFocused();
 });
 

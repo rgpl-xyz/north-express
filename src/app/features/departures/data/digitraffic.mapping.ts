@@ -23,6 +23,13 @@ function stationDisplayName(stationName: string): string {
   return stationName.replace(STATION_SUFFIX, '').replaceAll('_', ' ');
 }
 
+/**
+ * Car-train terminals, such as Pasila autojuna-asema, are where cars are loaded. They get no
+ * position, so the nearest-station search never sends anyone there; the search by name
+ * still finds them.
+ */
+const CAR_TRAIN_TERMINAL = /autojuna/i;
+
 /** Names people search for in English, besides the Swedish ones. */
 const ENGLISH_NAMES: Readonly<Record<string, readonly string[]>> = {
   [AIRPORT_CODE]: ['Airport', 'Helsinki Airport'],
@@ -46,7 +53,9 @@ export function toStations(stations: readonly DigitrafficStation[]): Station[] {
       return {
         code: station.stationShortCode,
         name: stationDisplayName(station.stationName),
-        position: { lat: station.latitude, lon: station.longitude },
+        ...(!CAR_TRAIN_TERMINAL.test(station.stationName) && {
+          position: { lat: station.latitude, lon: station.longitude },
+        }),
         ...(aliases.length > 0 && { aliases }),
       };
     })

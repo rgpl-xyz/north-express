@@ -10,7 +10,10 @@ export interface Station {
   readonly name: string;
   /** Other names people look it up by, such as its Swedish name, shown next to the name. */
   readonly aliases?: readonly string[];
-  /** Where the station is, for finding the one nearest the user. */
+  /**
+   * Where the station is, for finding the one nearest the user. Missing for a station the
+   * nearest-station search should pass over, such as a car-train terminal.
+   */
   readonly position?: LatLon;
 }
 

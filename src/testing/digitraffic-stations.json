@@ -148,5 +148,15 @@
     "stationShortCode": "ÄHT",
     "stationUICCode": 265,
     "type": "STATION"
+  },
+  {
+    "countryCode": "FI",
+    "latitude": 60.208303,
+    "longitude": 24.933169,
+    "passengerTraffic": true,
+    "stationName": "Pasila autojuna-asema",
+    "stationShortCode": "PAU",
+    "stationUICCode": 1328,
+    "type": "STATION"
   }
 ]

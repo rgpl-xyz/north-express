@@ -7,9 +7,10 @@ import pasilaRingTrain from './digitraffic-departures-psl-ring.json';
 import tampereDepartures from './digitraffic-departures-tpe.json';
 
 /**
- * 15 stations trimmed from GET /api/v1/metadata/stations on 13 October 2026:
+ * 16 stations trimmed from GET /api/v1/metadata/stations on 13 October 2026:
  * passenger stations (one with a Finnish letter, one with underscores) plus
- * three without passenger traffic.
+ * three without passenger traffic. Pasila autojuna-asema, a car-train terminal
+ * 1 km north of Pasila, was added on 16 October 2026.
  */
 export const STATIONS_FIXTURE = stations as readonly DigitrafficStation[];
 
