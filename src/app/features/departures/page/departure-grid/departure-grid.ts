@@ -3,6 +3,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  ElementRef,
+  afterNextRender,
   computed,
   effect,
   inject,
@@ -97,30 +99,35 @@ const COMPACT_GRID_THEME = GRID_THEME.withParams({ cellHorizontalPadding: 8, row
   selector: 'app-departure-grid',
   imports: [AgGridAngular],
   template: `
-    <ag-grid-angular
-      class="board"
-      [class.compact]="compact()"
-      domLayout="autoHeight"
-      [theme]="compact() ? compactTheme : theme"
-      [modules]="modules"
-      [columnDefs]="columns()"
-      [defaultColDef]="defaultColumn"
-      [rowData]="rowData()"
-      [loading]="loading()"
-      [getRowId]="rowId"
-      [context]="context"
-      [isFullWidthRow]="isLine"
-      [fullWidthCellRenderer]="lineRenderer"
-      [getRowHeight]="rowHeight"
-      [suppressNoRowsOverlay]="true"
-      [ensureDomOrder]="true"
-      (gridSizeChanged)="onSizeChanged($event)"
-      (sortChanged)="onSortChanged($event)"
-      (cellKeyDown)="onCellKeyDown($event)"
-    />
+    <!-- Drawn once the board's width is known, so it starts in the layout that fits it. -->
+    @if (measured()) {
+      <ag-grid-angular
+        class="board"
+        [class.compact]="compact()"
+        domLayout="autoHeight"
+        [theme]="compact() ? compactTheme : theme"
+        [modules]="modules"
+        [columnDefs]="columns()"
+        [defaultColDef]="defaultColumn"
+        [rowData]="rowData()"
+        [loading]="loading()"
+        [getRowId]="rowId"
+        [context]="context"
+        [isFullWidthRow]="isLine"
+        [fullWidthCellRenderer]="lineRenderer"
+        [getRowHeight]="rowHeight"
+        [suppressNoRowsOverlay]="true"
+        [ensureDomOrder]="true"
+        (gridSizeChanged)="onSizeChanged($event)"
+        (sortChanged)="onSortChanged($event)"
+        (cellKeyDown)="onCellKeyDown($event)"
+      />
+    }
     <!-- The note's words, read out when it opens; the note on the board isn't a live region. -->
     <p class="visually-hidden" role="status">{{ announcement() }}</p>
   `,
+  // A block, so it has the board's width to measure before the grid is in it.
+  styles: ':host { display: block; }',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DepartureGrid {
@@ -142,6 +149,8 @@ export class DepartureGrid {
   protected readonly lineRenderer = boardLine;
   protected readonly rowHeight = boardLineHeight;
   protected readonly compact = signal(false);
+  /** Whether the board's width has been measured, which the grid waits for. */
+  protected readonly measured = signal(false);
   private readonly kind = inject(BOARD_KIND);
   private readonly wideColumns = departureColumns(this.kind);
   private readonly narrowColumns = compactColumns(this.kind);
@@ -190,6 +199,14 @@ export class DepartureGrid {
   });
 
   constructor() {
+    // The phone or the full columns from the start. ag-grid reports its size a task after it
+    // first draws, so on a slow phone the full columns showed, cut off, until the switch.
+    // Later changes, such as a phone turned sideways, still come from that report.
+    const host = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
+    afterNextRender(() => {
+      this.compact.set(host.clientWidth < COMPACT_BELOW_PX);
+      this.measured.set(true);
+    });
     // New rows may not have the departure the note is about.
     effect(() => {
       this.rows();

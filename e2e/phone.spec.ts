@@ -22,6 +22,31 @@ test('on a phone the board keeps the time, destination, track and status on scre
   }
 });
 
+test('on a phone the board draws its phone columns from the start', async ({ page }) => {
+  // The column names the first time the board's header is drawn, before any switch.
+  await page.addInitScript(() => {
+    const drawn: string[][] = [];
+    (window as unknown as { headersDrawn: string[][] }).headersDrawn = drawn;
+    new MutationObserver((_, observer) => {
+      const names = [...document.querySelectorAll('[role="columnheader"]')].map(
+        (header) => header.textContent?.trim() ?? '',
+      );
+      if (names.length > 0 && names.every(Boolean)) {
+        drawn.push(names);
+        observer.disconnect();
+      }
+    }).observe(document, { childList: true, subtree: true, characterData: true });
+  });
+
+  await page.goto('/departures/trains?station=TPE');
+  await expect(page.getByRole('row').filter({ hasText: 'Oulu' })).toBeVisible();
+
+  const drawn = await page.evaluate(
+    () => (window as unknown as { headersDrawn: string[][] }).headersDrawn,
+  );
+  expect(drawn).toEqual([['Departs', 'Destination', 'Track', 'Status']]);
+});
+
 test('on a phone a long destination wraps rather than being cut off', async ({
   page,
   digitraffic,

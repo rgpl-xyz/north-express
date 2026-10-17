@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { AgGridAngular } from 'ag-grid-angular';
+import type { ColDef } from 'ag-grid-community';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { departureRow } from '../../../../../testing/in-memory-departure-source';
 import type { DepartureRow } from '../../data/departures.models';
@@ -189,5 +190,38 @@ describe('DepartureGrid destinations', () => {
     actions().open('HKI');
 
     expect(picked).toHaveBeenCalledWith('HKI');
+  });
+});
+
+describe('DepartureGrid layout', () => {
+  /** The columns the grid has as soon as it exists, in a board this wide. */
+  async function columnsDrawnFirst(width: number): Promise<(string | undefined)[]> {
+    const fixture = TestBed.createComponent(DepartureGrid);
+    Object.defineProperty(fixture.nativeElement, 'clientWidth', { value: width });
+    fixture.componentRef.setInput('rows', [departureRow()]);
+    let grid: AgGridAngular<DepartureRow> | undefined;
+    for (let pass = 0; pass < 5 && !grid; pass++) {
+      fixture.detectChanges();
+      grid = fixture.debugElement.query(By.directive(AgGridAngular))?.componentInstance;
+      if (!grid) {
+        await fixture.whenStable();
+      }
+    }
+    const columns = (grid?.columnDefs ?? []) as ColDef[];
+    return columns.filter((column) => !column.hide).map((column) => column.headerName);
+  }
+
+  it('starts with the phone columns on a narrow board, rather than switching to them', async () => {
+    expect(await columnsDrawnFirst(390)).toEqual(['Departs', 'Destination', 'Track', 'Status']);
+  });
+
+  it('starts with every column on a wide board', async () => {
+    expect(await columnsDrawnFirst(1000)).toEqual([
+      'Departs',
+      'Destination',
+      'Track',
+      'Train',
+      'Status',
+    ]);
   });
 });
