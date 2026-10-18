@@ -12,6 +12,7 @@ import {
   type DestinationActions,
   compactColumns,
   departureColumns,
+  leastWidth,
 } from './departure-columns';
 
 const DEPARTURE_COLUMNS = departureColumns(TRAIN_BOARD);
@@ -329,7 +330,7 @@ describe('compactColumns', () => {
     ]);
   });
 
-  it('uses the short name of the place column, which fits a phone', () => {
+  it('uses the short name of the place column, which fits the narrowest phones', () => {
     const shown = compactColumns(BUS_BOARD).filter((candidate) => !candidate.hide);
 
     expect(shown.map((candidate) => candidate.headerName)).toEqual([
@@ -338,5 +339,26 @@ describe('compactColumns', () => {
       'Plat',
       'Status',
     ]);
+  });
+
+  it('names the place in full where there is room for it', () => {
+    const shown = compactColumns(BUS_BOARD, true).filter((candidate) => !candidate.hide);
+
+    expect(shown.map((candidate) => candidate.headerName)).toEqual([
+      'Departs',
+      'Destination',
+      'Platform',
+      'Status',
+    ]);
+    expect(shown.find((candidate) => candidate.field === 'track')?.minWidth).toBe(80);
+  });
+
+  it('fits the board on a 360px phone, 336px, and names the platform in full from 358px', () => {
+    for (const kind of [TRAIN_BOARD, BUS_BOARD]) {
+      expect(leastWidth(compactColumns(kind))).toBeLessThanOrEqual(336);
+    }
+    expect(leastWidth(compactColumns(BUS_BOARD, true))).toBe(358);
+    // A track's column is never short of room, so its name stays as it is.
+    expect(compactColumns(TRAIN_BOARD, true)).toEqual(compactColumns(TRAIN_BOARD));
   });
 });

@@ -43,6 +43,7 @@ import {
   DEFAULT_COLUMN,
   type DestinationActions,
   compactColumns,
+  leastWidth,
   departureColumns,
 } from './departure-columns';
 
@@ -148,15 +149,25 @@ export class DepartureGrid {
   protected readonly isLine = isBoardLine;
   protected readonly lineRenderer = boardLine;
   protected readonly rowHeight = boardLineHeight;
-  protected readonly compact = signal(false);
+  /** The board's width, measured before the grid draws, then as ag-grid reports it. */
+  private readonly boardWidth = signal(0);
+  protected readonly compact = computed(() => this.boardWidth() < COMPACT_BELOW_PX);
   /** Whether the board's width has been measured, which the grid waits for. */
   protected readonly measured = signal(false);
   private readonly kind = inject(BOARD_KIND);
   private readonly wideColumns = departureColumns(this.kind);
   private readonly narrowColumns = compactColumns(this.kind);
-  protected readonly columns = computed(() =>
-    this.compact() ? this.narrowColumns : this.wideColumns,
-  );
+  private readonly narrowColumnsInFull = compactColumns(this.kind, true);
+  /** The narrowest board on which the phone columns name the place in full ("Platform"). */
+  private readonly placeInFullFrom = leastWidth(this.narrowColumnsInFull);
+  protected readonly columns = computed(() => {
+    if (!this.compact()) {
+      return this.wideColumns;
+    }
+    return this.boardWidth() >= this.placeInFullFrom
+      ? this.narrowColumnsInFull
+      : this.narrowColumns;
+  });
   /** Whether the rows are by scheduled time, as the board gives them: only then do day breaks fit. */
   private readonly scheduledOrder = signal(true);
   /** The departure whose destination has no board, with the note saying so under it. */
@@ -204,7 +215,7 @@ export class DepartureGrid {
     // Later changes, such as a phone turned sideways, still come from that report.
     const host = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
     afterNextRender(() => {
-      this.compact.set(host.clientWidth < COMPACT_BELOW_PX);
+      this.boardWidth.set(host.clientWidth);
       this.measured.set(true);
     });
     // New rows may not have the departure the note is about.
@@ -258,7 +269,7 @@ export class DepartureGrid {
   }
 
   protected onSizeChanged(event: GridSizeChangedEvent<DepartureRow>): void {
-    this.compact.set(event.clientWidth < COMPACT_BELOW_PX);
+    this.boardWidth.set(event.clientWidth);
   }
 
   private closeNote(): void {

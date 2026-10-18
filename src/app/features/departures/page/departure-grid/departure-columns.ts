@@ -258,22 +258,40 @@ export function departureColumns(kind: BoardKind): ColDef<DepartureRow>[] {
 
 /**
  * A narrow board: the service column gives way so the status stays on screen, and the
- * other columns take less room.
+ * other columns take less room. Together they fit the board on a 360px phone, 336px.
  */
 const COMPACT_CHANGES: Readonly<Record<string, Partial<ColDef<DepartureRow>>>> = {
   scheduled: { minWidth: 84 },
   destination: { minWidth: 96 },
   track: { minWidth: 56 },
   train: { hide: true },
-  status: { minWidth: 104 },
+  // Room for the widest status, "2 min late".
+  status: { minWidth: 98 },
 };
 
-/** The board's columns for a phone-width grid: departs, destination, place and status. */
-export function compactColumns(kind: BoardKind): ColDef<DepartureRow>[] {
-  return departureColumns({ ...kind, place: kind.placeShort }).map((column) => ({
+/** Room for "Platform" in the header's type, with the cell's padding. */
+const PLACE_IN_FULL_PX = 80;
+
+/**
+ * The board's columns for a phone-width grid: departs, destination, place and status. The
+ * place column has its short name, such as "Plat", unless `placeInFull`, when it is wide
+ * enough for the full one.
+ */
+export function compactColumns(kind: BoardKind, placeInFull = false): ColDef<DepartureRow>[] {
+  const shortened = kind.placeShort !== kind.place;
+  const place = placeInFull ? kind.place : kind.placeShort;
+  return departureColumns({ ...kind, place }).map((column) => ({
     ...column,
     ...COMPACT_CHANGES[column.field ?? ''],
+    ...(column.field === 'track' && placeInFull && shortened && { minWidth: PLACE_IN_FULL_PX }),
   }));
+}
+
+/** The narrowest board these columns fit, each at its least width. */
+export function leastWidth(columns: readonly ColDef<DepartureRow>[]): number {
+  return columns
+    .filter((column) => !column.hide)
+    .reduce((width, column) => width + (column.minWidth ?? 0), 0);
 }
 
 export const DEFAULT_COLUMN: ColDef<DepartureRow> = {

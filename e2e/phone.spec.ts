@@ -70,12 +70,33 @@ test('on a phone a long destination wraps rather than being cut off', async ({
   expect(cutOff, 'the destination is cut off').toBe(false);
 });
 
+test('on the narrowest phones each board fits, without scrolling sideways', async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 800 });
+  for (const [address, place] of [
+    ['/departures/buses?station=MATKA:358750', 'Plat'],
+    ['/departures/trains?station=TPE', 'Track'],
+  ]) {
+    await page.goto(address);
+    await expect(page.getByRole('columnheader')).toHaveText([
+      'Departs',
+      'Destination',
+      place,
+      'Status',
+    ]);
+    const board = await page.locator('.ag-root-wrapper').boundingBox();
+    const status = await page.getByRole('columnheader', { name: 'Status' }).boundingBox();
+    expect((status?.x ?? 0) + (status?.width ?? 0)).toBeLessThanOrEqual(
+      (board?.x ?? 0) + (board?.width ?? 0),
+    );
+  }
+});
+
 test('on a phone the bus board shows its column names in full', async ({ page }) => {
   await page.goto('/departures/buses');
   await chooseStation(page, 'Tampere, linja-autoasema');
 
   const headers = page.getByRole('columnheader');
-  await expect(headers).toHaveText(['Departs', 'Destination', 'Plat', 'Status']);
+  await expect(headers).toHaveText(['Departs', 'Destination', 'Platform', 'Status']);
   for (const name of await headers.locator('.ag-header-cell-text').all()) {
     const cutOff = await name.evaluate((text) => text.scrollWidth > text.clientWidth);
     expect(cutOff, `${await name.textContent()} is cut off`).toBe(false);

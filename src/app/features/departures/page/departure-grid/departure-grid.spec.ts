@@ -7,6 +7,7 @@ import { departureRow } from '../../../../../testing/in-memory-departure-source'
 import type { DepartureRow } from '../../data/departures.models';
 import type { BoardRow } from './board-lines';
 import type { DestinationActions } from './departure-columns';
+import { BOARD_KIND, BUS_BOARD } from '../board-kind';
 import { DepartureGrid } from './departure-grid';
 
 /** A departure with the given id, leaving at the given UTC time on 13 October 2026. */
@@ -213,6 +214,13 @@ describe('DepartureGrid layout', () => {
 
   it('starts with the phone columns on a narrow board, rather than switching to them', async () => {
     expect(await columnsDrawnFirst(390)).toEqual(['Departs', 'Destination', 'Track', 'Status']);
+  });
+
+  it('names the bus platform in full on a phone with room for it, and "Plat" on the narrowest', async () => {
+    TestBed.configureTestingModule({ providers: [{ provide: BOARD_KIND, useValue: BUS_BOARD }] });
+
+    expect(await columnsDrawnFirst(366)).toEqual(['Departs', 'Destination', 'Platform', 'Status']);
+    expect(await columnsDrawnFirst(336)).toEqual(['Departs', 'Destination', 'Plat', 'Status']);
   });
 
   it('starts with every column on a wide board', async () => {
