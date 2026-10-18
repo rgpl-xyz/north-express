@@ -194,6 +194,7 @@ describe('toDepartureRows', () => {
         destinationCode: 'NOA',
         track: '2',
         train: 'Commuter M',
+        operator: null,
         status: { kind: 'on-time' },
       },
       {
@@ -204,6 +205,7 @@ describe('toDepartureRows', () => {
         destinationCode: 'HKI',
         track: '1',
         train: 'IC 38',
+        operator: null,
         status: { kind: 'on-time' },
       },
       {
@@ -214,6 +216,7 @@ describe('toDepartureRows', () => {
         destinationCode: 'OL',
         track: '2',
         train: 'IC 25',
+        operator: null,
         status: { kind: 'late', minutes: 2 },
       },
       {
@@ -224,6 +227,7 @@ describe('toDepartureRows', () => {
         destinationCode: 'PRI',
         track: '3',
         train: 'IC 467',
+        operator: null,
         status: { kind: 'on-time' },
       },
     ]);
@@ -386,6 +390,7 @@ describe('toDepartureRows for ring-line trains (P and I)', () => {
         destinationCode: 'HKI',
         track: '1',
         train: 'Commuter P',
+        operator: null,
         status: { kind: 'on-time' },
       },
     ]);

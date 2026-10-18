@@ -180,6 +180,7 @@ describe('toBusDepartureRows', () => {
         destinationCode: null,
         track: '3',
         train: 'OB37',
+        operator: 'OnniBus',
         status: { kind: 'scheduled' },
       },
     ]);
@@ -214,9 +215,25 @@ describe('toBusDepartureRows', () => {
   });
 
   it('names the operator for a route without a number', () => {
-    expect(new Set(fixtureRows('PohjolanMatka:s4921').map((row) => row.train))).toEqual(
-      new Set(['Pohjolan Matka']),
-    );
+    const unnumbered = (id: string) =>
+      new Set(
+        fixtureRows(id)
+          .filter((row) => row.operator === null)
+          .map((row) => row.train),
+      );
+
+    expect(unnumbered('PohjolanMatka:s4921')).toEqual(new Set(['Pohjolan Matka']));
+    expect(unnumbered('MATKA:358750')).toEqual(new Set(['Valkeakosken Liikenne']));
+  });
+
+  it('names who runs a numbered route, as the buses say it', () => {
+    const runs = (id: string, route: string) =>
+      fixtureRows(id).find((row) => row.train === route)?.operator;
+
+    expect(runs('MATKA:358750', 'OB3')).toBe('OnniBus');
+    expect(runs('MATKA:358750', 'V130')).toBe('Valkeakosken Liikenne');
+    expect(runs('HSL:2000002', '510')).toBe('HSL');
+    expect(runs('MATKA:466985', '3004')).toBe('FlixBus');
   });
 
   it('keeps a loop that starts and ends at the station, and leaves out its return', () => {

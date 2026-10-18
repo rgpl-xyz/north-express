@@ -354,6 +354,18 @@ $btn-transition: none;
   color: var(--bs-secondary-color);
 }
 
+// A bus route's number, and under it who runs the bus, as a sign's small second line.
+.service {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.service-operator {
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+}
+
 // Track numbers in a ring, like a platform marker; a long one ("10A") stretches it.
 .track-marker {
   display: inline-flex;

@@ -64,6 +64,8 @@ A bus's destination opens the station its last stop is part of, so a bus from Ta
 
 Most long-distance feeds have no live data, so their buses say Scheduled rather than On time. HSL's buses have live data.
 
+The Bus column shows the route number with the operator under it, or the operator alone for a route without a number. Operators are named without the Oy or Ab of their company names, and a few as their buses say it, such as HSL for Helsingin seudun liikenne and FlixBus for FlixBus Finland Oy.
+
 Bus stations are found by their Swedish names too, where the feed has one, such as Hagalund (M) for Tapiola (M).
 
 A station's code in the address is its first Digitransit id, as in `/departures/buses?station=MATKA:358750`.

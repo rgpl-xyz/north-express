@@ -140,6 +140,7 @@ function toDepartureRow(
     ...destinationOf(train, index, stationNames),
     track: departure.commercialTrack ?? '',
     train: trainLabel(train),
+    operator: null,
     status: departureStatus(train, departure),
   };
 }

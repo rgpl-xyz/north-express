@@ -198,6 +198,43 @@ describe('the Track column', () => {
   });
 });
 
+describe('the Bus column', () => {
+  const BUS_COLUMN = departureColumns(BUS_BOARD).find((candidate) => candidate.field === 'train');
+  const params = (row: Partial<DepartureRow>) =>
+    ({ value: row.train, data: { train: 'OB3', operator: null, ...row } }) as ICellRendererParams<
+      DepartureRow,
+      string
+    >;
+
+  it('puts who runs a numbered route under its number', () => {
+    const renderer = BUS_COLUMN?.cellRenderer as (
+      p: ICellRendererParams<DepartureRow>,
+    ) => HTMLElement;
+    const cell = renderer(params({ train: 'OB3', operator: 'OnniBus' }));
+
+    expect(cell.querySelector('.service-operator')?.textContent).toBe('OnniBus');
+    expect(cell.textContent).toBe('OB3, OnniBus');
+  });
+
+  it('shows a route named by its operator, or a train, as it is', () => {
+    const renderer = BUS_COLUMN?.cellRenderer as (
+      p: ICellRendererParams<DepartureRow>,
+    ) => HTMLElement | string;
+
+    expect(renderer(params({ train: 'Pohjolan Matka' }))).toBe('Pohjolan Matka');
+    expect(renderer(params({ train: 'IC 25' }))).toBe('IC 25');
+  });
+
+  it('says the operator in its text, so the cell redraws when it changes', () => {
+    const formatter = BUS_COLUMN?.valueFormatter as ValueFormatterFunc<DepartureRow>;
+    const text = (row: Partial<DepartureRow>) =>
+      formatter(params(row) as unknown as ValueFormatterParams<DepartureRow>);
+
+    expect(text({ train: 'OB3', operator: 'OnniBus' })).toBe('OB3, OnniBus');
+    expect(text({ train: 'Pohjolan Matka' })).toBe('Pohjolan Matka');
+  });
+});
+
 describe('the Destination column', () => {
   const STATIONS: Readonly<Record<string, string>> = {
     HKI: 'Helsinki',

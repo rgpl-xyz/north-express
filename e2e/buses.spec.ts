@@ -34,6 +34,16 @@ test('a bus station shows its next buses, without the ones ending there', async 
   await expect(page).toHaveURL(/\?station=MATKA:358750$/);
 });
 
+test('the Bus column says who runs each bus, without the Oy of its company name', async ({
+  page,
+}) => {
+  await page.goto('/departures/buses?station=MATKA:358750');
+
+  await expect(rowsWith(page, 'OB37')).toContainText('OB37, OnniBus');
+  await expect(rowsWith(page, 'V130').first()).toContainText('V130, Valkeakosken Liikenne');
+  await expect(page.locator('.board')).not.toContainText(' Oy');
+});
+
 test('a station that several feeds list is one station, with all of their buses', async ({
   page,
 }) => {

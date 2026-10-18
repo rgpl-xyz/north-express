@@ -1,5 +1,6 @@
 import { kmBetween } from '../../../shared/distance';
 import type { DepartureRow, DepartureStatus, Station } from './departures.models';
+import { operatorName } from './operator-names';
 import {
   type DeparturesResponse,
   type DigitransitStation,
@@ -195,7 +196,8 @@ function toBusDepartureRow(stoptime: DigitransitStoptime, listed: BusStations): 
     destinationCode: endStation(stoptime, listed),
     track: stop.platformCode ?? '',
     // The route number, or the operator for routes without one, as many long-distance ones are.
-    train: trip.route.shortName || trip.route.agency.name,
+    train: trip.route.shortName || operatorName(trip.route.agency.name),
+    operator: trip.route.shortName ? operatorName(trip.route.agency.name) : null,
     status: busStatus(stoptime),
   };
 }

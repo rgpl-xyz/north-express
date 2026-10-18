@@ -43,5 +43,10 @@ export interface DepartureRow {
   readonly track: string;
   /** The train, or the bus route (its operator when the route has no number). */
   readonly train: string;
+  /**
+   * Who runs a numbered bus route, shown under the number. Null for trains, and for buses
+   * named by their operator.
+   */
+  readonly operator: string | null;
   readonly status: DepartureStatus;
 }

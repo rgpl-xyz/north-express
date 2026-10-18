@@ -123,6 +123,27 @@ function departureTime(
   return cell;
 }
 
+/**
+ * The service in words, "OB3, OnniBus": the route and who runs it. ag-grid redraws a cell
+ * only when its value or this text changes, so the text carries the operator too.
+ */
+function serviceText(params: ValueFormatterParams<DepartureRow, string>): string {
+  const operator = params.data?.operator;
+  return operator ? `${params.value ?? ''}, ${operator}` : (params.value ?? '');
+}
+
+/** A bus route's number with its operator under it, smaller; anything else as it is. */
+function serviceCell(params: ICellRendererParams<DepartureRow, string>): HTMLElement | string {
+  const service = params.value ?? '';
+  const operator = params.data?.operator;
+  if (!operator) {
+    return service;
+  }
+  const cell = marker('service', '');
+  cell.append(service, marker('visually-hidden', ', '), marker('service-operator', operator));
+  return cell;
+}
+
 /** A click that opens a link where the user asked for it, such as a new tab, not here. */
 function opensElsewhere(event: MouseEvent): boolean {
   return event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey;
@@ -216,7 +237,14 @@ export function departureColumns(kind: BoardKind): ColDef<DepartureRow>[] {
       headerClass: 'board-center',
       minWidth: 84,
     },
-    { headerName: kind.service, field: 'train', cellClass: 'board-train', minWidth: 120 },
+    {
+      headerName: kind.service,
+      field: 'train',
+      valueFormatter: serviceText,
+      cellRenderer: serviceCell,
+      cellClass: 'board-train',
+      minWidth: 120,
+    },
     {
       headerName: 'Status',
       field: 'status',

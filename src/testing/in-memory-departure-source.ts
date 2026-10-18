@@ -97,6 +97,7 @@ export function departureRow(overrides: Partial<DepartureRow> = {}): DepartureRo
     destinationCode: null,
     track: '2',
     train: 'IC 25',
+    operator: null,
     status: { kind: 'late', minutes: 2 },
     ...overrides,
   };
