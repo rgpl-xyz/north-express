@@ -4,6 +4,8 @@ Live train and bus departures in Finland. Pick a station, get the next departure
 
 https://north-express.app.rgpl.xyz
 
+Made by [RGPL](https://rgpl.xyz).
+
 ![Departures from Jokela](docs/departures.png)
 
 Train data is from [Digitraffic](https://www.digitraffic.fi/en/) by Fintraffic, licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). It needs no API key.
