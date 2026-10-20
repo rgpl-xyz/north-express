@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { BUILD_COMMIT } from '../../core/build-commit';
 import { Footer } from './footer';
 
 describe('Footer', () => {
@@ -17,6 +18,11 @@ describe('Footer', () => {
 
   it('says the app is a demo by RGPL', () => {
     expect(element.textContent).toContain('The North Express is a demo app by RGPL');
+  });
+
+  it('names the build as dev when the build names no commit', () => {
+    expect(element.textContent?.replace(/\s+/g, ' ')).toContain('demo app by RGPL · Build dev');
+    expect(linkNamed('dev')).toBeUndefined();
   });
 
   it('credits Fintraffic and the CC BY 4.0 licence', () => {
@@ -37,5 +43,23 @@ describe('Footer', () => {
 
     expect(text).toContain(`Bus data: ${credit}, CC BY 4.0`);
     expect(linkNamed(credit)?.getAttribute('href')).toBe('https://digitransit.fi/en/');
+  });
+});
+
+describe('Footer of a deployed build', () => {
+  it('links the short commit to it on GitHub', async () => {
+    const sha = '0e7c3f5b02f0a1b554fc1bf36a9ac1bea488c967';
+    TestBed.configureTestingModule({
+      imports: [Footer],
+      providers: [{ provide: BUILD_COMMIT, useValue: sha }],
+    });
+    const fixture = TestBed.createComponent(Footer);
+    await fixture.whenStable();
+    const link = (fixture.nativeElement as HTMLElement).querySelector('a.build');
+
+    expect(link?.textContent?.trim()).toBe('0e7c3f5');
+    expect(link?.getAttribute('href')).toBe(
+      `https://github.com/rgpl-xyz/north-express/commit/${sha}`,
+    );
   });
 });

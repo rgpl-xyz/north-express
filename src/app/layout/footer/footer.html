@@ -1,6 +1,17 @@
 <footer class="site-footer border-top py-3 mt-5">
   <div class="container d-flex flex-column flex-md-row justify-content-between gap-2 small">
-    <span>{{ appName }} is a demo app by RGPL</span>
+    <span>
+      {{ appName }} is a demo app
+      <!-- Kept together: a narrow screen breaks after "app", never inside the build. -->
+      <span class="text-nowrap"
+        >by RGPL · Build
+        @if (build.href) {
+          <a class="build" [href]="build.href">{{ build.text }}</a>
+        } @else {
+          <span class="build">{{ build.text }}</span>
+        }
+      </span>
+    </span>
     <span>
       Train data:
       <a href="https://www.digitraffic.fi/en/">Fintraffic / digitraffic.fi</a>,

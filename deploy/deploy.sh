@@ -33,7 +33,8 @@ else
   work=$(mktemp -d)
   trap 'rm -rf "$work"' EXIT
   git archive "$commit" | tar -x -C "$work"
-  (cd "$work" && npm ci --no-audit --no-fund && npx ng build)
+  # The commit goes into the build, for the footer; any other build says dev.
+  (cd "$work" && npm ci --no-audit --no-fund && npx ng build --define "NORTH_EXPRESS_COMMIT='$commit'")
 
   # Unpacked outside releases/ and moved in with one rename, so a release is either
   # complete or absent. An upload cut short leaves only incoming/, cleared next time.

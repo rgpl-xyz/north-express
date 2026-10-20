@@ -332,6 +332,13 @@ $btn-transition: none;
   }
 }
 
+// The build in the footer, set as commits usually are, a shade smaller so it is no louder
+// than the text around it.
+.site-footer .build {
+  font-family: var(--bs-font-monospace);
+  font-size: 0.95em;
+}
+
 .departs-superseded {
   font-size: 1rem;
   font-weight: 500;
