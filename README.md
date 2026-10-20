@@ -74,7 +74,7 @@ A station's code in the address is its first Digitransit id, as in `/departures/
 
 ## Stack
 
-Angular 22 (standalone components, signals, zoneless), Bootstrap 5.3 with the app's own theme, ag-grid Community. Barlow and Barlow Condensed are self-hosted, so the browser's only outside requests go to rata.digitraffic.fi. Bus data comes through the app's own server.
+Angular 22 (standalone components, signals, zoneless), Bootstrap 5.3 with the app's own theme, ag-grid Community. Barlow and Barlow Condensed are self-hosted, so the browser's only outside requests go to rata.digitraffic.fi. Bus data comes through the app's own server. The home page is rendered at build time, so its text is in the HTML for crawlers that run no scripts; the boards draw in the browser.
 
 ## Deploying
 

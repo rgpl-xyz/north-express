@@ -4,6 +4,7 @@ import {
   ErrorHandler,
   provideBrowserGlobalErrorListeners,
 } from '@angular/core';
+import { provideClientHydration, withNoIncrementalHydration } from '@angular/platform-browser';
 import { TitleStrategy, provideRouter, withInMemoryScrolling } from '@angular/router';
 import { routes } from './app.routes';
 import { GlobalErrorHandler } from './core/errors/global-error-handler';
@@ -18,5 +19,9 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch(), withInterceptors([digitrafficUserInterceptor])),
     { provide: TitleStrategy, useClass: PageTitleStrategy },
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    // Takes over the prerendered home page instead of drawing it again. Without incremental
+    // hydration, which this app doesn't use: it puts an inline script in the page, and the
+    // site's CSP allows scripts only from its own files.
+    provideClientHydration(withNoIncrementalHydration()),
   ],
 };
